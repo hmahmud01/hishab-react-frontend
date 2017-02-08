@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import TypeList from './TypeList.js';
-import CallList from './CallList.js';
 
 class Content extends Component {
     constructor(props){
