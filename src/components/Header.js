@@ -1,10 +1,35 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import Cookies from 'js-cookie';
 
 class Header extends Component {
     constructor(props){
         super(props);
         this.state = {};
+        this.logout = this.logout.bind(this);
+    }
+    
+    logout(){
+        console.log("Hello");
+        $.ajax({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/api/v1/logout',
+            headers:{
+                "set-cookie": Cookies.get("us")
+            },
+            success: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                Cookies.remove('uid');
+                console.log(document.cookie);
+                window.location.hash="#/";
+            },
+            error: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                alert(data.msg);
+            },
+        });
     }
     
     render(){
@@ -19,7 +44,7 @@ class Header extends Component {
                     <li>
                         <span className="m-r-sm text-muted welcome-message">Welcome to Hishab Transcription.</span>
                     </li>
-                    <TopNavLinks>
+                    <TopNavLinks onClick={this.logout}>
                         <i className="fa fa-sign-out"></i>
                         <span>LogOut</span>
                     </TopNavLinks>
@@ -66,6 +91,8 @@ class TopNavLinks extends Component{
     handleClick() {
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));
+        console.log(this.props);
+        this.props.onClick();
     }
     
     render(){

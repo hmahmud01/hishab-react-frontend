@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import Cookies from 'js-cookie';
 import HishabLogo from './images/logo.png';
 
 class LoginPage extends Component{
@@ -14,19 +15,21 @@ class LoginPage extends Component{
         event.preventDefault();
         console.log("Clicked Login");
         $.ajax({
-            method: 'get',
+            method: 'post',
             url: 'http://127.0.0.1:8000/api/v1/login',
             data: {"uphone": document.getElementById("uphone").value, "upass": document.getElementById("upass").value},
             success: function(response){
-                alert(response)
+                console.log(response);
                 var data = $.parseJSON(response);
-                alert(data.msg);
+                Cookies.set(response.cookie);
+                Cookies.set('uid', data.uid, { path: '/' });
+                console.log(document.cookie);
                 window.location.hash="#/home";
             },
             error: function(response){
+                console.log(response);
                 var data = $.parseJSON(response);
                 alert(data.msg);
-                window.location.hash="#/home";
             },
         });
     }

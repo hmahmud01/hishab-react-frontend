@@ -12,8 +12,7 @@ class Content extends Component {
         return (
         <div className="wrapper wrapper-content">
         <div className="row">
-            <TypeList/>
-            <CallList/>
+            {this.props.children}
         </div>
         </div>
         );
