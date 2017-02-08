@@ -8,24 +8,14 @@ class LeftNav extends Component {
     
     render(){
         return (
-<nav className="navbar navbar-default navbar-fixed-left">
-  <div className="container-fluid">
-    <NavbarHeader text="Hishab" href="#/"/>   
-    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <NavbarNavPanel align="left">
-            <NavbarNavLinks isActive={false} value="Home" href="#"/>
-            <NavbarDropdown title="Reports">
-                <NavbarNavLinks isActive={false} value="Some Link" href="#/dashboard"/>
-                <NavbarNavLinks isActive={false} value="Some Other Link" href="#/dashboard"/>
-            </NavbarDropdown>
-        </NavbarNavPanel>
-        <NavbarNavPanel align="right">
-            <NavbarDropdown title="Profile">
-                <NavbarNavLinks isActive={true} value="Profile Settings" href="#/profile/settings"/>
-                <NavbarNavLinks isActive={false} value="Logout" href="#/logout"/>
-            </NavbarDropdown>
-        </NavbarNavPanel>
-    </div>
+<nav className="navbar-default navbar-static-side" role="navigation">
+  <div className="sidebar-collapse">
+    <NavbarNavPanel>
+        <NavbarHeader logo={this.props.logo}/>
+        <NavbarNavLinks>
+            <i className="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
+        </NavbarNavLinks>
+    </NavbarNavPanel>
   </div>
 </nav>
         );
@@ -39,16 +29,20 @@ class NavbarHeader extends Component {
     }
     
     render(){
+        const imgStyle = {
+            width: "100%"
+        };
         return (
-    <div className="navbar-header">
-      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span className="sr-only">Open Navigator</span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-      </button>
-      <a className="navbar-brand" href={this.props.href}>{this.props.text}</a>
-    </div>
+    <li className="nav-header">
+        <div className="dropdown profile-element"> 
+            <img src={this.props.logo} style={imgStyle}/>
+            <h2 className="text-center">Hishab</h2>
+        </div>
+        <div className="logo-element">
+            <img src={this.props.logo} style={imgStyle}/>
+            <h5 className="text-center">Hishab</h5>
+        </div>
+    </li>
     );
     }
 }
@@ -60,9 +54,8 @@ class NavbarNavPanel extends Component {
     }
     
     render(){
-        var alignment = "nav navbar-nav navbar-"+this.props.align;
         return(
-      <ul className={alignment}>
+      <ul className="nav metismenu" id="side-menu">
         {this.props.children}
       </ul>  
     );
@@ -86,28 +79,28 @@ class NavbarNavLinks extends Component{
     render(){
         return (
         <li className={this.state.isActive? "active" : ""}>
-            <a href={this.props.href} onClick={this.handleClick}>{this.props.value}</a>
+            <a href={this.props.href} onClick={this.handleClick}>{this.props.children}</a>
         </li>
         );
     }
 }
 
-class NavbarDropdown extends Component {
-    constructor(props){
-        super(props);
-        this.state = {};
-    }
-    
-    render(){
-        return (
-        <li className="dropdown">
-          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{this.props.title} <span className="caret"></span></a>
-          <ul className="dropdown-menu">
-            {this.props.children}
-          </ul>
-        </li>
-        );
-    }
-}
+//class NavbarDropdown extends Component {
+//    constructor(props){
+//        super(props);
+//        this.state = {};
+//    }
+//    
+//    render(){
+//        return (
+//        <li className="dropdown">
+//          <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{this.props.title} <span className="caret"></span></a>
+//          <ul className="dropdown-menu">
+//            {this.props.children}
+//          </ul>
+//        </li>
+//        );
+//    }
+//}
 
 export default LeftNav;

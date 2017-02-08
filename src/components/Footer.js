@@ -7,18 +7,13 @@ class Footer extends Component {
     }
     
     render(){
-        const divStyle = {
-            color: '#000',
-            backgroundColor: '#888',
-        };
-        return (
-        <header>
-            <div className="row">
-                <div className="col-sm-12" style={divStyle}>
-                    {this.props.children}
-                </div>
-            </div>    
-        </header>
+
+        return (    
+        <div className="footer">
+            <div className="pull-right">
+                <strong>Copyright</strong> <a href="www.hishab.co"> Hishab Ltd </a> © 2017
+            </div>
+        </div>
         );
     }
 }

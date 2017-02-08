@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TypeList from './TypeList.js';
+import CallList from './CallList.js';
 
 class Content extends Component {
     constructor(props){
@@ -7,18 +9,13 @@ class Content extends Component {
     }
     
     render(){
-        const divStyle = {
-            color: '#000',
-            backgroundColor: '#888',
-        };
         return (
-        <header>
-            <div className="row">
-                <div className="col-md-9" style={divStyle}>
-                    {this.props.children}
-                </div>
-            </div>    
-        </header>
+        <div className="wrapper wrapper-content">
+        <div className="row">
+            <TypeList/>
+            <CallList/>
+        </div>
+        </div>
         );
     }
 }
