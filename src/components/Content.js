@@ -9,9 +9,9 @@ class Content extends Component {
     render(){
         return (
         <div className="wrapper wrapper-content">
-        <div className="row">
-            {this.props.children}
-        </div>
+            <div className="row">
+                {this.props.children}
+            </div>
         </div>
         );
     }

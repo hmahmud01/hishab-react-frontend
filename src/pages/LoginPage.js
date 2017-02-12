@@ -66,11 +66,8 @@ class LoginPage extends Component{
     }
     
     render(){
-        const bodyStyle = {
-          height: window.innerHeight  
-        };
         return(
-        <div className="gray-bg" style={bodyStyle}>
+        <div className="gray-bg">
         <div className="middle-box text-center loginscreen animated fadeInDown">
             <div>
                 <div>

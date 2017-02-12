@@ -31,7 +31,7 @@ class NavbarHeader extends Component {
     
     render(){
         const imgStyle = {
-            width: "100%"
+            width: "80%"
         };
         return (
     <li className="nav-header">

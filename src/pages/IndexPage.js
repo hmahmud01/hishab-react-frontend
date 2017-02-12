@@ -43,7 +43,7 @@ class IndexPage extends Component {
         switch (this.state.location){
             case "#/user":
                 return(
-                    <UserPage/>
+                    <UserPage OrgName="Organization"/>
             );
             case "#/tran":    
                 return(
