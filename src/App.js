@@ -10,7 +10,6 @@ class App extends Component {
         super(props);
         this.state = {
             location: window.location.hash,
-            loggedIn: false
         }
         this.onRouteChange = this.onRouteChange.bind(this);
     }
@@ -19,12 +18,7 @@ class App extends Component {
     /** One time fire call. Will ensure that the hash change is being listened to */
     componentDidMount(){
         window.addEventListener("hashchange", this.onRouteChange);
-        var loggedIn = Cookies.get('uid');
-        if (loggedIn !== undefined || loggedIn !== ''){
-            this.setState({loggedIn: true})
-            window.location.hash = '#/home';
-        }
-        else if (window.location.hash === '' || window.location.hash === undefined){
+        if (window.location.hash === '' || window.location.hash === undefined){
                 window.location.hash = "#/";
         }
     }
@@ -43,17 +37,11 @@ class App extends Component {
     render() {
         switch (this.state.location){
             case "#/":
-                if (this.state.loggedIn)
-                    return (<IndexPage/>);
-                else
-                    return (<LoginPage/>);
+                return (<LoginPage/>);
             case "#/home":
                 return (<IndexPage/>);
             default:
-                if (this.state.loggedIn)
-                    return (<IndexPage/>);
-                else
-                    return (<LoginPage/>);
+                return (<LoginPage/>);
         }
     }
 }

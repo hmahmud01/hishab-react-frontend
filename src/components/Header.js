@@ -13,9 +13,9 @@ class Header extends Component {
         console.log("Hello");
         $.ajax({
             method: 'get',
-            url: 'http://127.0.0.1:8000/api/v1/logout',
-            headers:{
-                "set-cookie": Cookies.get("us")
+            url: 'http://192.168.5.2:8000/api/v1/logout',
+            data: {
+                uid: Cookies.get('uid')
             },
             success: function(response){
                 console.log(response);
@@ -24,7 +24,9 @@ class Header extends Component {
                 console.log(document.cookie);
                 window.location.hash="#/";
             },
-            error: function(response){
+            error: function(status, response){
+                if (status === 400)
+                    Cookies.remove("uid")
                 console.log(response);
                 var data = $.parseJSON(response);
                 alert(data.msg);

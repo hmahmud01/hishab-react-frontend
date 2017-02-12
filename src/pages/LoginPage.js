@@ -11,13 +11,23 @@ class LoginPage extends Component{
         this.onPasswordForgotClicked = this.onPasswordForgotClicked.bind(this);
     }
     
+    componentDidMount(){
+        var uid = Cookies.get("uid");
+        if (uid !== undefined)
+            window.location.hash = "#/home";
+    }
+    
     onLoginClicked(event){
         event.preventDefault();
         console.log("Clicked Login");
         $.ajax({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/login',
-            data: {"uphone": document.getElementById("uphone").value, "upass": document.getElementById("upass").value},
+            url: 'http://192.168.5.2:8000/api/v1/login',
+            data: {
+                "uphone": document.getElementById("uphone").value, 
+                "upass": document.getElementById("upass").value, 
+                "uid": Cookies.get("uid")
+            },
             success: function(response){
                 console.log(response);
                 var data = $.parseJSON(response);
@@ -36,13 +46,29 @@ class LoginPage extends Component{
     
     onPasswordForgotClicked(event){
         event.preventDefault();
-        console.log("Clicked Password Forgot");
-        window.location.hash="#/dashboard";
+        $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/resetpass',
+            data: {"uphone": document.getElementById("uphone").value, uid: Cookies.get("uid")},
+            success: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                alert(data.msg)
+            },
+            error: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                alert(data.msg);
+            },
+        });
     }
     
     render(){
+        const bodyStyle = {
+          height: window.innerHeight  
+        };
         return(
-        <div className="gray-bg">
+        <div className="gray-bg" style={bodyStyle}>
         <div className="middle-box text-center loginscreen animated fadeInDown">
             <div>
                 <div>

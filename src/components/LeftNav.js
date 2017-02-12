@@ -13,7 +13,8 @@ class LeftNav extends Component {
     <NavbarNavPanel>
         <NavbarHeader logo={this.props.logo}/>
         <NavbarNavLinks>
-            <i className="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
+            <i className="fa fa-th-large"></i> 
+            <span className="nav-label">Dashboard</span>
         </NavbarNavLinks>
     </NavbarNavPanel>
   </div>

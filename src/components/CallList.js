@@ -59,7 +59,9 @@ class CallList extends Component{
                     <td className="check-mail">
                         <input type="checkbox" className="i-checks"/>
                     </td>
-                    <td className="mail-ontact"><a href="mail_detail.html">Facebook</a> <span class="label label-warning pull-right">Clients</span> </td>
+                    <td className="mail-ontact"><a href="mail_detail.html">Facebook</a> 
+                        <span className="label label-warning pull-right">Clients</span> 
+                    </td>
                     <td className="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
                     <td className=""></td>
                     <td className="text-right mail-date">Jan 16</td>
