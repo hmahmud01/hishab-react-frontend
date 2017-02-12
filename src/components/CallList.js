@@ -7,6 +7,13 @@ class CallList extends Component{
     }
     
     render(){
+        
+        const listItems = this.props.items.map(
+            (listItem) => 
+                <ListItem isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} 
+                    onClick={this.props.onClick} key={listItem.time}/>
+        );
+        
         return (
         <div className="col-lg-9 animated fadeInRight">
             <div className="mail-box-header">
@@ -22,7 +29,7 @@ class CallList extends Component{
                     </div>
                 </form>
                 <h2>
-                    Inbox (16)
+                    {this.props.title}
                 </h2>
                 <div className="mail-tools tooltip-demo m-t-md">
                     <div className="btn-group pull-right">
@@ -36,36 +43,17 @@ class CallList extends Component{
             </div>
                 <div className="mail-box">
                 <table className="table table-hover table-mail">
+                <thead>
+                    <tr>
+                        <td><h3>Transaction ID</h3></td>
+                        <td><h3>Caller</h3></td>
+                        <td><h3>Call Time</h3></td>
+                        <td><h3>Call Type</h3></td>
+                        <td><h3>Transcriber</h3></td>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr className="unread">
-                    <td className="check-mail">
-                        <input type="checkbox" className="i-checks"/>
-                    </td>
-                    <td className="mail-ontact"><a href="mail_detail.html">Anna Smith</a></td>
-                    <td className="mail-subject"><a href="mail_detail.html">Lorem ipsum dolor noretek imit set.</a></td>
-                    <td className=""><i className="fa fa-paperclip"></i></td>
-                    <td className="text-right mail-date">6.10 AM</td>
-                </tr>
-                <tr className="unread">
-                    <td className="check-mail">
-                        <input type="checkbox" className="i-checks" checked=""/>
-                    </td>
-                    <td className="mail-ontact"><a href="mail_detail.html">Jack Nowak</a></td>
-                    <td className="mail-subject"><a href="mail_detail.html">Aldus PageMaker including versions of Lorem Ipsum.</a></td>
-                    <td className=""></td>
-                    <td className="text-right mail-date">8.22 PM</td>
-                </tr>
-                <tr className="read">
-                    <td className="check-mail">
-                        <input type="checkbox" className="i-checks"/>
-                    </td>
-                    <td className="mail-ontact"><a href="mail_detail.html">Facebook</a> 
-                        <span className="label label-warning pull-right">Clients</span> 
-                    </td>
-                    <td className="mail-subject"><a href="mail_detail.html">Many desktop publishing packages and web page editors.</a></td>
-                    <td className=""></td>
-                    <td className="text-right mail-date">Jan 16</td>
-                </tr>                
+                    {listItems}
                 </tbody>
                 </table>
 
@@ -74,6 +62,50 @@ class CallList extends Component{
             </div>
         );
         
+    }
+}
+
+class ListItem extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isUnread : !this.props.isRead
+        };
+        this.handleClick = this.handleClick.bind(this);
+    }
+    
+    handleClick(){
+        event.preventDefault();
+        this.props.onClick(this.props.target, this.props.type);
+    }
+    
+    render(){
+        return(
+        <tr className={ this.state.isUnread === true ? "unread" : "read"}>
+                    
+                    <td className="">
+                        <span>{this.props.target}</span>
+                    </td>
+                    <td className="mail-contact">
+                        <span>{this.props.caller}</span>
+                    </td>
+                    <td className="mail-subject">
+                        <span>{this.props.time}</span>
+                    </td>
+                    <td>
+                        <span className="label label-danger">{this.props.type}</span>
+                    </td>
+                    <td className="text-right mail-date">
+                        <span>{this.props.transcriber}</span>
+                    </td>
+                    <td className="text-center mail-date">
+                        <button className="btn btn-success" onClick={this.handleClick}>
+                            <i className="fa fa-tty"></i> &nbsp;|&nbsp;
+                                 Transcribe
+                        </button>
+                    </td>
+                </tr>
+        );
     }
 }
 

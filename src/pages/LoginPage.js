@@ -33,6 +33,8 @@ class LoginPage extends Component{
                 var data = $.parseJSON(response);
                 Cookies.set(response.cookie);
                 Cookies.set('uid', data.uid, { path: '/' });
+                Cookies.set('uty', data.uty, { path: '/' });
+                Cookies.set('uname', data.uname, { path: '/' });
                 console.log(document.cookie);
                 window.location.hash="#/home";
             },

@@ -21,6 +21,8 @@ class Header extends Component {
                 console.log(response);
                 var data = $.parseJSON(response);
                 Cookies.remove('uid');
+                Cookies.remove('uty');
+                Cookies.remove('uname');
                 console.log(document.cookie);
                 window.location.hash="#/";
             },
@@ -44,7 +46,7 @@ class Header extends Component {
                 <LeftNavCollapser/>
                 <ul className="nav navbar-top-links navbar-right">
                     <li>
-                        <span className="m-r-sm text-muted welcome-message">Welcome to Hishab Transcription.</span>
+                        <span className="m-r-sm text-muted welcome-message">Welcome {this.props.username}</span>
                     </li>
                     <TopNavLinks onClick={this.logout}>
                         <i className="fa fa-sign-out"></i>

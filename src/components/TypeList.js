@@ -53,7 +53,7 @@ class ListItem extends Component{
         event.preventDefault();
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));
-        this.props.onClick(this.props.target);
+        this.props.onClick(this.props.target, this.props.name);
     }
     
     render(){
