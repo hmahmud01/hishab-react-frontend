@@ -35,8 +35,8 @@ class UserPage extends Component {
                     <Content>
                         <div className="border-bottom page-heading">
                             <div className="col-lg-12">
-                                <h1>Reports for your Organization</h1>
-                                <h3>Organization Name: {this.props.OrgName}</h3>
+                                <h1>Reports</h1>
+                                <h3>{ this.props.type === 0 ? "User" : "Organization"} Name: {this.props.name}</h3>
                             </div>
                         </div>
                         <div className="row">

@@ -23,6 +23,7 @@ class Header extends Component {
                 Cookies.remove('uid');
                 Cookies.remove('uty');
                 Cookies.remove('uname');
+                Cookies.remove('ust');
                 console.log(document.cookie);
                 window.location.hash="#/";
             },

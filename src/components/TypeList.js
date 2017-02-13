@@ -21,7 +21,7 @@ class TypeList extends Component{
         <ListItem name={types[listItem.callType % 96]} value={listItem.count} key={listItem.callType} target={listItem.callType} onClick={this.props.onClick} icon="fa fa-tasks" color={colors[listItem.callType % 96]}/>
         );
         return (
-        <div className="col-lg-3">
+        <div className="col-lg-3 animated fadeInUp">
             <div className="ibox float-e-margins">
                 <div className="ibox-content mailbox-content">
                     <div className="file-manager">
@@ -57,7 +57,7 @@ class ListItem extends Component{
     }
     
     render(){
-        var labelColor = "label pull-right label-"+this.props.color;
+        var labelColor = "badge pull-right badge-"+this.props.color;
         return (
         <li className={this.state.isActive? "active" : ""}>
             <a href={this.props.href} onClick={this.handleClick}>

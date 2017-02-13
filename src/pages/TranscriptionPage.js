@@ -6,8 +6,9 @@ import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import HishabLogo from './images/logo.png';
-import TypeList from '../components/TypeList.js';
-import CallList from '../components/CallList.js';
+import TypeList from '../components/TypeList';
+import CallList from '../components/CallList';
+import Alert from '../components/Alert';
 
 class TranscriptionPage extends Component {
     constructor(props) {
@@ -20,6 +21,9 @@ class TranscriptionPage extends Component {
                 {id: 3, caller: "Shovan", time: "12:36 PM", type: "DUE"}
             ],
             title: "",
+            hasAlert: false,
+            alertType: "danger",
+            alertMessage: "Sample Alert"
         };
         this.typeClickHandler = this.typeClickHandler.bind(this);
         this.callItemClickHandler = this.callItemClickHandler.bind(this);
@@ -41,7 +45,7 @@ class TranscriptionPage extends Component {
                 this.setState({items: data.data});
             }.bind(this),
             error: function(response) {
-                console.log(response);
+                console.log(response.responseText);
             }
         });
     }
@@ -58,7 +62,12 @@ class TranscriptionPage extends Component {
             },
             success: function(response) {
                 var data = $.parseJSON(response);
-                this.setState({callItems: data});
+                if (data.length < 1)
+                    this.setState({hasAlert:true, 
+                                   alertMessage: "No Data Available", 
+                                   alertType: "warning"});
+                else
+                    this.setState({callItems: data, hasAlert:false});
                 console.log(response);
             }.bind(this),
             error: function(response){
@@ -94,6 +103,9 @@ class TranscriptionPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
+                        {this.state.hasAlert === true &&
+                            <Alert type={this.state.alertType} message={this.state.alertMessage}/>
+                        }
                         <TypeList items = {this.state.items} onClick = {this.typeClickHandler}/>
                         <CallList title={this.state.title} items={this.state.callItems} onClick = {this.callItemClickHandler}/>
                     </Content>
