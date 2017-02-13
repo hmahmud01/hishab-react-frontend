@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import RegistrationFormPage from './RegistrationFormPage';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -23,7 +24,8 @@ class TranscriptionPage extends Component {
             title: "",
             hasAlert: false,
             alertType: "danger",
-            alertMessage: "Sample Alert"
+            alertMessage: "Sample Alert",
+            location : "#/"
         };
         this.typeClickHandler = this.typeClickHandler.bind(this);
         this.callItemClickHandler = this.callItemClickHandler.bind(this);
@@ -77,6 +79,7 @@ class TranscriptionPage extends Component {
     }
     
     callItemClickHandler(key, type) {
+        this.setState({location: "#/register"});
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction',
@@ -92,27 +95,35 @@ class TranscriptionPage extends Component {
             }.bind(this),
             error: function(response) {
                 console.log(response);
+                
             }
         });
     }
     
     render() {
-        return(
-            <div className="wrapper">
-                <LeftNav logo={HishabLogo}/>
-                <ContentWrapper>
-                    <Header username={Cookies.get("uname")}/>
-                    <Content>
-                        {this.state.hasAlert === true &&
-                            <Alert type={this.state.alertType} message={this.state.alertMessage}/>
-                        }
-                        <TypeList items = {this.state.items} onClick = {this.typeClickHandler}/>
-                        <CallList title={this.state.title} items={this.state.callItems} onClick = {this.callItemClickHandler}/>
-                    </Content>
-                    <Footer/>
-                </ContentWrapper>
-            </div>
-        );
+        switch (this.state.location){
+            case "#/":
+                return(
+                <div className="wrapper">
+                    <LeftNav logo={HishabLogo}/>
+                    <ContentWrapper>
+                        <Header username={Cookies.get("uname")}/>
+                        <Content>
+                            {this.state.hasAlert === true &&
+                                <Alert type={this.state.alertType} message={this.state.alertMessage}/>
+                            }
+                            <TypeList items = {this.state.items} onClick = {this.typeClickHandler}/>
+                            <CallList title={this.state.title} items={this.state.callItems} onClick = {this.callItemClickHandler}/>
+                        </Content>
+                        <Footer/>
+                    </ContentWrapper>
+                </div>
+                );
+            case "#/register":
+                return(
+                    <RegistrationFormPage/>
+                );
+        }
     }
 }
 
