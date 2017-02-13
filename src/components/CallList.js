@@ -93,7 +93,7 @@ class ListItem extends Component{
                         <span>{this.props.time}</span>
                     </td>
                     <td>
-                        <span className="label label-danger">{this.props.type}</span>
+                        <span className="badge badge-danger">{this.props.type}</span>
                     </td>
                     <td className="text-right mail-date">
                         <span>{this.props.transcriber}</span>

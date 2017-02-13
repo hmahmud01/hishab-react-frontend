@@ -2,11 +2,16 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import HishabLogo from './images/logo.png';
+import Alert from '../components/Alert';
 
 class LoginPage extends Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            message: "Username or password invalid",
+            isError: false,
+            alertType: "danger"
+        };
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onPasswordForgotClicked = this.onPasswordForgotClicked.bind(this);
     }
@@ -35,14 +40,15 @@ class LoginPage extends Component{
                 Cookies.set('uid', data.uid, { path: '/' });
                 Cookies.set('uty', data.uty, { path: '/' });
                 Cookies.set('uname', data.uname, { path: '/' });
+                Cookies.set('ust', data.ust, { path: '/' });
                 console.log(document.cookie);
                 window.location.hash="#/home";
             },
             error: function(response){
-                console.log(response);
-                var data = $.parseJSON(response);
-                alert(data.msg);
-            },
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg});
+            }.bind(this),
         });
     }
     
@@ -55,13 +61,13 @@ class LoginPage extends Component{
             success: function(response){
                 console.log(response);
                 var data = $.parseJSON(response);
-                alert(data.msg)
-            },
+                this.setState({isError: true, message: data.msg, alertType: "success"});
+            }.bind(this),
             error: function(response){
-                console.log(response);
-                var data = $.parseJSON(response);
-                alert(data.msg);
-            },
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }.bind(this),
         });
     }
     
@@ -81,6 +87,9 @@ class LoginPage extends Component{
                 <h2>Welcome to <strong>Hishab</strong></h2>
                 <p>Login with credentials</p>
                 <form className="m-t" role="form" action="index.html">
+                    {this.state.isError == true &&
+                        <Alert message={this.state.message} type={this.state.alertType}/>
+                    }
                     <div className="form-group">
                         <input id="uphone" type="text" className="form-control" placeholder="Phone Number"/>
                         <input id="upass" type="password" className="form-control" placeholder="Password"/>
