@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import TranscriptionPage from './TranscriptionPage';
 import UserPage from './UserPage';
-import TransactionReport from './TransactionReport'
+import ReportPage from './ReportPage'
 import PasswordResetPage from './PasswordResetPage';
 
 class IndexPage extends Component {
@@ -58,10 +58,12 @@ class IndexPage extends Component {
             case "#/user":
                 var username = Cookies.get("uname");
                 return(
-
-                    // <TransactionReport />
                     <UserPage type={this.state.userType} name={username}/>
             );
+            case "#/orgs":
+                return (
+                    <ReportPage />
+                );
             case "#/tran":    
                 return(
                     <TranscriptionPage/>

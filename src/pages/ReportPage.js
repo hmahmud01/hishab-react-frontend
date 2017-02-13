@@ -11,7 +11,7 @@ import PurchaseReport from '../components/PurchaseReport';
 import PurchaseTransactionDetail from '../components/PurchaseTransactionDetail';
 import HishabLogo from './images/logo.png';
 
-class TransactionReport extends Component {
+class ReportPage extends Component {
     
     render() {
         return(
@@ -53,4 +53,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default TransactionReport;
+export default ReportPage;

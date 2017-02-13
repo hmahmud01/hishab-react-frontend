@@ -8,6 +8,7 @@ class IconButtonWidget extends Component{
         this.state = {
             isActive : false
         };
+        this.handleClick = this.handleClick.bind(this);
     }
     
     handleClick(event){
@@ -15,7 +16,7 @@ class IconButtonWidget extends Component{
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));
         
-        this.props.onClick().bind(this);
+        this.props.onClick(this.props.subheader);
     }
     
     render(){
