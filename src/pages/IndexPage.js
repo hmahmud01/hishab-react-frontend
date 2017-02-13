@@ -3,6 +3,7 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import TranscriptionPage from './TranscriptionPage';
 import UserPage from './UserPage';
+import TransactionReport from './TransactionReport'
 
 class IndexPage extends Component {
     constructor(props){
@@ -43,6 +44,7 @@ class IndexPage extends Component {
         switch (this.state.location){
             case "#/user":
                 return(
+                    // <TransactionReport />
                     <UserPage OrgName="Organization"/>
             );
             case "#/tran":    
