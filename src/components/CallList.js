@@ -74,7 +74,7 @@ class ListItem extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
     
-    handleClick(){
+    handleClick(event){
         event.preventDefault();
         this.props.onClick(this.props.target, this.props.type);
     }

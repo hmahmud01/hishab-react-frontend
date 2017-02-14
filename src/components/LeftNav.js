@@ -35,7 +35,7 @@ class NavbarHeader extends Component {
         };
         return (
     <li className="nav-header">
-        <div className="dropdown profile-element"> 
+        <div className="dropdown profile-element text-center"> 
             <img src={this.props.logo} style={imgStyle}/>
             <h2 className="text-center">Hishab</h2>
         </div>

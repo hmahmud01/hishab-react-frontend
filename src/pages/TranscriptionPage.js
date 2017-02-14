@@ -35,6 +35,8 @@ class TranscriptionPage extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+        
+        // TODO: Clean this shit!!!
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/get/call/count',
@@ -50,6 +52,24 @@ class TranscriptionPage extends Component {
                 console.log(response.responseText);
             }
         });
+        
+        setInterval(function(){
+            $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
+            data: {
+                "uid": Cookies.get("uid"),
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                console.log(response);
+                this.setState({items: data.data});
+            }.bind(this),
+            error: function(response) {
+                console.log(response.responseText);
+            }
+        });
+        }.bind(this), 30000);
     }
     
     typeClickHandler(key, title) {
@@ -57,17 +77,19 @@ class TranscriptionPage extends Component {
         this.setState({title: title});
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/tramsaction/list',
+            url: 'http://192.168.5.2:8000/api/v1/get/transaction/list',
             data: {
                 "uid": Cookies.get("uid"),
                 "cty": key,
             },
             success: function(response) {
+                console.log(response);
                 var data = $.parseJSON(response);
                 if (data.length < 1)
                     this.setState({hasAlert:true, 
                                    alertMessage: "No Data Available", 
-                                   alertType: "warning"});
+                                   alertType: "warning",
+                                  callItems: data});
                 else
                     this.setState({callItems: data, hasAlert:false});
                 console.log(response);
