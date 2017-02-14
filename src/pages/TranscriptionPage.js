@@ -37,7 +37,7 @@ class TranscriptionPage extends Component {
             window.location.hash = "#/";
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transcriber/call/count',
+            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
             data: {
                 "uid": Cookies.get("uid"),
             },
@@ -57,7 +57,7 @@ class TranscriptionPage extends Component {
         this.setState({title: title});
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transcriber/call/list',
+            url: 'http://192.168.5.2:8000/api/v1/get/tramsaction/list',
             data: {
                 "uid": Cookies.get("uid"),
                 "cty": key,
