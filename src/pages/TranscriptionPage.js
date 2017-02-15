@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import RegistrationFormPage from './RegistrationFormPage';
+import TranscriptionFormPage from './TranscriptionFormPage'
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -101,7 +102,7 @@ class TranscriptionPage extends Component {
     }
     
     callItemClickHandler(key, type) {
-        this.setState({location: "#/register"});
+        this.setState({location: "#/transcription"});
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction',
@@ -144,6 +145,10 @@ class TranscriptionPage extends Component {
             case "#/register":
                 return(
                     <RegistrationFormPage/>
+                );
+            case "#/transcription":
+                return(
+                    <TranscriptionFormPage/>
                 );
         }
     }

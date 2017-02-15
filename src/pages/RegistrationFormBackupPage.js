@@ -12,7 +12,28 @@ import HishabLogo from './images/logo.png';
 class RegistrationFormPage extends Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            response : ""
+        };
+        this.createMarkup = this.createMarkup.bind(this);
+    }
+    
+    createMarkup() {
+        return {__html: this.state.response};
+    }
+    
+    componentDidMount(){
+        $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/get/form/user',
+            success: function(response){
+
+                this.setState({response: response});
+            }.bind(this),
+            error: function(response){
+                console.log(response.responseText);
+            }.bind(this)
+        })
     }
     
     render(){
@@ -23,7 +44,12 @@ class RegistrationFormPage extends Component{
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
-                    <h1> Registration </h1>    
+                    <h1> Registration </h1>                   
+                        <form className="" role="form" >
+                            
+                            <div className="form-group dynamic-forms" dangerouslySetInnerHTML={this.createMarkup()}>
+                            </div>
+                        </form>
                         <RegistrationForm />
                     </Content>
 
