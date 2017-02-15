@@ -5,11 +5,11 @@ import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
-import RegistrationForm from '../components/RegistrationForm';
+import TranscriptionForm from '../components/TranscriptionForm';
 import HishabLogo from './images/logo.png';
 
 
-class RegistrationFormPage extends Component{
+class TranscriptionFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {};
@@ -17,14 +17,13 @@ class RegistrationFormPage extends Component{
     
     render(){
         return(
-
             <div className="wrapper">
                 <LeftNav logo={HishabLogo}/>
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
-                    <h1> Registration </h1>    
-                        <RegistrationForm />
+                    <h1> Transcription </h1>    
+                        <TranscriptionForm />
                     </Content>
 
 
@@ -32,8 +31,7 @@ class RegistrationFormPage extends Component{
                 </ContentWrapper>
             </div>
         );
-    }
-    
+    }    
 }
 
 class ContentWrapper extends Component {
@@ -51,4 +49,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default RegistrationFormPage;
+export default TranscriptionFormPage;
