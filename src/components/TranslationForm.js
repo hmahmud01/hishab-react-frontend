@@ -13,6 +13,7 @@ class TranslationForm extends Component {
             alertType: "success"
         };
         this.onTranslationClicked = this.onTranslationClicked.bind(this);
+        this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
     componentDidMount() {
@@ -49,9 +50,9 @@ class TranslationForm extends Component {
         event.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/translation/submit',
+            url: 'http://192.168.5.2:8000/api/v1/error/submit',
             data: {
-                "trans_data": document.getElementById("translated_data").value, 
+                "error_data": $('input[name="genderS"]:checked').val(), 
                 "uid": Cookies.get("uid"),
             },
 
@@ -103,7 +104,7 @@ class TranslationForm extends Component {
                                         <div className="row">
                                             <div className="col-xs-12 text-right">
                                                 <span> <i className="fa fa-phone"></i> Call From </span>
-                                                <h2 className="font-bold">01797123123</h2>
+                                                <h2 className="font-bold">{this.props.caller}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -138,22 +139,22 @@ class TranslationForm extends Component {
                                 <div className="modal-body">
                                     <div className="row">
                                         <div className="col-sm-10">
-                                            <div><label> <input type="radio" value="Audio Issue" name="audio" /> <i></i> Audio Issue </label></div>
-                                            <div><label> <input type="radio" value="System error" name="system" /> <i></i> System Error </label></div>
-                                            <div><label> <input type="radio" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
-                                            <div><label> <input type="radio" value="Others" name="others" /> <i></i> Others </label></div>
+                                            <div><label> <input type="radio" name="audioErr" value="Audio Issue" /> <i></i> Audio Issue </label></div>
+                                            <div><label> <input type="radio" name="audioErr" value="System error" name="system" /> <i></i> System Error </label></div>
+                                            <div><label> <input type="radio" name="audioErr" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
+                                            <div><label> <input type="radio" name="audioErr" value="Others" name="others" /> <i></i> Others </label></div>
 
-                                            <div><label> <input type="radio" value="option1" name="a" /> <i></i> one </label></div>
-                                            <div><label> <input type="radio" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
-                                            <div><label> <input type="radio" checked="" value="option2" /> <i></i> three checked and disabled </label></div>
-                                            <div><label> <input type="radio" disabled="" name="a" /> <i></i> four disabled </label></div>
+                                            <div><label> <input type="radio" name="audioErr" value="option1" name="a" /> <i></i> one </label></div>
+                                            <div><label> <input type="radio" name="audioErr" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
+                                            <div><label> <input type="radio" name="audioErr" checked="" value="option2" /> <i></i> three checked and disabled </label></div>
+                                            <div><label> <input type="radio" name="audioErr" disabled="" name="a" /> <i></i> four disabled </label></div>
                                             
                                         </div>                                       
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.onErrorClicked}>Submit</button>
                                 </div>
                             </form>
                         </div>

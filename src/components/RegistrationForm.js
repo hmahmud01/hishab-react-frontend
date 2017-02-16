@@ -1,12 +1,51 @@
 import React, {Component} from  'react'
 import sample from '../pages/sound/sample.mp3';
+import $ from 'jquery';
+import Cookies from 'js-cookie';
 
 class RegistrationForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            formData : {}
+            formData : {},
+            isError: false,
+            message: "None",
+            alertType: "success",
+            phoneNumber: "0101"
         };
+        this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
+    }
+
+    componentDidMount() {
+        var uid = Cookies.get("uid");
+        if (uid === undefined)
+            window.location.hash = "#/";
+    }
+
+    onRegistrationClicked(event){
+        event.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: 'http://192.168.5.2:8000/api/v1/registration/submit',
+            data: {
+                "ph_number": document.getElementById("ph_number").value, 
+                "name": document.getElementById("name").value, 
+                "address": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+                "organization": document.getElementById("organization").value, 
+                "uid": Cookies.get("uid"),
+            },
+
+            success: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                this.setState({isError: false, message: data.msg, alertType: "success"});
+            }.bind(this),
+            error: function(response){
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }.bind(this),
+        });
     }
     
 	render(){
@@ -26,27 +65,27 @@ class RegistrationForm extends Component {
                                     <h5>Caller Information</h5>
                                         <div className="form-group"><label className="col-sm-4 control-label">Phone Number</label>
                                         <div className="col-sm-8">
-                                            <input type="text" placeholder="Phone Number" className="form-control" />
+                                            <input type="text" id="ph_number" className="form-control" value={this.state.phoneNumber} />
                                         </div>
                                     </div>
                                     <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                         <div className="col-sm-8">
-                                            <input type="text" placeholder="Name" className="form-control" />
+                                            <input type="text" id="name" placeholder="Name" className="form-control" />
                                         </div>
                                     </div>
                                     <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                         <div className="col-sm-8">
-                                            <input type="text" placeholder="Address" className="form-control" />
-                                            <input type="text" placeholder="Address" className="form-control" />
+                                            <input type="text" id="address1" placeholder="Address" className="form-control" />
+                                            <input type="text" id="address2" placeholder="Address" className="form-control" />
                                         </div>
                                     </div>
                                     <div className="form-group"><label className="col-sm-4 control-label">Organization</label>
                                         <div className="col-sm-8">
-                                            <input type="text" placeholder="Organization" className="form-control" />
+                                            <input type="text" id="organization" placeholder="Organization" className="form-control" />
                                         </div>
                                     </div>  
                                     <div className="hr-line-dashed"></div>
-                                    <button type="button" className="btn btn-primary pull-right">Submit</button>
+                                    <button type="button" className="btn btn-primary pull-right" onClick={this.onRegistrationClicked}>Submit</button>
                                     <a data-toggle="modal" className="btn btn-warning" href="#modal-error">Report Error</a>
                                 </form>
                             </div>

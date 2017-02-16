@@ -3,7 +3,6 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import RegistrationFormPage from './RegistrationFormPage';
 import TranscriptionFormPage from './TranscriptionFormPage'
-import TranscriptionFormPage from './TranscriptionFormPage';
 import TranslationFormPage from './TranslationFormPage';
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -29,7 +28,8 @@ class TranscriptionPage extends Component {
             alertType: "danger",
             alertMessage: "Sample Alert",
             location : "#/",
-            transId : ""
+            transId : "",
+            callType: ""
         };
         this.typeClickHandler = this.typeClickHandler.bind(this);
         this.callItemClickHandler = this.callItemClickHandler.bind(this);
@@ -110,6 +110,10 @@ class TranscriptionPage extends Component {
                 this.setState({location: "#/translation", transId: key});
             else if (type == 0)
                 this.setState({location: "#/register", transId: key});
+            else if (type == 1)
+                this.setState({location: "#/transcription", transId: key, callType: "Buy"});
+            else if (type == 2)
+                this.setState({location: "#/transcription", transId: key, callType: "Sell"});
             else
                 this.setState({location: "#/transcription", transId: key});
     }
@@ -139,11 +143,11 @@ class TranscriptionPage extends Component {
                 );
             case "#/transcription":
                 return(
-                    <TranscriptionFormPage transId={this.state.transId}/>
+                    <TranscriptionFormPage transId={this.state.transId} callType={this.state.callType}/>
                 );
             case "#/translation":
                 return(
-                    <TranslationFormPage/>
+                    <TranslationFormPage transId={this.state.transId}/>
                 );
         }
     }

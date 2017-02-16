@@ -15,19 +15,19 @@ class SummaryForm extends Component {
                         <div className="ibox-content">                                            
                             <form className="form-horizontal">                        
                                 <div className="form-group"><label className="col-sm-2 control-label">Total</label>
-                                    <div className="col-sm-10"><input type="text" disabled="" className="form-control" value="460.00" /></div>
+                                    <div className="col-sm-10"><input type="text" id="total" disabled="" className="form-control" value="460.00" /></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Discount</label>
-                                    <div className="col-sm-10"><input type="text" className="form-control" /></div>
+                                    <div className="col-sm-10"><input type="text" id="discount" className="form-control" /></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Paid</label>
-                                    <div className="col-sm-10"><input type="text" className="form-control" /></div>
+                                    <div className="col-sm-10"><input type="text" id="paid" className="form-control" /></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Due</label>
-                                    <div className="col-sm-10"><input type="text" className="form-control" /></div>
+                                    <div className="col-sm-10"><input type="text" id="due" className="form-control" /></div>
                                 </div>             
                             </form>   
                             <div className="hr-line-dashed"></div>

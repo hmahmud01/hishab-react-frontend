@@ -13,7 +13,9 @@ import HishabLogo from './images/logo.png';
 class TranslationFormPage extends Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            "caller": "010012",
+        };
     }
 
     componentDidMount() {
@@ -30,7 +32,7 @@ class TranslationFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Translation </h1>    
-                        <TranslationForm />
+                        <TranslationForm caller={this.state.caller}/>
                     </Content>
                     <Footer/>
                 </ContentWrapper>
