@@ -75,10 +75,10 @@ class TranscriptionPage extends Component {
             }
         });
         }.bind(this), 30000);
-        window.autoInterval();
+        window.autoInterval;
     }
     
-    componentDidUnmount(){
+    componentWillUnmount(){
         window.clearInterval(window.autoInterval);
     }
     
