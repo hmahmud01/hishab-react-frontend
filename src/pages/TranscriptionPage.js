@@ -78,7 +78,7 @@ class TranscriptionPage extends Component {
         window.autoInterval();
     }
     
-    componentWillUnmount(){
+    componentDidUnmount(){
         window.clearInterval(window.autoInterval);
     }
     
