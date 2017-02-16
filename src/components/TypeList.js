@@ -49,7 +49,7 @@ class ListItem extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
     
-    handleClick(evemt){
+    handleClick(event){
         event.preventDefault();
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));

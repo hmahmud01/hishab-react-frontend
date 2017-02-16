@@ -102,7 +102,6 @@ class TranscriptionPage extends Component {
     }
     
     callItemClickHandler(key, type) {
-        this.setState({location: "#/transcription"});
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction',
@@ -112,8 +111,16 @@ class TranscriptionPage extends Component {
             },
             success: function(response) {
                 console.log(response);
-                var data = $.parseJSON(response);
-                this.setState({callItems: data});
+//                var data = $.parseJSON(response);
+//                this.setState({callItems: data});
+                
+            if (type >= 100)
+                this.setState({location: "#/translation"});
+            else if (type == 0)
+                this.setState({location: "#/register"});
+            else
+                this.setState({location: "#/transcription"});
+                
                 console.log(response);
             }.bind(this),
             error: function(response) {
@@ -147,6 +154,10 @@ class TranscriptionPage extends Component {
                     <RegistrationFormPage/>
                 );
             case "#/transcription":
+                return(
+                    <TranscriptionFormPage/>
+                );
+            case "#/translation":
                 return(
                     <TranscriptionFormPage/>
                 );
