@@ -58,7 +58,7 @@ class TranscriptionPage extends Component {
             }
         });
         
-        setInterval(function(){
+        window.autoInterval = setInterval(function(){
             $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/get/call/count',
@@ -75,6 +75,11 @@ class TranscriptionPage extends Component {
             }
         });
         }.bind(this), 30000);
+        window.autoInterval();
+    }
+    
+    componentWillUnmount(){
+        window.clearInterval(window.autoInterval);
     }
     
     typeClickHandler(key, title) {
@@ -106,16 +111,22 @@ class TranscriptionPage extends Component {
     }
     
     callItemClickHandler(key, type) {
-        if (type >= 100)
-                this.setState({location: "#/translation", transId: key});
-            else if (type == 0)
-                this.setState({location: "#/register", transId: key});
-            else if (type == 1)
-                this.setState({location: "#/transcription", transId: key, callType: "Buy"});
-            else if (type == 2)
-                this.setState({location: "#/transcription", transId: key, callType: "Sell"});
-            else
-                this.setState({location: "#/transcription", transId: key});
+        if (type >= 100){
+            this.setState({location: "#/translation", transId: key});
+            window.location.hash = "#/translation";
+        }else if (type == 0){
+            this.setState({location: "#/register", transId: key});
+            window.location.hash = "#/register";
+        }else if (type == 1){
+            this.setState({location: "#/transcription", transId: key, callType: "Buy"});
+            window.location.hash = "#/transcription";
+        }else if (type == 2){
+            this.setState({location: "#/transcription", transId: key, callType: "Sell"});
+            window.location.hash = "#/transcription";
+        }else{
+            this.setState({location: "#/transcription", transId: key});
+            window.location.hash = "#/transcription";
+        }
     }
     
     render() {

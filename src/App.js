@@ -18,7 +18,7 @@ class App extends Component {
     componentDidMount() {
         window.addEventListener("hashchange", this.onRouteChange);
         if (window.location.hash === '' || window.location.hash === undefined) {
-                window.location.hash = "#/";
+            window.location.hash = "#/";
         }
     }
 
@@ -26,7 +26,7 @@ class App extends Component {
     onRouteChange() {
         if (this.state.location === window.location.hash) {
             return;
-        } else {
+        } else if (window.location.hash == "#/" || window.location.hash == "#/home"){
             this.setState({location: window.location.hash});
         }
     }
