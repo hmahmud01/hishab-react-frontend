@@ -47,6 +47,7 @@ class TranscriptionPage extends Component {
             success: function(response) {
                 var data = $.parseJSON(response);
                 console.log(response);
+                this.typeClickHandler(data.data[1].callType, "Transcriptions");
                 this.setState({items: data.data});
             }.bind(this),
             error: function(response) {
