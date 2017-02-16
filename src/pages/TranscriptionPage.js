@@ -20,7 +20,6 @@ class TranscriptionPage extends Component {
         this.state = {
             items : [],
             callItems : [
-                {id: 1,caller: "Sadat", time: "12:24 PM", type: "REG"},
                 {id: 1, caller: "Sadat", time: "12:24 PM", type: "REG"},
                 {id: 2, caller: "Hasan", time: "12:30 PM", type: "PRD"},
                 {id: 3, caller: "Shovan", time: "12:36 PM", type: "DUE"}
@@ -144,7 +143,7 @@ class TranscriptionPage extends Component {
                 );
             case "#/translation":
                 return(
-                    <TranscriptionFormPage transId={this.state.transId}/>
+                    <TranslationFormPage/>
                 );
         }
     }
