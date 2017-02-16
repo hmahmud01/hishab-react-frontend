@@ -44,7 +44,7 @@ class SummaryForm extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Add Product</h4>
+                                <h4 className="modal-title">Error Type</h4>
                             </div>
 
                             <form className="form-horizontal">

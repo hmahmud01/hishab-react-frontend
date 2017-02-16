@@ -3,6 +3,8 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import RegistrationFormPage from './RegistrationFormPage';
 import TranscriptionFormPage from './TranscriptionFormPage'
+import TranscriptionFormPage from './TranscriptionFormPage';
+import TranslationFormPage from './TranslationFormPage';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -19,6 +21,7 @@ class TranscriptionPage extends Component {
             items : [],
             callItems : [
                 {id: 1,caller: "Sadat", time: "12:24 PM", type: "REG"},
+                {id: 1, caller: "Sadat", time: "12:24 PM", type: "REG"},
                 {id: 2, caller: "Hasan", time: "12:30 PM", type: "PRD"},
                 {id: 3, caller: "Shovan", time: "12:36 PM", type: "DUE"}
             ],

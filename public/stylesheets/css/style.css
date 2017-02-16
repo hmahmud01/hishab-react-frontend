@@ -3771,6 +3771,17 @@ table.table-mail tr td {
 .gray-bg {
   background-color: #f3f3f4;
 }
+.gray-bg-size{
+  background-color: #f3f3f4;
+  height: 100%;
+  width: 100%;
+}
+.size {
+  height: 100%;
+  width: 100%;
+}
+
+
 .white-bg {
   background-color: #ffffff;
 }
