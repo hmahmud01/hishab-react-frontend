@@ -22,8 +22,10 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Buyer</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                <input type="text" placeholder="Buyer" className="form-control"/> <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
-
+                                                <input list="users" placeholder="Buyer" className="form-control"/> 
+                                                <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> 
+                                                </span></div>
+                                                
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-lg-2 control-label">Seller</label>
