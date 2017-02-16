@@ -24,10 +24,9 @@ class TranscriptionFormPage extends Component{
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
-                    <h1> Transcription </h1>    
+                    <h1> Transcription for {this.props.callType} </h1>    
                         <TranscriptionForm transId={this.props.transId}/>
                     </Content>
-
 
                     <Footer/>
                 </ContentWrapper>
