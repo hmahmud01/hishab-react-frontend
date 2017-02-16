@@ -1,8 +1,43 @@
-import React, {Component} from  'react'
+import React, {Component} from  'react';
+import $ from 'jquery';
+import Cookies from 'js-cookie';
 import sample from '../pages/sound/sample.mp3';
 
 class UserForm extends Component {
-
+    constructor(props){
+        super(props);
+        this.state = {
+            buyerValue : "",
+            sellerValue: ""
+        };
+        this.handleUserSearch = this.handleUserSearch.bind(this)
+    }
+    
+    handleUserSearch(event){
+        event.preventDefault();
+        var val = event.target.value+event.key;
+        event.target.value = val;
+        console.log(val);
+        console.log(this.refs.buyer.value);
+        
+        if (val.length > 2){
+            $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/transaction/search/user',
+            data: {
+                "uid": Cookies.get("uid"),
+                "search": val,
+            },
+            success: function(response) {
+                console.log(response);
+            }.bind(this),
+            error: function(response) {
+                console.log(response);
+            }
+        });
+        }
+    }
+    
 	render(){
         const divStyle = {
           width: '100%',          
@@ -22,14 +57,16 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Buyer</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                <input type="text" placeholder="Buyer" className="form-control"/> <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
+                                                <input type="text" placeholder="Buyer" ref="buyer" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                <span className="input-group-btn"> 
+                                                <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
 
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-lg-2 control-label">Seller</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                <input type="text" placeholder="Seller" className="form-control"/> <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
+                                                <input type="text" placeholder="Seller" ref="seller" className="form-control" onKeyPress={this.handleUserSearch}/> <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
                                             </div>
                                         </div>
                                     </form>

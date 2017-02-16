@@ -2,6 +2,13 @@ import React, {Component} from  'react'
 import sample from '../pages/sound/sample.mp3';
 
 class RegistrationForm extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            formData : {}
+        };
+    }
+    
 	render(){
         const divStyle = {
           width: '100%',          

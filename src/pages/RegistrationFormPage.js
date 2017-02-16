@@ -15,6 +15,27 @@ class RegistrationFormPage extends Component{
         this.state = {};
     }
     
+    componentDidMount(){
+        $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/transaction/form/view',
+            data: {
+                "uid": Cookies.get("uid"),
+                "tid": this.props.transId,
+            },
+            success: function(response) {
+                console.log(response);
+//                var data = $.parseJSON(response);
+//                this.setState({callItems: data});
+                console.log(response);
+            }.bind(this),
+            error: function(response) {
+                console.log(response);
+                
+            }
+        });
+    }
+    
     render(){
         return(
 

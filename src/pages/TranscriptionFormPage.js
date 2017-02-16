@@ -15,6 +15,8 @@ class TranscriptionFormPage extends Component{
         this.state = {};
     }
     
+    
+    
     render(){
         return(
             <div className="wrapper">
@@ -23,7 +25,7 @@ class TranscriptionFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Transcription </h1>    
-                        <TranscriptionForm />
+                        <TranscriptionForm transId={this.props.transId}/>
                     </Content>
 
 

@@ -26,7 +26,8 @@ class TranscriptionPage extends Component {
             hasAlert: false,
             alertType: "danger",
             alertMessage: "Sample Alert",
-            location : "#/"
+            location : "#/",
+            transId : ""
         };
         this.typeClickHandler = this.typeClickHandler.bind(this);
         this.callItemClickHandler = this.callItemClickHandler.bind(this);
@@ -103,32 +104,12 @@ class TranscriptionPage extends Component {
     }
     
     callItemClickHandler(key, type) {
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction',
-            data: {
-                "uid": Cookies.get("uid"),
-                "tid": key,
-            },
-            success: function(response) {
-                console.log(response);
-//                var data = $.parseJSON(response);
-//                this.setState({callItems: data});
-                
-            if (type >= 100)
-                this.setState({location: "#/translation"});
+        if (type >= 100)
+                this.setState({location: "#/translation", transId: key});
             else if (type == 0)
-                this.setState({location: "#/register"});
+                this.setState({location: "#/register", transId: key});
             else
-                this.setState({location: "#/transcription"});
-                
-                console.log(response);
-            }.bind(this),
-            error: function(response) {
-                console.log(response);
-                
-            }
-        });
+                this.setState({location: "#/transcription", transId: key});
     }
     
     render() {
@@ -152,15 +133,15 @@ class TranscriptionPage extends Component {
                 );
             case "#/register":
                 return(
-                    <RegistrationFormPage/>
+                    <RegistrationFormPage transId={this.state.transId}/>
                 );
             case "#/transcription":
                 return(
-                    <TranscriptionFormPage/>
+                    <TranscriptionFormPage transId={this.state.transId}/>
                 );
             case "#/translation":
                 return(
-                    <TranscriptionFormPage/>
+                    <TranscriptionFormPage transId={this.state.transId}/>
                 );
         }
     }
