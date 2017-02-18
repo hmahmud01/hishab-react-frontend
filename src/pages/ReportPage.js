@@ -62,7 +62,7 @@ class ReportPage extends Component {
         });
 
         //Sales detail report
-        var url = "http://localhost:8000/api/v1/transaction/report?uid=01737233902";
+        
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){
@@ -100,6 +100,7 @@ class ReportPage extends Component {
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){
+                for (var i; i < val.products.length; i++){
                     items.push("<tr>");
                     //organization
                     //total purchase
@@ -128,7 +129,6 @@ class ReportPage extends Component {
         });
 
         //purchase detail report
-        var url = "http://localhost:8000/api/v1/transaction/report?uid=01737233902";
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){

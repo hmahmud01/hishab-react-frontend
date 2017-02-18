@@ -7,8 +7,8 @@ class UserForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            buyerValue : "",
-            sellerValue: "",
+            buyerValue : this.props.buyer,
+            sellerValue: this.props.seller,
             data : []
         };
         this.handleUserSearch = this.handleUserSearch.bind(this)
@@ -62,7 +62,7 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Buyer</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                    <input list="buyerlist" type="text" placeholder="Buyer" id="buyer" ref="buyer" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                    <input list="buyerlist" type="text" placeholder="Buyer" id="buyer" ref="buyer" className="form-control" value={this.state.buyerValue} onKeyPress={this.handleUserSearch}/>
                                                     <datalist id="buyerlist">
                                                         {listItems}
                                                     </datalist>
@@ -74,7 +74,7 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Seller</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                <input list="sellerlist" type="text" placeholder="Seller" id="seller" ref="seller" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                <input list="sellerlist" type="text" placeholder="Seller" id="seller" ref="seller" className="form-control" value={this.state.sellerValue} onKeyPress={this.handleUserSearch}/>
                                                 <datalist id="sellerlist">
                                                         {listItems}
                                                 </datalist>
@@ -90,7 +90,7 @@ class UserForm extends Component {
                                         <div className="row">
                                             <div className="col-xs-12 text-right">
                                                 <span> <i className="fa fa-phone"></i> Call From </span>
-                                                <h2 className="font-bold">01797123123</h2>
+                                                <h2 className="font-bold">{this.props.phone}</h2>
                                             </div>
                                         </div>
                                     </div>

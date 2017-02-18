@@ -9,7 +9,9 @@ import ProductForm from './ProductForm';
 class TranscriptionForm extends Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            data : this.props.data
+        };
         this.onTranscriptionClicked = this.onTranscriptionClicked.bind(this);
     }
 
@@ -56,9 +58,10 @@ class TranscriptionForm extends Component {
         const divStyle = {
           width: '100%',          
         };
+        
 		return (
             <div>
-                <UserForm type={this.props.type}/>
+                <UserForm buyer={this.state.data.phone} phone={this.state.data.phone}/>
                 <ProductForm />
                 <SummaryForm />
             </div>
