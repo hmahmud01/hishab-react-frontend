@@ -16,11 +16,7 @@ class TranslationForm extends Component {
         this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
-    componentDidMount() {
-        var uid = Cookies.get("uid");
-        if (uid === undefined)
-            window.location.hash = "#/";
-    }
+    
 
     onTranslationClicked(event){
         event.preventDefault();
