@@ -10,7 +10,7 @@ class SalesReport extends Component {
 			                <h5>Sales Reports</h5>
 			            </div>
 				        <div className="ibox-content">
-					        <table id="sales-transaction-detail" className="table table-striped table-bordered table-hover">
+					        <table id="sales-report" className="table table-striped table-bordered table-hover">
 					            <thead>
 					                <tr>
 			                            <th>Organization Name</th>

@@ -15,7 +15,8 @@ class ReportPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            id: "01737233902"
+            id: "01737233902",
+            uid: "",
         };
     }
 
@@ -24,10 +25,146 @@ class ReportPage extends Component {
         if (uid === undefined)
             window.location.hash = "#/";
         
-        //TODO extract json data to table
+        //TODO extract json data to sales transaction table
+        //Sales report
+        var url = "http://localhost:8000/api/v1/transaction/report?uid="+this.state.id;
+        $.getJSON(url, function(data){
+            var items = [];
+            $.each(data, function(key, val){
+                for (var i = 0; i<val.products.length; i++){
+                    items.push("<tr>");
+                    //organization
+                    //total purchase
+                    //paid amount
+                    //payable
+                    //last paid amount
+                    //last payment date
+                    items.push("<td>" +val.seller.phone+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("<td>" +val.paid_amount+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
+                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
+                    
+                    
+                    items.push("</try>");
+
+                }
+            });
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-report" );       
+        })
+        .done(function() {
+            console.log( "success" );
+        })
+        .fail(function() {
+            console.log( "error" );
+        });
+
+        //Sales detail report
+        var url = "http://localhost:8000/api/v1/transaction/report?uid=01737233902";
+        $.getJSON(url, function(data){
+            var items = [];
+            $.each(data, function(key, val){
+                for (var i = 0; i<val.products.length; i++){
+                    items.push("<tr>");
+                    //transaction id
+                    //organization
+                    //person
+                    //total sell
+                    //payment received
+                    //receivable
+                    //date
+                    items.push("<td>" +val.status+"</td>" );
+                    items.push("<td>" +val.trx_id+"</td>" );
+                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
+                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
+                    items.push("<td>" +val.paid_amount+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("</try>");
+
+                }
+            });
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+        })
+        .done(function() {
+            console.log( "success" );
+        })
+        .fail(function() {
+            console.log( "error" );
+        });
+
+        //purchase report
+        var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid=01737233902";
+        $.getJSON(url, function(data){
+            var items = [];
+            $.each(data, function(key, val){
+                    items.push("<tr>");
+                    //organization
+                    //total purchase
+                    //pad amount
+                    //payable
+                    //last paid amount
+                    //last payment date
+                    items.push("<td>" +val.status+"</td>" );
+                    items.push("<td>" +val.trx_id+"</td>" );
+                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
+                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
+                    items.push("<td>" +val.paid_amount+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("</try>");
+
+                }
+            });
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+        })
+        .done(function() {
+            console.log( "success" );
+        })
+        .fail(function() {
+            console.log( "error" );
+        });
+
+        //purchase detail report
+        var url = "http://localhost:8000/api/v1/transaction/report?uid=01737233902";
+        $.getJSON(url, function(data){
+            var items = [];
+            $.each(data, function(key, val){
+                for (var i = 0; i<val.products.length; i++){
+                    items.push("<tr>");
+                    //transaction id
+                    //organization
+                    //person
+                    //total sell
+                    //payment received
+                    //receivable
+                    //date
+                    items.push("<td>" +val.status+"</td>" );
+                    items.push("<td>" +val.trx_id+"</td>" );
+                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
+                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
+                    items.push("<td>" +val.paid_amount+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("</try>");
+
+                }
+            });
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+        })
+        .done(function() {
+            console.log( "success" );
+        })
+        .fail(function() {
+            console.log( "error" );
+        });
+
+
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/report?uid=01737233902',
+            url: 'http://192.168.5.2:8000/api/v1/transaction/report',
             data: {                
                 "uid": Cookies.get("uid"),
             },
@@ -46,6 +183,7 @@ class ReportPage extends Component {
             url: 'http://192.168.5.2:8000/api/v1/get/call/count',
             data: {
                 "uid": Cookies.get("uid"),
+                // this.setState.uid = uid
             },
             success: function(response) {
                 var data = $.parseJSON(response);
