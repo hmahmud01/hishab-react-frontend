@@ -15,13 +15,21 @@ class TranscriptionForm extends Component {
 
     onTranscriptionClicked(event){
         event.preventDefault();
+        //TODO create a tabletojson function to store the table products in json format
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/translation/submit',
+            url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
             data: {
                 "buyer": document.getElementById("buyer").value,
                 "seller": document.getElementById("seller").value,
-                "products": [],
+                "products": [
+                    {
+                        "name": "alu",
+                        "qty": "5 kg",
+                        "price": 10.00,
+                        "total": 50.00
+                    }
+                ],
                 "total": document.getElementById("total").value,
                 "discount": document.getElementById("discount").value,
                 "paid": document.getElementById("paid").value,
