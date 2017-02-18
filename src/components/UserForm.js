@@ -8,15 +8,14 @@ class UserForm extends Component {
         super(props);
         this.state = {
             buyerValue : "",
-            sellerValue: ""
+            sellerValue: "",
+            data : []
         };
         this.handleUserSearch = this.handleUserSearch.bind(this)
     }
     
     handleUserSearch(event){
-        event.preventDefault();
         var val = event.target.value+event.key;
-        event.target.value = val;
         console.log(val);
         console.log(this.refs.buyer.value);
         
@@ -30,6 +29,8 @@ class UserForm extends Component {
             },
             success: function(response) {
                 console.log(response);
+                var data = $.parseJSON(response)
+                this.setState({data : data});
             }.bind(this),
             error: function(response) {
                 console.log(response);
@@ -42,6 +43,10 @@ class UserForm extends Component {
         const divStyle = {
           width: '100%',          
         };
+        var listItems = this.state.data.map(
+            (listItem, index) => 
+            <option key={index} value={listItem.user_phone}>{listItem.user_name}</option>
+        );
 		return (
             <div>
                 <div className="col-lg-12">
@@ -57,7 +62,10 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Buyer</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                    <input type="text" placeholder="Buyer" id="buyer" ref="buyer" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                    <input list="buyerlist" type="text" placeholder="Buyer" id="buyer" ref="buyer" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                    <datalist id="buyerlist">
+                                                        {listItems}
+                                                    </datalist>
                                                     <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> 
                                                     </span>
                                                 </div>
@@ -66,7 +74,12 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-lg-2 control-label">Seller</label>
                                             <div className="col-lg-8">
                                                 <div className="input-group">
-                                                <input type="text" placeholder="Seller" id="seller" ref="seller" className="form-control" onKeyPress={this.handleUserSearch}/> <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
+                                                <input list="sellerlist" type="text" placeholder="Seller" id="seller" ref="seller" className="form-control" onKeyPress={this.handleUserSearch}/>
+                                                <datalist id="sellerlist">
+                                                        {listItems}
+                                                </datalist>
+                                                <span className="input-group-btn"> 
+                                                <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
                                             </div>
                                         </div>
                                     </form>

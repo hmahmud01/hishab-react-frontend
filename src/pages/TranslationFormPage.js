@@ -14,7 +14,8 @@ class TranslationFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            "caller": "010012",
+            audio: "",
+            phone: ""
         };
     }
 
@@ -22,6 +23,25 @@ class TranslationFormPage extends Component{
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+        $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/translation/details',
+            data: {
+                "uid": Cookies.get("uid"),
+                "tid": this.props.transId,
+            },
+            success: function(response) {
+                console.log(response);
+                var data = $.parseJSON(response);
+                this.setState({
+                    audio: "http://192.168.5.2:8000"+data.audio,
+                    phone: data.phone
+                });
+            }.bind(this),
+            error: function(response){
+                console.log(response);
+            }
+        });
     }
     
     render(){
@@ -32,7 +52,7 @@ class TranslationFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Translation </h1>    
-                        <TranslationForm caller={this.state.caller}/>
+                        <TranslationForm tid={this.props.transId} audio={this.state.audio} phone={this.state.phone}/>
                     </Content>
                     <Footer/>
                 </ContentWrapper>

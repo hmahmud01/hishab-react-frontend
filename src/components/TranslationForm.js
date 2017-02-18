@@ -16,27 +16,21 @@ class TranslationForm extends Component {
         this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
-    componentDidMount() {
-        var uid = Cookies.get("uid");
-        if (uid === undefined)
-            window.location.hash = "#/";
-    }
-
     onTranslationClicked(event){
         event.preventDefault();
         $.ajax({
             method: 'post',
             url: 'http://192.168.5.2:8000/api/v1/translation/submit',
             data: {
-                "trans_data": document.getElementById("translated_data").value, 
                 "uid": Cookies.get("uid"),
-                "tid": 1
+                "tid": this.props.tid,
+                "tda": document.getElementById("trans_data").value
             },
 
             success: function(response){
                 console.log(response);
                 var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
+                window.location.hash="#/home";
             }.bind(this),
             error: function(response){
                 console.log(response.responseText);
@@ -59,7 +53,7 @@ class TranslationForm extends Component {
             success: function(response){
                 console.log(response);
                 var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
+                window.location.hash="#/home";
             }.bind(this),
             error: function(response){
                 console.log(response.responseText);
@@ -90,7 +84,7 @@ class TranslationForm extends Component {
                                         <h5>Caller Information</h5>
                                         <div className="form-group"><label className="col-lg-2 control-label">Translate</label>
                                             <div className="col-lg-10">
-                                                <textarea id="translated_data" name="audio_translate" cols="50" rows="5"></textarea>
+                                                <textarea id="trans_data" name="audio_translate" cols="50" rows="5"></textarea>
                                             </div>
                                         </div>
                                         <div className="hr-line-dashed"></div>
@@ -104,7 +98,7 @@ class TranslationForm extends Component {
                                         <div className="row">
                                             <div className="col-xs-12 text-right">
                                                 <span> <i className="fa fa-phone"></i> Call From </span>
-                                                <h2 className="font-bold">{this.props.caller}</h2>
+                                                <h2 className="font-bold">{this.props.phone}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +110,7 @@ class TranslationForm extends Component {
                                             <div className="col-xs-12">
                                                 <span className="pull-right"> <i className="fa fa-music"></i> Audio </span>
                                                 <h2 className="font-bold">
-                                                    <audio style={divStyle} ref="audio_tag" src={sample} controls />
+                                                    <audio style={divStyle} ref="audio_tag" src={this.props.audio} controls />
                                                 </h2>                                        
                                             </div>
                                         </div>

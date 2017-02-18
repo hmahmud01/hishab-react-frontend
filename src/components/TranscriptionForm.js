@@ -58,7 +58,7 @@ class TranscriptionForm extends Component {
         };
 		return (
             <div>
-                <UserForm/>
+                <UserForm type={this.props.type}/>
                 <ProductForm />
                 <SummaryForm />
             </div>

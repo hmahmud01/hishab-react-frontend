@@ -18,20 +18,21 @@ class RegistrationFormPage extends Component{
     componentDidMount(){
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/form/view',
+            url: 'http://192.168.5.2:8000/api/v1/transaction/details',
             data: {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
             },
             success: function(response) {
                 console.log(response);
-//                var data = $.parseJSON(response);
-//                this.setState({callItems: data});
-                console.log(response);
+                var data = $.parseJSON(response);
+                this.setState({
+                    audio: "http://192.168.5.2:8000"+data.audio,
+                    phone: data.phone
+                });
             }.bind(this),
-            error: function(response) {
+            error: function(response){
                 console.log(response);
-                
             }
         });
     }
@@ -45,7 +46,7 @@ class RegistrationFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Registration </h1>    
-                        <RegistrationForm />
+                        <RegistrationForm audio={this.state.audio} phone={this.state.phone}/>
                     </Content>
 
 
