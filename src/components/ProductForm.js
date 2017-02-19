@@ -85,8 +85,7 @@ class ProductForm extends Component {
                         id="product"
                         placeholder="Product"
                         datalist="productlist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/product"
-                    >
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/product">
                         <span className="input-group-btn">
                             <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
                                 <i className="fa fa-plus" aria-hidden="true"></i>
@@ -101,8 +100,7 @@ class ProductForm extends Component {
                         id="category"
                         placeholder="Category"
                         datalist="categorylist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-                    >
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/category">
                         <span className="input-group-btn">
                             <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
                                 <i className="fa fa-plus" aria-hidden="true"></i>
@@ -110,6 +108,7 @@ class ProductForm extends Component {
                         </span>
                     </AutoSuggestText>    
                 </Modal>
+            
                 <Modal id="modal-category-new" title="New Category" discard="Exit" success="Add Category">
                     <TextInput id="category-name" label="Category Name" placeholder="Category Name"/>
                     <TextInput id="category-fields" label="Category Fields" placeholder="Category Fields"/>
