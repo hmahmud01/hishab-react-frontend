@@ -15,9 +15,10 @@ class TranscriptionFormPage extends Component{
         this.state = {
             data : ""
         };
+        this.componentWillMount = this.componentWillMount.bind(this);
     }
     
-    componentDidMount(){
+    componentWillMount(){
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/details',

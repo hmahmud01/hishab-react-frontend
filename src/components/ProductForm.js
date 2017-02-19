@@ -18,6 +18,7 @@ class ProductForm extends Component {
         this.editRow = this.editRow.bind(this);
         this.addRow = this.addRow.bind(this);
         this.addMoreProducts = this.addMoreProducts.bind(this);
+        this.addNewCategory = this.addNewCategory.bind(this);
     }
     
     receiveData(headers, data){
@@ -67,6 +68,10 @@ class ProductForm extends Component {
         );
         this.setState({modalFields: modalFields});
     }
+            
+    addNewCategory(){
+        
+    }
     
 	render(){
 		return (
@@ -78,7 +83,7 @@ class ProductForm extends Component {
                         id="product"
                         placeholder="Product"
                         datalist="productlist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/product"
                     >
                         <span className="input-group-btn">
                             <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
@@ -94,14 +99,18 @@ class ProductForm extends Component {
                         id="category"
                         placeholder="Category"
                         datalist="categorylist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
                     >
                         <span className="input-group-btn">
-                            <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
+                            <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
                                 <i className="fa fa-plus" aria-hidden="true"></i>
                             </a>
                         </span>
                     </AutoSuggestText>    
+                </Modal>
+                <Modal id="modal-category-new" title="New Category" discard="Exit" success="Add Category">
+                    <TextInput id="category-name" label="Category Name" placeholder="Category Name"/>
+                    <TextInput id="category-fields" label="Category Fields" placeholder="Category Fields"/>
                 </Modal>
             </div>
 		);
