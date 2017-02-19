@@ -16,7 +16,7 @@ class ReportPage extends Component {
         super(props);
         this.state = {
             id: "01737233902",
-            uid: "",
+            uid: "",            
         };
     }
 
@@ -27,9 +27,45 @@ class ReportPage extends Component {
         
         //TODO extract json data to sales transaction table
         //Sales report
-        var url = "http://localhost:8000/api/v1/transaction/report?uid="+this.state.id;
+
+        dummydata: [{
+                "status": 4,
+                "trx_id": 4,
+                "products": [{
+                    "product_id": 1,
+                    "product_unit_price": 24.0,
+                    "product_complementary_quantity": 0.0,
+                    "product_quantity": 1.0,
+                    "product_discount": 0.0,
+                    "attributes": [{
+                        "value": "Dhaka",
+                        "key": "area"
+                    }, {
+                        "value": "25-02-2017",
+                        "key": "expire on"
+                    }, {
+                        "value": "Midium",
+                        "key": "size"
+                    }],
+                    "product_name": "Potato"
+                }],
+                "paid_amount": 400.0,
+                "buyer": {
+                    "phone": "01737233902",
+                    "name": "sadat"
+                },
+                "total_bill": 432.0,
+                "seller": {
+                    "phone": "01717503671",
+                    "name": "shovan"
+                },
+                "discount_amount": 2.0
+        }]
+        var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid="+uid;
+        console.log(url)
         $.getJSON(url, function(data){
             var items = [];
+            // var val = {this.state.data};
             $.each(data, function(key, val){
                 for (var i = 0; i<val.products.length; i++){
                     items.push("<tr>");
@@ -45,24 +81,22 @@ class ReportPage extends Component {
                     items.push("<td>" +val.total_bill+"</td>" );
                     items.push("<td>" +val.products[i].product_name+"</td>" );
                     items.push("<td>" +val.products[i].product_quantity+"</td>" );
-                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
-                    
-                    
                     items.push("</try>");
 
                 }
             });
-            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-report" );       
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-report" );    
         })
         .done(function() {
+            console.log( "in salse report" );
             console.log( "success" );
         })
         .fail(function() {
+            console.log( "in salse report" );
             console.log( "error" );
         });
 
-        //Sales detail report
-        
+        //Sales detail report        
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){
@@ -86,17 +120,19 @@ class ReportPage extends Component {
 
                 }
             });
-            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-transaction-detail" );       
         })
         .done(function() {
+            console.log( "in salse detail report" );
             console.log( "success" );
         })
         .fail(function() {
+            console.log( "in sales detail report" );
             console.log( "error" );
         });
 
         //purchase report
-        var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid=01737233902";
+        // console.log(url)
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){
@@ -108,23 +144,25 @@ class ReportPage extends Component {
                     //payable
                     //last paid amount
                     //last payment date
-                    items.push("<td>" +val.status+"</td>" );
-                    items.push("<td>" +val.trx_id+"</td>" );
-                    items.push("<td>" +val.products[i].product_name+"</td>" );
-                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
-                    items.push("<td>" +val.products[i].product_unit_price+"</td>" );
+                    items.push("<td>" +val.seller.phone+"</td>" );
+                    items.push("<td>" +val.total_bill+"</td>" );
                     items.push("<td>" +val.paid_amount+"</td>" );
                     items.push("<td>" +val.total_bill+"</td>" );
+                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.products[i].product_quantity+"</td>" );
                     items.push("</try>");
 
                 }
             });
-            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#purchase-report" );    
+            // console.log(items)     
         })
         .done(function() {
+            console.log( "in purchase report" );
             console.log( "success" );
         })
         .fail(function() {
+            console.log( "in purchase report" );
             console.log( "error" );
         });
 
@@ -141,9 +179,9 @@ class ReportPage extends Component {
                     //payment received
                     //receivable
                     //date
-                    items.push("<td>" +val.status+"</td>" );
                     items.push("<td>" +val.trx_id+"</td>" );
-                    items.push("<td>" +val.products[i].product_name+"</td>" );
+                    items.push("<td>" +val.buyer.phone+"</td>" );
+                    items.push("<td>" +val.buyer.phone+"</td>" );
                     items.push("<td>" +val.products[i].product_quantity+"</td>" );
                     items.push("<td>" +val.products[i].product_unit_price+"</td>" );
                     items.push("<td>" +val.paid_amount+"</td>" );
@@ -152,30 +190,17 @@ class ReportPage extends Component {
 
                 }
             });
-            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#jsontbl" );       
+            $("<tbody/>", { html: items.join( "" ) }).appendTo( "#purchase-transaction-detail" );       
         })
         .done(function() {
+            console.log( "in purchase detail report" );
             console.log( "success" );
         })
         .fail(function() {
+            console.log( "in purchase detail report" );
             console.log( "error" );
         });
 
-
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/report',
-            data: {                
-                "uid": Cookies.get("uid"),
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
-                console.log(response);
-            }.bind(this),
-            error: function(response) {
-                console.log(response.responseText);
-            }
-        });
         
         setInterval(function(){
             $.ajax({
