@@ -28,39 +28,6 @@ class ReportPage extends Component {
         //TODO extract json data to sales transaction table
         //Sales report
 
-        dummydata: [{
-                "status": 4,
-                "trx_id": 4,
-                "products": [{
-                    "product_id": 1,
-                    "product_unit_price": 24.0,
-                    "product_complementary_quantity": 0.0,
-                    "product_quantity": 1.0,
-                    "product_discount": 0.0,
-                    "attributes": [{
-                        "value": "Dhaka",
-                        "key": "area"
-                    }, {
-                        "value": "25-02-2017",
-                        "key": "expire on"
-                    }, {
-                        "value": "Midium",
-                        "key": "size"
-                    }],
-                    "product_name": "Potato"
-                }],
-                "paid_amount": 400.0,
-                "buyer": {
-                    "phone": "01737233902",
-                    "name": "sadat"
-                },
-                "total_bill": 432.0,
-                "seller": {
-                    "phone": "01717503671",
-                    "name": "shovan"
-                },
-                "discount_amount": 2.0
-        }]
         var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid="+uid;
         console.log(url)
         $.getJSON(url, function(data){
@@ -82,7 +49,6 @@ class ReportPage extends Component {
                     items.push("<td>" +val.products[i].product_name+"</td>" );
                     items.push("<td>" +val.products[i].product_quantity+"</td>" );
                     items.push("</try>");
-
                 }
             });
             $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-report" );    
