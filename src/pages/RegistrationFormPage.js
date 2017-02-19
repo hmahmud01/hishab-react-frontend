@@ -46,7 +46,7 @@ class RegistrationFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Registration </h1>    
-                        <RegistrationForm audio={this.state.audio} phone={this.state.phone}/>
+                        <RegistrationForm transId={this.props.transId} audio={this.state.audio} phone={this.state.phone}/>
                     </Content>
 
 

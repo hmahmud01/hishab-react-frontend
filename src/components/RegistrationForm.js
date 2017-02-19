@@ -1,6 +1,7 @@
 import React, {Component} from  'react'
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import AutoSuggestText from './AutoSuggestText';
 
 class RegistrationForm extends Component {
     constructor(props){
@@ -14,37 +15,12 @@ class RegistrationForm extends Component {
             orgdata: []
         };
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
-        this.handleOrganizationSearch = this.handleOrganizationSearch.bind(this);
     }
 
     componentDidMount() {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
-    }
-    
-    handleOrganizationSearch(event){
-        var val = event.target.value+event.key;
-        console.log(val);
-        
-        if (val.length > 2){
-            $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/search/organization',
-            data: {
-                "uid": Cookies.get("uid"),
-                "search": val,
-            },
-            success: function(response) {
-                console.log(response);
-                var data = $.parseJSON(response)
-                this.setState({orgdata : data});
-            }.bind(this),
-            error: function(response) {
-                console.log(response);
-            }
-        });
-        }
     }
 
     onRegistrationClicked(event){
@@ -53,11 +29,12 @@ class RegistrationForm extends Component {
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/register',
             data: {
+                "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
                 "utype": 0,
-                "address": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
-                "organization": document.getElementById("organization").value, 
+                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+                "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
             },
 
@@ -111,17 +88,18 @@ class RegistrationForm extends Component {
                                     </div>
                                     <div className="form-group"><label className="col-sm-4 control-label">Organization</label>
                                         <div className="col-sm-8">
-                                            <div className="input-group">
-                                                <input list="orglist" type="text" placeholder="Organization" id="organization" className="form-control" onKeyPress={this.handleOrganizationSearch}/>
-                                                <datalist id="orglist">
-                                                    {listItems}
-                                                </datalist>
-                                                <span className="input-group-btn"> 
-                                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
-                                                        <i className="fa fa-plus" aria-hidden="true"></i>
-                                                    </a>
-                                                </span>
-                                            </div>
+                                            <AutoSuggestText 
+                                                    id="organization"
+                                                    placeholder="Organization"
+                                                    datalist="orglist"
+                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
+                                                >
+                                                    <span className="input-group-btn"> 
+                                                        <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
+                                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                                        </a>
+                                                    </span>
+                                                </AutoSuggestText>
                                         </div>
                                     </div>  
                                     <div className="hr-line-dashed"></div>

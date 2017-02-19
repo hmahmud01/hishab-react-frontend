@@ -15,7 +15,7 @@ class SummaryForm extends Component {
                         <div className="ibox-content">                                            
                             <form className="form-horizontal">                        
                                 <div className="form-group"><label className="col-sm-2 control-label">Total</label>
-                                    <div className="col-sm-10"><input type="text" id="total" disabled="" className="form-control" value="460.00" /></div>
+                                    <div className="col-sm-10"><input type="text" id="total" disabled="" className="form-control" /></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Discount</label>
@@ -31,7 +31,7 @@ class SummaryForm extends Component {
                                 </div>             
                             </form>   
                             <div className="hr-line-dashed"></div>
-                            <button type="button" className="btn btn-primary pull-right">Submit</button>
+                            <button type="button" className="btn btn-primary pull-right" onClick={this.props.onSubmit}>Submit</button>
                             <a data-toggle="modal" className="btn btn-warning" href="#modal-error">Report Error</a>
                             
                         </div>

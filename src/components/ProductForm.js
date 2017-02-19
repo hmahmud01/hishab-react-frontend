@@ -1,177 +1,108 @@
-import React, {Component} from  'react'
+import React, {Component} from  'react';
+import ReactDOM from 'react-dom';
+import Modal from './Modal';
+import DataTable from './DataTable';
+import TextInput from './TextInput';
+import AutoSuggestText from './AutoSuggestText';
 import sample from '../pages/sound/sample.mp3';
 
 class ProductForm extends Component {
-
+    constructor(props){
+        super(props);
+        this.state = {
+            data : [],
+            headers: [],
+            modalFields : []
+        };
+        this.receiveData = this.receiveData.bind(this);
+        this.editRow = this.editRow.bind(this);
+        this.addRow = this.addRow.bind(this);
+        this.addMoreProducts = this.addMoreProducts.bind(this);
+    }
+    
+    receiveData(headers, data){
+        this.setState({headers: headers, data: data});
+    }
+    
+    editRow(headers, data){
+        console.log(headers);
+        console.log(data);
+        this.setState({modalFields: []});
+        var output = [];
+        for (var i =0; i< data.length; i++){
+            output[i] = ({header: headers[i], data: data[i]});
+        }
+        var modalFields = output.map(
+            function (product, index){
+                var id = "item"+index;
+                return(
+                    <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
+                );
+            }
+        );
+        console.log("After Creating Modal Fields: ");
+        console.log(output);
+        this.setState({modalFields: modalFields});
+    }
+    
+    addRow(){
+        var output = [];
+        for (var i=0; i< this.state.modalFields.length; i++)
+            output[i] = document.getElementById("item"+i).value;
+        console.log("Result: "+output);
+        this.refs.data.addRow(output);
+    }
+        
+    addMoreProducts(){
+        var headers = this.refs.data.state.columns;
+        var output = [];
+        for (var i =0; i< headers.length; i++){
+            output[i] = ({header: headers[i], data: ""});
+        }
+        var modalFields = output.map(
+            function (product, index){
+                var id = "item"+index;
+                return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>);
+            }
+        );
+        this.setState({modalFields: modalFields});
+    }
+    
 	render(){
 		return (
             <div>
-                <div className="col-lg-12">
-                    <div className="ibox float-e-margins">
-                        <div className="ibox-title">
-                            <h5>Product Information table</h5>
-                            <div className="ibox-tools">
-                                <a className="collapse-link">
-                                    <i className="fa fa-chevron-up"></i>
-                                </a>       
-                            </div>
-                        </div>
-                        <div className="ibox-content">
-                            <div className="row">
-                                <div className="col-sm-3 pull-right">
-                                    <a data-toggle="modal" className="btn btn-primary pull-right" href="#modal-product">Add Product</a>
-                                </div>
-                            </div>
-                            <div className="table-responsive">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                            <th>Action</th>                                       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Alu</td>
-                                            <td>5kg</td>
-                                            <td>23.00</td>
-                                            <td>115.00</td>
-                                            <td><a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product"><i className="fa fa-paste"></i> Edit </a> <button className="btn btn-xs btn-info" type="button"><i className="fa fa-times"></i> Delete </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alu</td>
-                                            <td>5kg</td>
-                                            <td>23.00</td>
-                                            <td>115.00</td>
-                                            <td><a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product"><i className="fa fa-paste"></i> Edit </a> <button className="btn btn-xs btn-info" type="button"><i className="fa fa-times"></i> Delete </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alu</td>
-                                            <td>5kg</td>
-                                            <td>23.00</td>
-                                            <td>115.00</td>
-                                            <td><a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product"><i className="fa fa-paste"></i> Edit </a> <button className="btn btn-xs btn-info" type="button"><i className="fa fa-times"></i> Delete </button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alu</td>
-                                            <td>5kg</td>
-                                            <td>23.00</td>
-                                            <td>115.00</td>
-                                            <td><a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product"><i className="fa fa-paste"></i> Edit </a> <button className="btn btn-xs btn-info" type="button"><i className="fa fa-times"></i> Delete </button></td>
-                                        </tr>                                    
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <DataTable ref="data" passData={this.receiveData} editRow={this.editRow} onClick={this.addMoreProducts}/>
 
+                <Modal id="modal-product" title="Add Product to Transaction" onClick={this.addRow}>
+                    <AutoSuggestText 
+                        id="product"
+                        placeholder="Product"
+                        datalist="productlist"
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                    >
+                        <span className="input-group-btn">
+                            <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
+                                <i className="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                    </AutoSuggestText>
+                    {this.state.modalFields}
+                </Modal>
 
-                <div id="modal-product" className="modal fade" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Add Product</h4>
-                            </div>
-
-                            <form className="form-horizontal">
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="form-group"><label className="col-sm-4 control-label">Product name</label>
-                                            <div className="col-sm-6">
-                                                <select className="form-control m-b" name="product">
-                                                    <option>alu</option>
-                                                    <option>potol</option>
-                                                    <option>am</option>
-                                                    <option>kathal</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-sm-2">
-                                                <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new"><i className="fa fa-plus" aria-hidden="true"></i></a>
-                                            </div>                                            
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Quantity</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Quantity" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Unit</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Unit" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Price</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Price" className="form-control" />                                               
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="modal-product-new" className="modal fade" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Add Product</h4>
-                            </div>
-
-                            <form className="form-horizontal">
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="form-group"><label className="col-sm-4 control-label"> Name</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Name" className="form-control" />
-                                            </div>                                            
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Alternative Name</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Alternative Name" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Bangla Name</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Bangla Name" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Category</label>
-                                            <div className="col-sm-8">
-                                                <select className="form-control m-b" name="category">
-                                                    <option>sim</option>
-                                                    <option>simkit</option>
-                                                    <option>recharge</option>
-                                                    <option>card</option>
-                                                </select>                                              
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group"><label className="col-sm-4 control-label">Product Code</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" placeholder="Product Code" className="form-control" />                             
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product">
+                    <AutoSuggestText 
+                        id="category"
+                        placeholder="Category"
+                        datalist="categorylist"
+                        url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                    >
+                        <span className="input-group-btn">
+                            <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
+                                <i className="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                        </span>
+                    </AutoSuggestText>    
+                </Modal>
             </div>
 		);
 	}

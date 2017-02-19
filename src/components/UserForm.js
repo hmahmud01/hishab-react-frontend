@@ -1,52 +1,23 @@
 import React, {Component} from  'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import AutoSuggestText from './AutoSuggestText';
 import sample from '../pages/sound/sample.mp3';
 
 class UserForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            buyerValue : this.props.buyer,
-            sellerValue: this.props.seller,
+            buyerVal : this.props.phone,
+            sellerVal : this.props.phone,
             data : []
         };
-        this.handleUserSearch = this.handleUserSearch.bind(this)
-    }
-    
-    handleUserSearch(event){
-        var val = event.target.value+event.key;
-        console.log(val);
-        console.log(this.refs.buyer.value);
-        
-        if (val.length > 2){
-            $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/search/user',
-            data: {
-                "uid": Cookies.get("uid"),
-                "search": val,
-            },
-            success: function(response) {
-                console.log(response);
-                var data = $.parseJSON(response)
-                this.setState({data : data});
-            }.bind(this),
-            error: function(response) {
-                console.log(response);
-            }
-        });
-        }
     }
     
 	render(){
         const divStyle = {
           width: '100%',          
         };
-        var listItems = this.state.data.map(
-            (listItem, index) => 
-            <option key={index} value={listItem.user_phone}>{listItem.user_name}</option>
-        );
 		return (
             <div>
                 <div className="col-lg-12">
@@ -61,25 +32,35 @@ class UserForm extends Component {
                                         <h5>Caller Information</h5>
                                         <div className="form-group"><label className="col-lg-2 control-label">Buyer</label>
                                             <div className="col-lg-8">
-                                                <div className="input-group">
-                                                    <input list="buyerlist" type="text" placeholder="Buyer" id="buyer" ref="buyer" className="form-control" value={this.state.buyerValue} onKeyPress={this.handleUserSearch}/>
-                                                    <datalist id="buyerlist">
-                                                        {listItems}
-                                                    </datalist>
-                                                    <span className="input-group-btn"> <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> 
+                                                <AutoSuggestText 
+                                                    id="buyer"
+                                                    placeholder="Buyer"
+                                                    datalist="buyerlist"
+                                                    
+                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                >
+                                                    <span className="input-group-btn"> 
+                                                        <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
+                                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                                        </a> 
                                                     </span>
-                                                </div>
+                                                </AutoSuggestText>
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-lg-2 control-label">Seller</label>
                                             <div className="col-lg-8">
-                                                <div className="input-group">
-                                                <input list="sellerlist" type="text" placeholder="Seller" id="seller" ref="seller" className="form-control" value={this.state.sellerValue} onKeyPress={this.handleUserSearch}/>
-                                                <datalist id="sellerlist">
-                                                        {listItems}
-                                                </datalist>
-                                                <span className="input-group-btn"> 
-                                                <a data-toggle="modal" className="btn btn-primary" href="#modal-user"><i className="fa fa-plus" aria-hidden="true"></i></a> </span></div>
+                                                <AutoSuggestText 
+                                                    id="seller"
+                                                    placeholder="Seller"
+                                                    datalist="sellerlist"
+                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                >
+                                                    <span className="input-group-btn"> 
+                                                        <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
+                                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                                        </a> 
+                                                    </span>
+                                                </AutoSuggestText>
                                             </div>
                                         </div>
                                     </form>

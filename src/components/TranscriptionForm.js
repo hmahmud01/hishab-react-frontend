@@ -17,6 +17,25 @@ class TranscriptionForm extends Component {
 
     onTranscriptionClicked(event){
         event.preventDefault();
+        
+        var headers = this.refs.products.state.headers;
+        var products = this.refs.products.state.data;
+        
+        var output = []
+        for (var i=0; i<products.length; i++)
+            output[i] = {header: headers, value: products[i]};
+        var data = {
+                "buyer": document.getElementById("buyer").value,
+                "seller": document.getElementById("seller").value,
+                "products": output,
+                "total": document.getElementById("total").value,
+                "discount": document.getElementById("discount").value,
+                "paid": document.getElementById("paid").value,
+                "due": document.getElementById("due").value,
+                "uid": Cookies.get("uid"),
+                "tid": 1
+        };
+        console.log(data);
         //TODO create a tabletojson function to store the table products in json format
         $.ajax({
             method: 'post',
@@ -61,9 +80,9 @@ class TranscriptionForm extends Component {
         
 		return (
             <div>
-                <UserForm buyer={this.state.data.phone} phone={this.state.data.phone}/>
-                <ProductForm />
-                <SummaryForm />
+                <UserForm formtype={this.props.data.cty} phone={this.props.data.phone}/>
+                <ProductForm ref="products"/>
+                <SummaryForm onSubmit={this.onTranscriptionClicked}/>
             </div>
 
 		);
