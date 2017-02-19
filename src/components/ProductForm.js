@@ -5,6 +5,8 @@ import DataTable from './DataTable';
 import TextInput from './TextInput';
 import AutoSuggestText from './AutoSuggestText';
 import sample from '../pages/sound/sample.mp3';
+import $ from 'jquery';
+import Cookies from 'js-cookie';
 
 class ProductForm extends Component {
     constructor(props){
