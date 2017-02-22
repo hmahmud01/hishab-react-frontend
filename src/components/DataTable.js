@@ -18,7 +18,6 @@ class DataTable extends Component{
     editRow(index){
         var data = this.state.rowValues[index];
         var headers = this.state.columns;
-        this.deleteRow(index);
         this.props.editRow(headers, data, index);
     }
     
@@ -30,9 +29,11 @@ class DataTable extends Component{
     
     addRow(data, index){
         var newRow = this.state.rowValues;
-        if (index !== undefined)
+        if (index !== undefined){
+            this.deleteRow(index);
+            newRow = this.state.rowValues;
             newRow.splice(index, 0, data);
-        else
+        }else
             newRow.push(data);
         this.setState({rowValues : newRow});
     }
