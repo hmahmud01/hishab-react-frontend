@@ -63,7 +63,7 @@ class RegistrationForm extends Component {
             <div className="col-lg-12">
                 <div className="ibox float-e-margins">
                     <div className="ibox-title">
-                        <h5>Vocie And User</h5>
+                        <h5>Voice And User</h5>
                     </div>
                     <div className="ibox-content">
                         <div className="row">
