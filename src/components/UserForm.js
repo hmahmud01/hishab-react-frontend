@@ -4,20 +4,70 @@ import Cookies from 'js-cookie';
 import AutoSuggestText from './AutoSuggestText';
 import sample from '../pages/sound/sample.mp3';
 
+
 class UserForm extends Component {
     constructor(props){
         super(props);
         this.state = {
             buyerVal : this.props.phone,
             sellerVal : this.props.phone,
-            data : []
+            formData : {},
+            isError: false,
+            message: "None",
+            alertType: "success",
+            phoneNumber: "0101",
+            orgdata: []
         };
+        this.onUserAddClicked = this.onUserAddClicked.bind(this);
     }
     
+    onUserAddClicked(event){
+        var data = {
+                "tid": this.props.transId,
+                "uphone": document.getElementById("ph_number").value, 
+                "uname": document.getElementById("name").value,
+                "utype": 0,
+                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+                "uorg": document.getElementById("organization").value,
+                "uid": Cookies.get("uid"),
+            }// event.preventDefault();
+        console.log(data);
+        console.log("in user registration");
+        $.ajax({
+            method: 'post',
+            url: 'http://192.168.5.2:8000/api/v1/register',
+            data: {
+                "tid": this.props.transId,
+                "uphone": document.getElementById("ph_number").value, 
+                "uname": document.getElementById("name").value,
+                "utype": 0,
+                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+                "uorg": document.getElementById("organization").value,
+                "uid": Cookies.get("uid"),
+            },            
+
+            success: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                this.setState({isError: false, message: data.msg, alertType: "success"});
+            }.bind(this),
+            error: function(response){
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }.bind(this),
+        });
+    }
+
 	render(){
         const divStyle = {
           width: '100%',          
         };
+
+        var listItems = this.state.orgdata.map(
+            (listItem, index) => 
+            <option key={index} value={listItem.org_name}>{listItem.org_id}</option>
+        );
         var audio = this.props.audio;
         if (audio !== undefined)
             audio = "http://192.168.5.2:8000"+audio[0];
@@ -42,7 +92,7 @@ class UserForm extends Component {
                                                     
                                                     url="http://192.168.5.2:8000/api/v1/transaction/search/user"
                                                 >
-                                                    <span className="input-group-btn"> 
+                                                    <span className="input-group-btn">
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
                                                             <i className="fa fa-plus" aria-hidden="true"></i>
                                                         </a> 
@@ -111,30 +161,41 @@ class UserForm extends Component {
                                     <div className="row">
                                         <div className="form-group"><label className="col-sm-4 control-label">Phone Number</label>
                                             <div className="col-sm-8">
-                                                <input type="text" placeholder="Phone Number" className="form-control" />
+                                                <input type="text" id="ph_number" placeholder="Phone Number" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
-                                                <input type="text" placeholder="Name" className="form-control" />
+                                                <input type="text" id="name" placeholder="Name" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
-                                                <input type="text" placeholder="Address" className="form-control" />
-                                                <input type="text" placeholder="Address" className="form-control" />
+                                                <input type="text" id="address1" placeholder="Address" className="form-control" />
+                                                <input type="text" id="address2" placeholder="Address" className="form-control" />
                                             </div>
                                         </div>    
                                         <div className="form-group"><label className="col-sm-4 control-label">Organization</label>
                                             <div className="col-sm-8">
-                                                <input type="text" placeholder="Organization" className="form-control" />
+                                                <AutoSuggestText 
+                                                    id="organization"
+                                                    placeholder="Organization"
+                                                    datalist="orglist"
+                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
+                                                >
+                                                    <span className="input-group-btn"> 
+                                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
+                                                        <i className="fa fa-plus" aria-hidden="true"></i>
+                                                    </a>
+                                                    </span>
+                                                </AutoSuggestText>
                                             </div>
                                         </div>                                     
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>                                
-                                    <button type="button" className="btn btn-primary">Submit</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onUserAddClicked}>Submit</button>
                                 </div>
                             </form>
                         </div>

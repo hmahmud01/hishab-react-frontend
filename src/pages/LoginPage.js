@@ -75,7 +75,7 @@ class LoginPage extends Component{
         });
     }
     
-//<form className="m-t" role="form" action="index.html">
+//                <form className="m-t" role="form" action="index.html">
 //                    {this.state.isError == true &&
 //                        <Alert message={this.state.message} type={this.state.alertType}/>
 //                    }
@@ -106,9 +106,9 @@ class LoginPage extends Component{
                 </div>
                 
                 <h2>Welcome to <strong>Hishab</strong></h2>
-                       <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
-                    <TextInput id="uphone" type="text" placeholder="Phone Number"/>
-                    <TextInput id="upass" type="password" placeholder="password"/>
+                    <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
+                        <TextInput id="uphone" type="text" placeholder="Phone Number"/>
+                        <TextInput id="upass" type="password" placeholder="password"/>
                 </FormBase> 
                 <p className="m-t"> <small>Hishab &copy; 2017</small> </p>
             </div>
