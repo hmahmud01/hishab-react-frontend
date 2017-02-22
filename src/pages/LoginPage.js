@@ -28,7 +28,6 @@ class LoginPage extends Component{
     
     onLoginClicked(event){
         event.preventDefault();
-        this.refs.loginForm.getJSON();
         console.log("Clicked Login");
         $.ajax({
             method: 'post',
@@ -107,7 +106,7 @@ class LoginPage extends Component{
                 </div>
                 
                 <h2>Welcome to <strong>Hishab</strong></h2>
-                       <FormBase ref="loginForm" buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
+                       <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
                     <TextInput id="uphone" type="text" placeholder="Phone Number"/>
                     <TextInput id="upass" type="password" placeholder="password"/>
                 </FormBase> 
