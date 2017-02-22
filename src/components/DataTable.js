@@ -6,22 +6,8 @@ class DataTable extends Component{
     constructor(props){
         super(props);
         this.state = {
-            columns : ["Product Name", "Quantity", "Unit Price", "Total"],
-            rowValues : [
-                [
-                    "Alu", 10, 100, 1000
-                ],[
-                    "Potol", 10, 100, 1000
-                ],[
-                    "Rice", 10, 100, 1000
-                ],[
-                    "Biscuit", 10, 100, 1000
-                ],[
-                    "Coffee", 10, 100, 1000
-                ],[
-                    "Benson", 10, 100, 1000
-                ]
-            ]
+            columns : [],
+            rowValues : []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.addRow = this.addRow.bind(this);
@@ -33,7 +19,7 @@ class DataTable extends Component{
         var data = this.state.rowValues[index];
         var headers = this.state.columns;
         this.deleteRow(index);
-        this.props.editRow(headers, data);
+        this.props.editRow(headers, data, index);
     }
     
     deleteRow(index){
@@ -42,9 +28,12 @@ class DataTable extends Component{
         this.setState({rowValues : newRows});
     }
     
-    addRow(data){
+    addRow(data, index){
         var newRow = this.state.rowValues;
-        newRow.push(data);
+        if (index !== undefined)
+            newRow.splice(index, 0, data);
+        else
+            newRow.push(data);
         this.setState({rowValues : newRow});
     }
     
