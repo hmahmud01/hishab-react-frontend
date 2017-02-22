@@ -6,24 +6,28 @@ import Cookies from 'js-cookie';
 class AutoSuggestText extends Component{
     constructor(props){
         super(props);
+        var val = props.value;
+        if (val == undefined)
+            val = "";
         this.state = {
             data : [],
-            value : ""
+            value : val
         };
         this.handleSearch = this.handleSearch.bind(this);
     }
     
     handleSearch(event){
-        var val = event.target.value+event.key;
-        console.log(val);
+        var value = event.target.value;
+        this.setState({value: event.target.value});
+        console.log(event.target.value);
         
-        if (val.length > 2){
+        if (event.target.value.length > 2){
             $.ajax({
             method: 'get',
             url: this.props.url,
             data: {
                 "uid": Cookies.get("uid"),
-                "search": val,
+                "search": event.target.value,
             },
             success: function(response) {
                 console.log(response);
@@ -34,6 +38,22 @@ class AutoSuggestText extends Component{
                 console.log(response);
             }
             });
+        }
+        
+        // This handles the data selection segment
+        if (this.state.data != []){
+            var options = this.state.data;
+            console.log(options);
+            console.log(value);
+            for (var i=0;i<options.length;i++){
+                if (options[i].value == value){
+                    console.log("Selected: "+options[i].value);
+                    if (this.props.onSelect !== undefined){
+                        var selectEvent = this.props.onSelect.bind(this);
+                        selectEvent(value);
+                    }
+                }
+            }
         }
     }
     
@@ -51,7 +71,8 @@ class AutoSuggestText extends Component{
                     id={this.props.id}
                     ref="field"
                     className="form-control"
-                    onKeyPress={this.handleSearch}
+                    value={this.state.value}
+                    onChange={this.handleSearch}
                 />
             
                 <datalist id={this.props.datalist}>
