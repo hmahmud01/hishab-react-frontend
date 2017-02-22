@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import UserForm from './UserForm';
 import SummaryForm from './SummaryForm';
 import ProductForm from './ProductForm';
-import FormComp from './FormComp';
+import FormBase from './FormBase';
 import FormFrame from './FormFrame';
 import Testform from './Testform';
 
@@ -83,9 +83,9 @@ class TranscriptionForm extends Component {
         
 		return (
             <div>
-                <UserForm audio={this.props.data.audio} formtype={this.props.data.cty} phone={this.props.data.phone}/>
+                <UserForm ref="userData" audio={this.props.data.audio} formtype={this.props.data.cty} phone={this.props.data.phone}/>
                 <ProductForm ref="products"/>
-                <SummaryForm onSubmit={this.onTranscriptionClicked}/> 
+                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked}/> 
                 <Testform />
             </div>
 
