@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import FormComp from './FormComp';
+import FormBase from './FormBase';
 import FormFrame from './FormFrame';
 import AutoSuggestText from './AutoSuggestText';
 import TextInput from './TextInput';
@@ -19,7 +19,11 @@ class Testform extends Component {
 	render(){
 		return(
 			<FormFrame head="Voice information">
+<<<<<<< HEAD
                 <FormComp formheader="Caller Form" onClick={this.submitForm}>
+=======
+                <FormBase formheader="Caller Form">
+>>>>>>> 12331742b83c03f2cffe05f3be460e46d9535296
 
                 	<TextInput id="ph_numer" label="Phone Number" placeholder="Phone Number"/>
                 	<TextInput id="name" label="Name" placeholder="Name"/>
@@ -42,7 +46,7 @@ class Testform extends Component {
 	                </div>  
 
 	                <RadioInput />
-                </FormComp>
+                </FormBase>
             </FormFrame>   
 		);
 	}

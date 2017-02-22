@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import FormBase from '../components/FormBase';
+import TextInput from '../components/TextInput';
+import Row from '../components/Row';
+import Col from '../components/Col';
 import HishabLogo from './images/logo.png';
 import Alert from '../components/Alert';
 
@@ -24,6 +28,7 @@ class LoginPage extends Component{
     
     onLoginClicked(event){
         event.preventDefault();
+        this.refs.loginForm.getJSON();
         console.log("Clicked Login");
         $.ajax({
             method: 'post',
@@ -71,6 +76,23 @@ class LoginPage extends Component{
         });
     }
     
+//<form className="m-t" role="form" action="index.html">
+//                    {this.state.isError == true &&
+//                        <Alert message={this.state.message} type={this.state.alertType}/>
+//                    }
+//                    <div className="form-group">
+//                        <input id="uphone" type="text" className="form-control" placeholder="Phone Number"/>
+//                        <input id="upass" type="password" className="form-control" placeholder="Password"/>
+//                    </div>
+//                    <button type="submit" className="btn btn-primary block full-width m-b" onClick={this.onLoginClicked}>Login</button>
+//
+//                    <a href="#" onClick={this.onPasswordForgotClicked}><small>Forgot password?</small></a>
+//                </form>
+    
+    
+
+    
+    
     render(){
         return(
         <div className="gray-bg-size">
@@ -85,19 +107,10 @@ class LoginPage extends Component{
                 </div>
                 
                 <h2>Welcome to <strong>Hishab</strong></h2>
-                <p>Login with credentials</p>
-                <form className="m-t" role="form" action="index.html">
-                    {this.state.isError == true &&
-                        <Alert message={this.state.message} type={this.state.alertType}/>
-                    }
-                    <div className="form-group">
-                        <input id="uphone" type="text" className="form-control" placeholder="Phone Number"/>
-                        <input id="upass" type="password" className="form-control" placeholder="Password"/>
-                    </div>
-                    <button type="submit" className="btn btn-primary block full-width m-b" onClick={this.onLoginClicked}>Login</button>
-
-                    <a href="#" onClick={this.onPasswordForgotClicked}><small>Forgot password?</small></a>
-                </form>
+                       <FormBase ref="loginForm" buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
+                    <TextInput id="uphone" type="text" placeholder="Phone Number"/>
+                    <TextInput id="upass" type="password" placeholder="password"/>
+                </FormBase> 
                 <p className="m-t"> <small>Hishab &copy; 2017</small> </p>
             </div>
         </div>
