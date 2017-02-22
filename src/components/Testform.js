@@ -5,17 +5,21 @@ import AutoSuggestText from './AutoSuggestText';
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 
-
 class Testform extends Component {
 	constructor(props){
 		super(props);
 		this.state ={};
+		this.submitForm = this.submitForm.bind(this);
+	}
+
+	submitForm(){
+		alert('Form submit working');
 	}
 
 	render(){
 		return(
 			<FormFrame head="Voice information">
-                <FormComp formheader="Caller Form">
+                <FormComp formheader="Caller Form" onClick={this.submitForm}>
 
                 	<TextInput id="ph_numer" label="Phone Number" placeholder="Phone Number"/>
                 	<TextInput id="name" label="Name" placeholder="Name"/>
