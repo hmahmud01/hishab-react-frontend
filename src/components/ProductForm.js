@@ -149,34 +149,42 @@ class ProductForm extends Component {
                 <DataTable header="Added Products" ref="data" passData={this.receiveData} editRow={this.editRow} onClick={this.addMoreProducts}/>
 
                 <Modal id="modal-product" title="Add Product to Transaction" onClick={this.addRow}>
-                    <AutoSuggestText 
-                        id="product"
-                        placeholder="Product"
-                        datalist="productlist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/product"
-                        onSelect={this.productSelected}>
-                        <span className="input-group-btn">
-                            <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
-                                <i className="fa fa-plus" aria-hidden="true"></i>
-                            </a>
-                        </span>
-                    </AutoSuggestText>
+                    <div className="form-group"><label className="col-sm-4 control-label">Product</label>
+                        <div className="col-sm-8">
+                            <AutoSuggestText 
+                                id="product"
+                                placeholder="Product"
+                                datalist="productlist"
+                                url="http://192.168.5.2:8000/api/v1/transaction/search/product"
+                                onSelect={this.productSelected}>
+                                <span className="input-group-btn">
+                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>
+                                        <i className="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </AutoSuggestText>
+                        </div>
+                    </div>
                     {this.state.modalFields}
                 </Modal>
 
                 <Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product">
-                    <AutoSuggestText 
-                        id="category"
-                        placeholder="Category"
-                        datalist="categorylist"
-                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-                        onSelect={this.productSelected}>
-                        <span className="input-group-btn">
-                            <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
-                                <i className="fa fa-plus" aria-hidden="true"></i>
-                            </a>
-                        </span>
-                    </AutoSuggestText>
+                    <div className="form-group"><label className="col-sm-4 control-label">Category</label>
+                        <div className="col-sm-8">
+                            <AutoSuggestText 
+                                id="category"
+                                placeholder="Category"
+                                datalist="categorylist"
+                                url="http://192.168.5.2:8000/api/v1/transaction/search/category"
+                                onSelect={this.productSelected}>
+                                <span className="input-group-btn">
+                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
+                                        <i className="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </AutoSuggestText>
+                        </div>
+                    </div>
                     {this.state.modalFields}
                 </Modal>
             
