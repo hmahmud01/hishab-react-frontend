@@ -213,12 +213,18 @@ class ProductForm extends Component {
     
     addNewCategory(){
         console.log("in add new category");
+        var datia = {
+                "cname": document.getElementById("category-name").value, 
+                "cfield": (document.getElementById("category-fields").value).trim().split(","),
+                "uid": Cookies.get("uid")
+            };
+        console.log(datia)
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/submit/category',
             data: {
                 "cname": document.getElementById("category-name").value, 
-                "cfields": (document.getElementById("category-fields").value).split(","),
+                "cfield": (document.getElementById("category-fields").value).trim().split(","),
                 "uid": Cookies.get("uid")
             },
             success: function(response){
@@ -267,7 +273,7 @@ class ProductForm extends Component {
                                 url="http://192.168.5.2:8000/api/v1/transaction/search/category"
                                 onSelect={this.productSelected}>
                                 <span className="input-group-btn">
-                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
+                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
                                         <i className="fa fa-plus" aria-hidden="true"></i>
                                     </a>
                                 </span>
@@ -277,7 +283,7 @@ class ProductForm extends Component {
                     {this.state.modalFields}
                 </Modal>
             
-                <Modal id="modal-category-new" title="New Category" discard="Exit" success="Add Category">
+                <Modal id="modal-category-new" title="New Category" discard="Exit" success="Add Category" onClick={this.addNewCategory}>
                     <TextInput id="category-name" label="Category Name" placeholder="Category Name"/>
                     <TextInput id="category-fields" label="Category Fields" placeholder="Category Fields"/>
                 </Modal>
