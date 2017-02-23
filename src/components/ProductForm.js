@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Modal from './Modal';
 import DataTable from './DataTable';
 import TextInput from './TextInput';
+import AddNewProductForm from './AddNewProductForm';
+import AddNewCategoryForm from './AddNewCategoryForm';
 import AutoSuggestText from './AutoSuggestText';
 import sample from '../pages/sound/sample.mp3';
 import $ from 'jquery';
@@ -81,65 +83,7 @@ class ProductForm extends Component {
         this.setState({modalFields: modalFields});
     }
     
-    addNewProducts(){
-        var headers = this.refs.data.state.columns;
-        var output = [];
-        for (var i =0; i< headers.length; i++){
-            output[i] = ({header: headers[i], data: ""});
-        }
-        var modalFields = output.map(
-            function (product, index){
-                var id = "itemn"+index;
-                return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
-                );
-            }
-        );
-        this.setState({modalFieldsNew: modalFields});
-    }
-    
-    productSelected(id){
-        console.log(id);
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/product/attribute',
-            data: {
-                "uid" : Cookies.get("uid"),
-                "pid" : id
-            },
-            success: function(response){
-//                {"product_category": "test", "product_attribute": [], "product_id": 1, "product_unit_price": 10.0, "product_name": "test product"}
-                var data = $.parseJSON(response);
-                console.log(data);
-                var output = [];
-                var headers = [];
-                headers[0] = "Product Name";
-                headers[1] = "Category";
-                headers[2] = "Unit Price";
-                
-                output[0] = {header: "Product Name", data: data.product_name};
-                output[1] = {header: "Category", data: data.product_category};
-                output[2] = {header: "Unit Price", data: data.product_unit_price};
-                
-                for (var i=3; i < data.product_attribute.length+3; i++){
-                    output[i] = {header: data.product_attribute[i-3], data: ""};
-                    headers[i] = data.product_attribute[i-3];
-                }
-                var modalFields = output.map(
-                    function (product, index){
-                        
-                        var id = "item"+index;
-                        return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
-                        );
-                    }
-                );
-                this.refs.data.setState({columns : headers});
-                this.setState({headers: headers, modalFields: modalFields});
-            }.bind(this),
-            error: function(response){
-                
-            }
-        });
-    }
+
     
     productNewSelected(id){
         console.log(id);
@@ -210,6 +154,7 @@ class ProductForm extends Component {
     categorySelected(id){
         
     }
+
     
     addNewCategory(){
         console.log("in add new category");
@@ -263,30 +208,9 @@ class ProductForm extends Component {
                     {this.state.modalFields}
                 </Modal>
 
-                <Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product">
-                    <div className="form-group"><label className="col-sm-4 control-label">Category</label>
-                        <div className="col-sm-8">
-                            <AutoSuggestText 
-                                id="category"
-                                placeholder="Category"
-                                datalist="categorylist"
-                                url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-                                onSelect={this.productSelected}>
-                                <span className="input-group-btn">
-                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
-                                        <i className="fa fa-plus" aria-hidden="true"></i>
-                                    </a>
-                                </span>
-                            </AutoSuggestText>
-                        </div>
-                    </div>
-                    {this.state.modalFields}
-                </Modal>
-            
-                <Modal id="modal-category-new" title="New Category" discard="Exit" success="Add Category" onClick={this.addNewCategory}>
-                    <TextInput id="category-name" label="Category Name" placeholder="Category Name"/>
-                    <TextInput id="category-fields" label="Category Fields" placeholder="Category Fields"/>
-                </Modal>
+                <AddNewProductForm />
+                
+                <AddNewCategoryForm />
             </div>
 		);
 	}
