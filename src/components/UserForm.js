@@ -34,7 +34,7 @@ class UserForm extends Component {
         console.log(data);
         console.log("in user registration");
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/register',
             data: {
                 "tid": this.props.transId,
