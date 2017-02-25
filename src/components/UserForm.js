@@ -2,6 +2,7 @@ import React, {Component} from  'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import AutoSuggestText from './AutoSuggestText';
+import TextInput from './TextInput';
 import sample from '../pages/sound/sample.mp3';
 
 
@@ -9,8 +10,8 @@ class UserForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            buyerVal : this.props.phone,
-            sellerVal : this.props.phone,
+            buyerVal : this.props.formType == 1 ? this.props.phone : "",
+            sellerVal : this.props.formType == 2 ? this.props.phone : "",
             formData : {},
             isError: false,
             message: "None",
@@ -63,7 +64,7 @@ class UserForm extends Component {
         const divStyle = {
           width: '100%',          
         };
-
+        
         var listItems = this.state.orgdata.map(
             (listItem, index) => 
             <option key={index} value={listItem.org_name}>{listItem.org_id}</option>
@@ -89,7 +90,7 @@ class UserForm extends Component {
                                                     id="buyer"
                                                     placeholder="Buyer"
                                                     datalist="buyerlist"
-                                                    
+                                                    value={this.state.buyerVal}
                                                     url="http://192.168.5.2:8000/api/v1/transaction/search/user"
                                                 >
                                                     <span className="input-group-btn">
@@ -106,6 +107,7 @@ class UserForm extends Component {
                                                     id="seller"
                                                     placeholder="Seller"
                                                     datalist="sellerlist"
+                                                    value={this.state.sellerVal}
                                                     url="http://192.168.5.2:8000/api/v1/transaction/search/user"
                                                 >
                                                     <span className="input-group-btn"> 

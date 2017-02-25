@@ -23,11 +23,7 @@ class ProductForm extends Component {
         this.editRow = this.editRow.bind(this);
         this.addRow = this.addRow.bind(this);
         this.addMoreProducts = this.addMoreProducts.bind(this);
-        this.addNewProducts = this.addNewProducts.bind(this);
-        this.addNewCategory = this.addNewCategory.bind(this);
         this.productSelected = this.productSelected.bind(this);
-        this.productNewSelected = this.productNewSelected.bind(this);
-        this.createNewProduct = this.createNewProduct.bind(this);
         this.categorySelected = this.categorySelected.bind(this);
     }
     
@@ -83,9 +79,7 @@ class ProductForm extends Component {
         this.setState({modalFields: modalFields});
     }
     
-
-    
-    productNewSelected(id){
+    productSelected(id){
         console.log(id);
         $.ajax({
             method: 'get',
@@ -95,7 +89,6 @@ class ProductForm extends Component {
                 "pid" : id
             },
             success: function(response){
-//                {"product_category": "test", "product_attribute": [], "product_id": 1, "product_unit_price": 10.0, "product_name": "test product"}
                 var data = $.parseJSON(response);
                 console.log(data);
                 var output = [];
@@ -108,20 +101,19 @@ class ProductForm extends Component {
                 output[1] = {header: "Category", data: data.product_category};
                 output[2] = {header: "Unit Price", data: data.product_unit_price};
                 
-                for (var i=3; i < data.product_attribute.length+3; i++){
+                for (var i=3; i< data.product_attribute; i++){
                     output[i] = {header: data.product_attribute[i-3], data: ""};
                     headers[i] = data.product_attribute[i-3];
                 }
                 var modalFields = output.map(
                     function (product, index){
-                        
-                        var id = "itemn"+index;
+                        var id = "item"+index;
                         return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
                         );
                     }
                 );
                 this.refs.data.setState({columns : headers});
-                this.setState({headers: headers, modalFieldsNew: modalFields});
+                this.setState({headers: headers, modalFields: modalFields});
             }.bind(this),
             error: function(response){
                 
@@ -129,58 +121,8 @@ class ProductForm extends Component {
         });
     }
     
-    createNewProduct(){
-        console.log("in add new product");
-        $.ajax({
-            method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
-            data: {
-                "pname": document.getElementById("itemn0").value, 
-                "pcatg": document.getElementById("itemn1").value,
-                "punpr": document.getElementById("itemn2").value,
-                "uid": Cookies.get("uid")
-            },
-            success: function(response){
-                console.log(response);
-            },
-            error: function(response){
-                console.log(response.responseText);
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg});
-            }.bind(this),
-        });
-    }
-    
     categorySelected(id){
         
-    }
-
-    
-    addNewCategory(){
-        console.log("in add new category");
-        var datia = {
-                "cname": document.getElementById("category-name").value, 
-                "cfield": (document.getElementById("category-fields").value).trim().split(","),
-                "uid": Cookies.get("uid")
-            };
-        console.log(datia)
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/category',
-            data: {
-                "cname": document.getElementById("category-name").value, 
-                "cfield": (document.getElementById("category-fields").value).trim().split(","),
-                "uid": Cookies.get("uid")
-            },
-            success: function(response){
-                console.log(response);
-            },
-            error: function(response){
-                console.log(response.responseText);
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg});
-            }.bind(this),
-        });
     }
     
 	render(){

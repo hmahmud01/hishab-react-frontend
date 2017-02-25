@@ -1,25 +1,17 @@
 import React, {Component} from 'react';
+import InputComponent from './InputComponent';
 
-class TextInput extends Component{
+class TextInput extends InputComponent{
     constructor(props){
         super(props);
-        this.state = {
-            value : this.props.value
-        };
         this.setValue = this.setValue.bind(this);
     }
     
-    componentWillReceiveProps(nextProps){
-        this.setState({value: nextProps.value});
-    }
-    
     setValue(event){
-        var value = event.target.value;
-        this.setState({value: value});
+        super.setValue(event);
     }
     
     render(){
-        
         var classname = this.props.label === undefined ? "col-sm-12" : "col-sm-8";
         var type = this.props.type !== undefined ? this.props.type : "text";
         return(

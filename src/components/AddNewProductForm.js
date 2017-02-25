@@ -12,13 +12,13 @@ class AddNewProductForm extends Component{
 		this.state ={
 			data : [],
             headers: [],
-            modalFields : []
+            modalFieldsNew : []
 		};
-		this.productSelected = this.productSelected.bind(this);
+		this.productNewSelected = this.productNewSelected.bind(this);
+        this.createNewProduct = this.createNewProduct.bind(this);
 	}
-
-
-	productSelected(id){
+    
+    productNewSelected(id){
         console.log(id);
         $.ajax({
             method: 'get',
@@ -28,6 +28,7 @@ class AddNewProductForm extends Component{
                 "pid" : id
             },
             success: function(response){
+//                {"product_category": "test", "product_attribute": [], "product_id": 1, "product_unit_price": 10.0, "product_name": "test product"}
                 var data = $.parseJSON(response);
                 console.log(data);
                 var output = [];
@@ -40,29 +41,53 @@ class AddNewProductForm extends Component{
                 output[1] = {header: "Category", data: data.product_category};
                 output[2] = {header: "Unit Price", data: data.product_unit_price};
                 
-                for (var i=3; i< data.product_attribute; i++){
+                for (var i=3; i < data.product_attribute.length+3; i++){
                     output[i] = {header: data.product_attribute[i-3], data: ""};
                     headers[i] = data.product_attribute[i-3];
                 }
                 var modalFields = output.map(
                     function (product, index){
-                        var id = "item"+index;
+                        
+                        var id = "itemn"+index;
                         return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
                         );
                     }
                 );
-                this.refs.data.setState({columns : headers});
-                this.setState({headers: headers, modalFields: modalFields});
+                this.setState({headers: headers, modalFieldsNew: modalFields});
+                console.log("Updated State");
             }.bind(this),
             error: function(response){
                 
             }
         });
     }
+    
+    createNewProduct(){
+        console.log("in add new product");
+        $.ajax({
+            method: 'post',
+            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
+            data: {
+                "pname": document.getElementById("itemn0").value, 
+                "pcatg": document.getElementById("itemn1").value,
+                "punpr": document.getElementById("itemn2").value,
+                "uid": Cookies.get("uid")
+            },
+            success: function(response){
+                console.log(response);
+            },
+            error: function(response){
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg});
+            }.bind(this),
+        });
+    }
+
 
 	render(){
 		return(
-			<Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product">
+			<Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product" onClick={this.createNewProduct}>
                	<div className="form-group"><label className="col-sm-4 control-label">Category</label>
                     <div className="col-sm-8">
                 	    <AutoSuggestText 
@@ -70,16 +95,16 @@ class AddNewProductForm extends Component{
 	                        placeholder="Category"
 	                        datalist="categorylist"
 	                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-	                        onSelect={this.productSelected}>
+	                        onSelect={this.productNewSelected}>
 	                       	<span className="input-group-btn">
-	                        	<a data-toggle="modal" className="btn btn-primary" href="#modal-category-new" onClick={this.addNewCategory}>
+	                        	<a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
 	                            	<i className="fa fa-plus" aria-hidden="true"></i>
 	                            </a>
 	                        </span>
                    		</AutoSuggestText>
                		</div>
             	</div>
-        		{this.state.modalFields}
+        		{this.state.modalFieldsNew}
     		</Modal>
 		);
 	}

@@ -12,15 +12,24 @@ class AddNewCategoryForm extends Component{
 		this.state = {};
 		this.addNewCategory = this.addNewCategory.bind(this);
 	}
+    
+    
 
-	addNewCategory(){
+    
+    addNewCategory(){
         console.log("in add new category");
+        var datia = {
+                "cname": document.getElementById("category-name").value, 
+                "cfield": (document.getElementById("category-fields").value).trim().split(","),
+                "uid": Cookies.get("uid")
+            };
+        console.log(datia)
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/submit/category',
             data: {
                 "cname": document.getElementById("category-name").value, 
-                "cfields": (document.getElementById("category-fields").value).split(","),
+                "cfield": (document.getElementById("category-fields").value).trim().split(","),
                 "uid": Cookies.get("uid")
             },
             success: function(response){

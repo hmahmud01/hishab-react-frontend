@@ -1,26 +1,23 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import InputComponent from './InputComponent';
+import TextInput from './TextInput';
 
-class AutoSuggestText extends Component{
+class AutoSuggestText extends InputComponent{
     constructor(props){
         super(props);
-        var val = props.value;
-        if (val == undefined)
-            val = "";
         this.state = {
-            data : [],
-            value : val
+            data : []
         };
-        this.handleSearch = this.handleSearch.bind(this);
+        this.setValue = this.setValue.bind(this);
+        this.onSelect = this.onSelect.bind(this);
     }
     
-    handleSearch(event){
-        var value = event.target.value;
-        this.setState({value: event.target.value});
-        console.log(event.target.value);
+    setValue(event){
+        super.setValue(event);
         
+        // This handles the data field loading
         if (event.target.value.length > 2){
             $.ajax({
             method: 'get',
@@ -30,28 +27,27 @@ class AutoSuggestText extends Component{
                 "search": event.target.value,
             },
             success: function(response) {
-                console.log(response);
                 var data = $.parseJSON(response)
                 this.setState({data : data});
             }.bind(this),
             error: function(response) {
-                console.log(response);
             }
             });
         }
         
         // This handles the data selection segment
         if (this.state.data != []){
-            var options = this.state.data;
-            console.log(options);
-            console.log(value);
-            for (var i=0;i<options.length;i++){
-                if (options[i].value == value){
-                    console.log("Selected: "+options[i].value);
-                    if (this.props.onSelect !== undefined){
-                        var selectEvent = this.props.onSelect.bind(this);
-                        selectEvent(value);
-                    }
+            this.onSelect(event.target.value);    
+        }
+    }
+    
+    onSelect(value){
+        var options = this.state.data;
+        for (var i=0;i<options.length;i++){
+            if (options[i].value == value){
+                if (this.props.onSelect !== undefined){
+                    var selectEvent = this.props.onSelect.bind(this);
+                    selectEvent(value);
                 }
             }
         }
@@ -72,9 +68,8 @@ class AutoSuggestText extends Component{
                     ref="field"
                     className="form-control"
                     value={this.state.value}
-                    onChange={this.handleSearch}
+                    onChange={this.setValue}
                 />
-            
                 <datalist id={this.props.datalist}>
                     {listItems}
                 </datalist>
