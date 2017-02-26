@@ -10,8 +10,8 @@ class UserForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            buyerVal : this.props.formType == 1 ? this.props.phone : "",
-            sellerVal : this.props.formType == 2 ? this.props.phone : "",
+            buyerVal : "",
+            sellerVal : "",
             formData : {},
             isError: false,
             message: "None",
@@ -20,6 +20,14 @@ class UserForm extends Component {
             orgdata: []
         };
         this.onUserAddClicked = this.onUserAddClicked.bind(this);
+    }
+    
+    componentWillReceiveProps(props){
+        if (props.formtype == "1"){
+            this.setState({buyerVal: props.phone});
+        }else{
+            this.setState({sellerVal : props.phone});
+        }
     }
     
     onUserAddClicked(event){

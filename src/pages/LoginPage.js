@@ -94,7 +94,6 @@ class LoginPage extends Component{
     
     
     render(){
-        const divStyle
         return(
         <div className="gray-bg-size">
         <div className="middle-box text-center loginscreen animated fadeInDown">
