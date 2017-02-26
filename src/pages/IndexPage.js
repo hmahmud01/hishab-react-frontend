@@ -19,6 +19,7 @@ class IndexPage extends Component {
     }
     
     componentDidMount() {
+        document.body.classList.remove("gray-bg-size");   
         console.log("Entered Mount State");
         var uid = Cookies.get("uid");
         if (uid === undefined)

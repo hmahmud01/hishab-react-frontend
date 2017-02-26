@@ -1,7 +1,38 @@
 import React, {Component} from  'react'
 import sample from '../pages/sound/sample.mp3';
+import $ from 'jquery';
 
 class SummaryForm extends Component {
+    constructor(props){
+        super(props);
+        this.state = {};
+        this.onErrorClicked = this.onErrorClicked.bind(this);
+    }
+
+
+    //make url to accept the error report submit
+    onErrorClicked(event){
+        event.preventDefault();
+        console.log($('input[name="error"]:checked').val());
+        $.ajax({
+            method: 'get',
+            url: 'http://192.168.5.2:8000/api/v1/error',
+            data: {
+                "tid": this.props.transId,
+                "error" : $('input[name="error"]:checked').val(),
+            },
+            success: function(response){
+                console.log(response);
+                var data = $.parseJSON(response);
+                this.setState({isError: false, message: data.msg, alertType: "success"});
+            }.bind(this),
+            error: function(response){
+                console.log(response.responseText);
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }.bind(this),
+        });
+    }
 
 	render(){
 
@@ -51,22 +82,17 @@ class SummaryForm extends Component {
                                 <div className="modal-body">
                                     <div className="row">
                                         <div className="col-sm-10">
-                                            <div><label> <input type="radio" value="Audio Issue" name="audio" /> <i></i> Audio Issue </label></div>
-                                            <div><label> <input type="radio" value="System error" name="system" /> <i></i> System Error </label></div>
-                                            <div><label> <input type="radio" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
-                                            <div><label> <input type="radio" value="Others" name="others" /> <i></i> Others </label></div>
-
-                                            <div><label> <input type="radio" value="option1" name="a" /> <i></i> one </label></div>
-                                            <div><label> <input type="radio" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
-                                            <div><label> <input type="radio" checked="" value="option2" /> <i></i> three checked and disabled </label></div>
-                                            <div><label> <input type="radio" disabled="" name="a" /> <i></i> four disabled </label></div>
+                                            <div><label> <input type="radio" name="error" value="opt1" /> one </label></div>
+                                            <div><label> <input type="radio" name="error" value="opt2" /> two </label></div>
+                                            <div><label> <input type="radio" name="error" value="opt3" /> three </label></div>
+                                            <div><label> <input type="radio" name="error" value="opt4" /> 4 </label></div>
                                             
                                         </div>                                       
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onErrorClicked}>Save changes</button>
                                 </div>
                             </form>
                         </div>
