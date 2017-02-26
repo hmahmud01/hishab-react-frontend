@@ -17,17 +17,6 @@ class CallList extends Component{
         return (
         <div className="col-lg-9 animated fadeInRight">
             <div className="mail-box-header">
-
-                <form method="get" action="#" className="pull-right mail-search">
-                    <div className="input-group">
-                        <input type="text" className="form-control input-sm" name="search" placeholder="Search email"/>
-                        <div className="input-group-btn">
-                            <button type="submit" className="btn btn-sm btn-primary">
-                                Search
-                            </button>
-                        </div>
-                    </div>
-                </form>
                 <h2>
                     {this.props.title}
                 </h2>

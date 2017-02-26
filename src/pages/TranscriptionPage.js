@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import RegistrationFormPage from './RegistrationFormPage';
 import TranscriptionFormPage from './TranscriptionFormPage'
 import TranslationFormPage from './TranslationFormPage';
+import RevisionFormPage from './RevisionFormPage';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -12,6 +13,7 @@ import HishabLogo from './images/logo.png';
 import TypeList from '../components/TypeList';
 import CallList from '../components/CallList';
 import Alert from '../components/Alert';
+
 
 class TranscriptionPage extends Component {
     constructor(props) {
@@ -159,6 +161,10 @@ class TranscriptionPage extends Component {
             case "#/translation":
                 return(
                     <TranslationFormPage transId={this.state.transId}/>
+                );
+            case "#/revision":
+                return(
+                    <RevisionFormPage transId={this.state.transId}/>
                 );
         }
     }

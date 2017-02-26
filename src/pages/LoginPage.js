@@ -21,6 +21,7 @@ class LoginPage extends Component{
     }
     
     componentDidMount(){
+        
         var uid = Cookies.get("uid");
         if (uid !== undefined)
             window.location.hash = "#/home";
@@ -93,6 +94,7 @@ class LoginPage extends Component{
     
     
     render(){
+        const divStyle
         return(
         <div className="gray-bg-size">
         <div className="middle-box text-center loginscreen animated fadeInDown">
