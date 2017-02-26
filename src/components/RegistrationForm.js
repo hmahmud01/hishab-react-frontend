@@ -25,6 +25,7 @@ class RegistrationForm extends Component {
 
     onRegistrationClicked(event){
         event.preventDefault();
+        
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/register',

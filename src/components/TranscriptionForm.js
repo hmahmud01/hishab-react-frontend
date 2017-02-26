@@ -43,24 +43,7 @@ class TranscriptionForm extends Component {
         $.ajax({
             method: 'post',
             url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
-            data: {
-                "buyer": document.getElementById("buyer").value,
-                "seller": document.getElementById("seller").value,
-                "products": [
-                    {
-                        "name": "alu",
-                        "qty": "5 kg",
-                        "price": 10.00,
-                        "total": 50.00
-                    }
-                ],
-                "total": document.getElementById("total").value,
-                "discount": document.getElementById("discount").value,
-                "paid": document.getElementById("paid").value,
-                "due": document.getElementById("due").value,
-                "uid": Cookies.get("uid"),
-                "tid": 1
-            },
+            data: data,
 
             success: function(response){
                 console.log(response);
