@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class InputComponent extends Component{
     constructor(props){
         super(props);
@@ -18,15 +17,16 @@ class InputComponent extends Component{
     
     setValue(event){
         var value = event.target.value;
-        this.onValueChanged(value);
+        this.onValueChanged(event);
     }
 
-    onValueChanged(value){
-        this.setState({value: value});
+    onValueChanged(event){
+        this.setState({value: event.target.value});
         if (this.props.valueChangeListener !== undefined){
             var valueChanged = this.props.valueChangeListener.bind(this);
-            valueChanged(value);
+            valueChanged(event);
         }
     }
 }
+
 export default InputComponent;

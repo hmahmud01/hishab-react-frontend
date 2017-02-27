@@ -14,6 +14,9 @@ import TypeList from '../components/TypeList';
 import CallList from '../components/CallList';
 import Alert from '../components/Alert';
 
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
+
 
 class TranscriptionPage extends Component {
     constructor(props) {
@@ -42,42 +45,25 @@ class TranscriptionPage extends Component {
         if (uid === undefined)
             window.location.hash = "#/";
         
-        // TODO: Clean this shit!!!
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
-            data: {
-                "uid": Cookies.get("uid"),
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
-                console.log(response);
-                this.typeClickHandler(data.data[1].callType, "Transcriptions");
-                this.setState({items: data.data});
-            }.bind(this),
-            error: function(response) {
-                console.log(response.responseText);
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status == "success"){
+                this.typeClickHandler(data.get('data')[1].callType, "Transcriptions");
+                this.setState({items: data.get('data')});
+            }else if (status == "error"){
+                // todo: Create error alert
             }
-        });
+        }.bind(this);
         
-        window.autoInterval = setInterval(function(){
-            $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
-            data: {
-                "uid": Cookies.get("uid"),
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
-                console.log(response);
-                this.setState({items: data.data});
-            }.bind(this),
-            error: function(response) {
-                console.log(response.responseText);
-            }
-        });
-        }.bind(this), 30000);
-        window.autoInterval;
+        var params = {"uid": Cookies.get("uid")};
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/get/call/count', params);
+        
+        
+        window.autoInterval = setInterval(
+            ajax.getData('http://192.168.5.2:8000/api/v1/get/call/count', params), 
+            30000);
     }
     
     componentWillUnmount(){
@@ -85,31 +71,27 @@ class TranscriptionPage extends Component {
     }
     
     typeClickHandler(key, title) {
-        console.log("entered");
         this.setState({title: title});
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/transaction/list',
-            data: {
-                "uid": Cookies.get("uid"),
-                "cty": key,
-            },
-            success: function(response) {
+        
+        var callback = function(response, status){
+//            var data = new Json(response);
+            if (status == "success"){
                 console.log(response);
                 var data = $.parseJSON(response);
                 if (data.length < 1)
-                    this.setState({hasAlert:true, 
-                                   alertMessage: "No Data Available", 
-                                   alertType: "warning",
-                                  callItems: data});
+                    this.setState({hasAlert:true, alertMessage: "No Data Available", alertType: "warning",callItems: data});
                 else
                     this.setState({callItems: data, hasAlert:false});
                 console.log(response);
-            }.bind(this),
-            error: function(response){
-                console.log(response);
+            }else if (status == "error"){
+                this.setState({hasAlert:true, alertMessage: "No Data Available", alertType: "danger",callItems: data});
             }
-        });
+        }.bind(this);
+        
+        var params = {"uid": Cookies.get("uid"),"cty": key};
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/get/transaction/list', params);
     }
     
     callItemClickHandler(key, type) {
@@ -140,9 +122,7 @@ class TranscriptionPage extends Component {
                     <ContentWrapper>
                         <Header username={Cookies.get("uname")}/>
                         <Content>
-                            {this.state.hasAlert === true &&
-                                <Alert type={this.state.alertType} message={this.state.alertMessage}/>
-                            }
+                                <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
                             <TypeList items = {this.state.items} onClick = {this.typeClickHandler}/>
                             <CallList title={this.state.title} items={this.state.callItems} onClick = {this.callItemClickHandler}/>
                         </Content>
