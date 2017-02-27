@@ -118,9 +118,9 @@ class LoginPage extends Component{
                     </h1>
 
                 </div>
-            { this.state.isError &&
-                <Alert type={this.state.alertType} message={this.state.message}/>
-            }
+           
+                <Alert isVisible={this.state.isError} type={this.state.alertType} message={this.state.message}/>
+
                 <h2>Welcome to <strong>Hishab</strong></h2>
                     <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
                         <TextInput id="uphone" type="text" placeholder="Phone Number"/>

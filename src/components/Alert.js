@@ -8,9 +8,13 @@ class Alert extends Component{
     render(){
         var alertType = "alert animated fadeInRight alert-"+this.props.type;
         return (
-        <div className={alertType}>
-            {this.props.message}
-        </div>
+            <div>
+            {this.props.isVisible &&
+                <div className={alertType}>
+                    {this.props.message}
+                </div>
+            }
+            </div>
         );
     }
     
