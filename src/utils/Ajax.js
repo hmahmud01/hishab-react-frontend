@@ -14,12 +14,12 @@ class Ajax{
             method: 'get',
             url: url,
             data: params,
-            success: function(response){
-                this.onDataReceibed(response);
-            },
-            error: function(response){
-                this.onDataReceived(response.responseText);
-            }
+            success: function(response, status){
+                this.onDataReceived(response, status);
+            }.bind(this),
+            error: function(response, status){
+                this.onDataReceived(response.responseText, status);
+            }.bind(this)
         });
     }
     
@@ -28,19 +28,19 @@ class Ajax{
             method: 'post',
             url: url,
             data: params,
-            success: function(response){
-                this.onDataReceibed(response);
-            },
-            error: function(response){
-                this.onDataReceived(response.responseText);
-            }
+            success: function(response, status){
+                this.onDataReceived(response, status);
+            }.bind(this),
+            error: function(response, status){
+                this.onDataReceived(response.responseText, status);
+            }.bind(this)
         });
     }
     
-    onDataReceived(response){
-        if (this.callbak !== undefined){
-            var callbackFunc = this.callback.bind(this);
-            callbackFunc(response);
+    onDataReceived(response, status){
+        if (this.callbackFunction !== undefined){
+            var callbackFunc = this.callbackFunction.bind(this);
+            callbackFunc(response, status);
         }
     }
     
