@@ -7,6 +7,7 @@ import Row from '../components/Row';
 import Col from '../components/Col';
 import HishabLogo from './images/logo.png';
 import Alert from '../components/Alert';
+import Ajax from '../utils/Ajax';
 
 class LoginPage extends Component{
     constructor(props){
@@ -60,10 +61,32 @@ class LoginPage extends Component{
         }
     }
     
+    
+
+    
+    
+//    var ajax = Ajax(function(response){
+//                console.log(response);
+//                var data = $.parseJSON(response);
+//                Cookies.set(response.cookie);
+//                Cookies.set('uid', data.uid, { path: '/' });
+//                Cookies.set('uty', data.uty, { path: '/' });
+//                Cookies.set('uname', data.uname, { path: '/' });
+//                Cookies.set('ust', data.ust, { path: '/' });
+//                console.log(document.cookie);
+//                window.location.hash="#/home";
+//        });
+//        
+//        ajax.postData('http://192.168.5.2:8000/api/v1/login', {
+//                "uphone": document.getElementById("uphone").value, 
+//                "upass": document.getElementById("upass").value, 
+//                "uid": Cookies.get("uid")
+//            });
+    
     onLoginClicked(event){
         event.preventDefault();
         console.log("Clicked Login");
-        $.ajax({
+            $.ajax({
             method: 'post',
             url: 'http://192.168.5.2:8000/api/v1/login',
             data: {
