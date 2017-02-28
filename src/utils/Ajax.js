@@ -15,10 +15,20 @@ class Ajax{
             url: url,
             data: params,
             success: function(response, status){
-                this.onDataReceived(response, status);
+                try{
+                    this.onDataReceived(response, status);
+                }catch (err){
+                    var response = {msg: "Server Connection Error"};
+                    this.onDataReceived(response, 400);
+                }
             }.bind(this),
             error: function(response, status){
+                try{
                 this.onDataReceived(response.responseText, status);
+                }catch (err){
+                    var response = {msg: "Server Connection Error"};
+                    this.onDataReceived(response, 400);
+                }
             }.bind(this)
         });
     }
@@ -29,10 +39,20 @@ class Ajax{
             url: url,
             data: params,
             success: function(response, status){
-                this.onDataReceived(response, status);
+                try{
+                    this.onDataReceived(response, status);
+                }catch (err){
+                    var response = {msg: "Server Connection Error"};
+                    this.onDataReceived(response, 400);
+                }
             }.bind(this),
             error: function(response, status){
-                this.onDataReceived(response.responseText, status);
+                try{
+                    this.onDataReceived(response.responseText, status);
+                }catch(err){
+                    var response = {msg: "Server Connection Error"};
+                    this.onDataReceived(response, 400);
+                }
             }.bind(this)
         });
     }
