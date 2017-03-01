@@ -39,22 +39,6 @@ class TranscriptionFormPage extends Component{
         var ajax = new Ajax(callback);
         ajax.getData('http://192.168.5.2:8000/api/v1/transaction/details', params);
         
-//        $.ajax({
-//            method: 'get',
-//            url: 'http://192.168.5.2:8000/api/v1/transaction/details',
-//            data: {
-//                "uid": Cookies.get("uid"),
-//                "tid": this.props.transId,
-//            },
-//            success:function(response){
-//                console.log(response);
-//                var data = $.parseJSON(response);
-//                console.log(data);
-//            }.bind(this),
-//            error:function(response){
-//                console.log(response.responseText);
-//            }.bind(this)
-//        });
     }
     
     render(){
