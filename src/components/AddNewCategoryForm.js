@@ -20,7 +20,7 @@ class AddNewCategoryForm extends Component{
         console.log("in add new category");
         var datia = {
                 "cname": document.getElementById("category-name").value, 
-                "cfield": (document.getElementById("category-fields").value).trim().split(","),
+                "cfield": (document.getElementById("category-fields").value).trim().split(", "),
                 "uid": Cookies.get("uid")
             };
         console.log(datia)
