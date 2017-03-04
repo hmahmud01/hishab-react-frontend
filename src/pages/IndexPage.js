@@ -5,6 +5,7 @@ import TranscriptionPage from './TranscriptionPage';
 import UserPage from './UserPage';
 import ReportPage from './ReportPage'
 import PasswordResetPage from './PasswordResetPage';
+import akij from './akij';
 
 class IndexPage extends Component {
     constructor(props){
@@ -72,7 +73,11 @@ class IndexPage extends Component {
             case "#/reset":
                 return(
                     <PasswordResetPage/>
-                );        
+                );    
+            case "#/akij":
+                return(
+                    <akij />
+                );     
             default:
                 return(
                     <TranscriptionPage/>

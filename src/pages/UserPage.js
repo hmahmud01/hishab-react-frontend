@@ -17,6 +17,7 @@ class UserPage extends Component {
             reportType: ""
         };
         this.widgetClicked = this.widgetClicked.bind(this);
+        this.akijClicked = this.akijClicked.bind(this);
     }
     
     componentDidMount() {
@@ -31,6 +32,14 @@ class UserPage extends Component {
             reportType: widgetLocation
         });
     }
+
+    akijClicked(widgetLocation){
+        this.setState({
+            location: "#/akij",
+            reportType: widgetLocation
+        });
+    }
+
     
     render() {
         switch (this.state.location){
@@ -53,6 +62,7 @@ class UserPage extends Component {
                                 <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick=   {this.widgetClicked}/>
                                 <IconButtonWidget icon="usd" header="Transactions" subheader="Daily" className="lazur-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="line-chart" header="Sales" subheader="All" className="navy-bg" onClick={this.widgetClicked}/>
+                                <IconButtonWidget icon="line-chart" header="Akij" subheader="SR template" className="red-bg" onClick={this.akijClicked}/>
                             </div>
                         </Content>
                         <Footer/>
