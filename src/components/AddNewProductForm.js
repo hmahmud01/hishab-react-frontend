@@ -17,6 +17,12 @@ class AddNewProductForm extends Component{
 		this.productNewSelected = this.productNewSelected.bind(this);
         this.createNewProduct = this.createNewProduct.bind(this);
 	}
+
+    //Add new product correction:
+    //  1. Select Product Attributes by Category.
+    //  2. Select Category from auto suggest.
+    //  3. Display product attribute from attribute list.
+    //  4. Create product attribute edit form.
     
     productNewSelected(id){
         console.log(id);
@@ -36,18 +42,27 @@ class AddNewProductForm extends Component{
                 headers[0] = "Product Name";
                 headers[1] = "Category";
                 headers[2] = "Unit Price";
+                // headers[3] = "Unit";
+                // headers[4] = "Quantity";
                 
                 output[0] = {header: "Product Name", data: data.product_name};
                 output[1] = {header: "Category", data: data.product_category};
                 output[2] = {header: "Unit Price", data: data.product_unit_price};
-                
-                for (var i=3; i < data.product_attribute.length+3; i++){
-                    output[i] = {header: data.product_attribute[i-3], data: ""};
-                    headers[i] = data.product_attribute[i-3];
+                // output[3] = {header: "Unit", data: data.product_unit_price};
+                // output[4] = {header: "Quantity", data: data.product_unit_price};
+
+                console.log("product selected");
+                var dummy = ["f1", "f2"];
+
+                // data.product_attribute returns "test attribute". resolve this
+
+                for (var i=3; i < dummy.length+3; i++){
+                    output[i] = {header: dummy[i-3], data: ""};
+                    headers[i] = dummy[i-3];
+                    console.log("header: "+headers[i]+" output: "+output[i]);
                 }
                 var modalFields = output.map(
-                    function (product, index){
-                        
+                    function (product, index){                        
                         var id = "itemn"+index;
                         return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
                         );
@@ -71,6 +86,8 @@ class AddNewProductForm extends Component{
                 "pname": document.getElementById("itemn0").value, 
                 "pcatg": document.getElementById("itemn1").value,
                 "punpr": document.getElementById("itemn2").value,
+                // "punit": document.getElementById("itemn3").value,
+                // "pqty": document.getElementById("itemn4").value,
                 "uid": Cookies.get("uid")
             },
             success: function(response){
