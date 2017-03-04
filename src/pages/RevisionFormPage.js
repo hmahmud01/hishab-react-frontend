@@ -9,7 +9,7 @@ import TranscriptionForm from '../components/TranscriptionForm';
 import HishabLogo from './images/logo.png';
 
 
-class TranscriptionFormPage extends Component{
+class RevisionFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -74,4 +74,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default TranscriptionFormPage;
+export default RevisionFormPage;

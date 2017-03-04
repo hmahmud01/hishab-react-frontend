@@ -24,7 +24,7 @@ class TextInput extends InputComponent{
                 <label className="col-sm-4 control-label">{this.props.label}</label>
             }
             <div className={classname}>
-                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue} onkeypress={this.props.onKeyPress}/>
+                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue} onkeypress="" />
             </div>
         </div>
         );

@@ -105,11 +105,25 @@ class ProductForm extends Component {
                 output[2] = {header: "Unit Price", data: data.product_unit_price};
                 output[3] = {header: "Unit", data: data.product_unit};
                 output[4] = {header: "Quantity", data: data.product_quantity};
+
                 
-                for (var i=5; i< data.product_attribute; i++){
-                    output[i] = {header: data.product_attribute[i-5], data: ""};
-                    headers[i] = data.product_attribute[i-5];
+                // for (var i=5; i< data.product_attribute; i++){
+                //     output[i] = {header: data.product_attribute[i-5], data: ""};
+                //     headers[i] = data.product_attribute[i-5];
+                // }
+
+                // dummy product attribute test
+                var dummy = ["f1", "f2"];                
+                for (var i=3; i < dummy.length+3; i++){
+                    output[i] = {header: dummy[i-3], data: ""};
+                    headers[i] = dummy[i-3];
+                    console.log("header: "+headers[i]+" output: "+output[i]);
                 }
+                // test ends
+
+
+
+
                 var modalFields = output.map(
                     function (product, index){
                         var id = "item"+index;
@@ -119,22 +133,22 @@ class ProductForm extends Component {
                         return(
                             // need to check if the header is equal to category or not
                             // <div>
-                                // <AutoSuggestText 
-                                //     id="category"
-                                //     placeholder="Category"
-                                //     datalist="categorylist"
-                                //     url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-                                //     onSelect={this.productNewSelected}>
-                                //     <span className="input-group-btn">
-                                //         <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
-                                //             <i className="fa fa-plus" aria-hidden="true"></i>
-                                //         </a>
-                                //     </span>
-                                // </AutoSuggestText>
+                            //     <AutoSuggestText 
+                            //         id="category"
+                            //         placeholder="Category"
+                            //         datalist="categorylist"
+                            //         url="http://192.168.5.2:8000/api/v1/transaction/search/category"
+                            //         onSelect={this.productNewSelected}>
+                            //         <span className="input-group-btn">
+                            //             <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
+                            //                 <i className="fa fa-plus" aria-hidden="true"></i>
+                            //             </a>
+                            //         </span>
+                            //     </AutoSuggestText>
 
 
                                 <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>    
-                            //  </div>
+                             // </div>
                         );
                     }
                 );

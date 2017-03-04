@@ -52,15 +52,21 @@ class AddNewProductForm extends Component{
                 // output[4] = {header: "Quantity", data: data.product_unit_price};
 
                 console.log("product selected");
-                var dummy = ["f1", "f2"];
 
-                // data.product_attribute returns "test attribute". resolve this
+                // for (var i=5; i< data.product_attribute; i++){
+                //     output[i] = {header: data.product_attribute[i-5], data: ""};
+                //     headers[i] = data.product_attribute[i-5];
+                // }
 
+                // dummy product attribute test
+                var dummy = ["f1", "f2"];                
                 for (var i=3; i < dummy.length+3; i++){
                     output[i] = {header: dummy[i-3], data: ""};
                     headers[i] = dummy[i-3];
                     console.log("header: "+headers[i]+" output: "+output[i]);
                 }
+                // test ends
+
                 var modalFields = output.map(
                     function (product, index){                        
                         var id = "itemn"+index;
