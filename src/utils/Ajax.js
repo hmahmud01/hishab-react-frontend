@@ -18,7 +18,7 @@ class Ajax{
                 try{
                     this.onDataReceived(response, status);
                 }catch (err){
-                    var response = {msg: "Server Connection Error"};
+                    response = {msg: "Server Connection Error"};
                     this.onDataReceived(response, 400);
                 }
             }.bind(this),
@@ -26,7 +26,7 @@ class Ajax{
                 try{
                 this.onDataReceived(response.responseText, status);
                 }catch (err){
-                    var response = {msg: "Server Connection Error"};
+                    response = {msg: "Server Connection Error"};
                     this.onDataReceived(response, 400);
                 }
             }.bind(this)
@@ -42,7 +42,7 @@ class Ajax{
                 try{
                     this.onDataReceived(response, status);
                 }catch (err){
-                    var response = {msg: "Server Connection Error"};
+                    response = {msg: "Server Connection Error"};
                     this.onDataReceived(response, 400);
                 }
             }.bind(this),
@@ -50,7 +50,7 @@ class Ajax{
                 try{
                     this.onDataReceived(response.responseText, status);
                 }catch(err){
-                    var response = {msg: "Server Connection Error"};
+                    response = {msg: "Server Connection Error"};
                     this.onDataReceived(response, 400);
                 }
             }.bind(this)

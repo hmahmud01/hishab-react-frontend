@@ -36,11 +36,11 @@ class NavbarHeader extends Component {
         return (
     <li className="nav-header">
         <div className="dropdown profile-element text-center"> 
-            <img src={this.props.logo} style={imgStyle}/>
+            <img src={this.props.logo} style={imgStyle} role="presentation"/>
             <h2 className="text-center">Hishab</h2>
         </div>
         <div className="logo-element">
-            <img src={this.props.logo} style={imgStyle}/>
+            <img src={this.props.logo} style={imgStyle} role="presentation"/>
             <h5 className="text-center">Hishab</h5>
         </div>
     </li>

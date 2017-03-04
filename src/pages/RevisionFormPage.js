@@ -36,7 +36,7 @@ class RevisionFormPage extends Component{
             }.bind(this),
             error:function(response){
                 console.log(response.responseText);
-            }.bind(this)
+            }
         });
     }
     

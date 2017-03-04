@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
 import Cookies from 'js-cookie';
 import TranscriptionPage from './TranscriptionPage';
 import UserPage from './UserPage';

@@ -1,12 +1,9 @@
-import React, {Component} from  'react'
-import sample from '../pages/sound/sample.mp3';
+import React, {Component} from  'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import UserForm from './UserForm';
 import SummaryForm from './SummaryForm';
 import ProductForm from './ProductForm';
-import FormBase from './FormBase';
-import FormFrame from './FormFrame';
 import Testform from './Testform';
 
 class TranscriptionForm extends Component {
@@ -60,9 +57,6 @@ class TranscriptionForm extends Component {
 
     
 	render(){
-        const divStyle = {
-          width: '100%',          
-        };
         
 		return (
             <div>

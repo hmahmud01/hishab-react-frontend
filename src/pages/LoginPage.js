@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 import FormBase from '../components/FormBase';
 import TextInput from '../components/TextInput';
-import Row from '../components/Row';
-import Col from '../components/Col';
 import HishabLogo from './images/logo.png';
 import Alert from '../components/Alert';
 import Ajax from '../utils/Ajax';
@@ -33,14 +31,14 @@ class LoginPage extends Component{
         
         var callback = function(response, status){
             var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 Cookies.set(response.cookie);
                 Cookies.set('uid', data.get('uid'), { path: '/' });
                 Cookies.set('uty', data.get('uty'), { path: '/' });
                 Cookies.set('uname', data.get('uname'), { path: '/' });
                 Cookies.set('ust', data.get('ust'), { path: '/' });
                 window.location.hash="#/home";
-            }else if (status == "error"){
+            }else if (status === "error"){
                 console.log("Error");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
@@ -61,9 +59,9 @@ class LoginPage extends Component{
         
         var callback = function(response, status){
             var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 this.setState({isError: true, message: data.get('msg'), alertType: "success"});
-            }else if (status == "error"){
+            }else if (status === "error"){
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);
@@ -82,7 +80,7 @@ class LoginPage extends Component{
                 <div>
 
                     <h1 className="logo-name">
-                        <img src={HishabLogo}/>
+                        <img src={HishabLogo} role="presentation"/>
                     </h1>
 
                 </div>

@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
 
 
 class Modal extends Component{
@@ -60,8 +58,8 @@ class ModalFooter extends Component{
     render(){
         return (
             <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.discard == undefined ? 'Close' : this.props.discard}</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.props.onClick}>{this.props.success == undefined ? 'Save changes' : this.props.success}</button>
+                <button type="button" className="btn btn-default" data-dismiss="modal">{this.props.discard === undefined ? 'Close' : this.props.discard}</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.props.onClick}>{this.props.success === undefined ? 'Save changes' : this.props.success}</button>
             </div>
         );
     }

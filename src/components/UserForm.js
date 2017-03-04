@@ -1,11 +1,8 @@
 import React, {Component} from  'react';
-import $ from 'jquery';
 import Cookies from 'js-cookie';
 import AutoSuggestText from './AutoSuggestText';
-import TextInput from './TextInput';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
-import sample from '../pages/sound/sample.mp3';
 
 
 class UserForm extends Component {
@@ -25,7 +22,7 @@ class UserForm extends Component {
     }
     
     componentWillReceiveProps(props){
-        if (props.formtype == "1"){
+        if (props.formtype === "1"){
             this.setState({buyerVal: props.phone});
         }else{
             this.setState({sellerVal : props.phone});
@@ -36,9 +33,9 @@ class UserForm extends Component {
         
         var callback = function(response, status){
             var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 this.setState({isError: false, message: data.get('msg'), alertType: "success"});
-            }else if (status == "error"){
+            }else if (status === "error"){
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);
@@ -89,10 +86,6 @@ class UserForm extends Component {
           width: '100%',          
         };
         
-        var listItems = this.state.orgdata.map(
-            (listItem, index) => 
-            <option key={index} value={listItem.org_name}>{listItem.org_id}</option>
-        );
         var audio = this.props.audio;
         if (audio !== undefined)
             audio = "http://192.168.5.2:8000"+audio[0];

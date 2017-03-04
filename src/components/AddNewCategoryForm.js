@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import TextInput from './TextInput';
-import AutoSuggestText from './AutoSuggestText'
 import Modal from './Modal';
 
 

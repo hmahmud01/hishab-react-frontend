@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import InputComponent from './InputComponent';
-import TextInput from './TextInput';
 
 class AutoSuggestText extends InputComponent{
     constructor(props){
@@ -36,7 +35,7 @@ class AutoSuggestText extends InputComponent{
         }
         
         // This handles the data selection segment
-        if (this.state.data != []){
+        if (this.state.data !== []){
             this.onSelect(event.target.value);    
         }
     }
@@ -44,7 +43,7 @@ class AutoSuggestText extends InputComponent{
     onSelect(value){
         var options = this.state.data;
         for (var i=0;i<options.length;i++){
-            if (options[i].value == value){
+            if (options[i].value.toString() === value){
                 if (this.props.onSelect !== undefined){
                     var selectEvent = this.props.onSelect.bind(this);
                     selectEvent(value);

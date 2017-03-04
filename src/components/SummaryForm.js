@@ -1,5 +1,4 @@
-import React, {Component} from  'react'
-import sample from '../pages/sound/sample.mp3';
+import React, {Component} from  'react';
 import $ from 'jquery';
 
 class SummaryForm extends Component {

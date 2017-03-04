@@ -57,7 +57,7 @@ class PasswordResetPage extends Component {
                     <Content>
                         <div className="border-bottom page-heading">
                             <div className="col-lg-12">
-                                {this.state.isError == true &&
+                                {this.state.isError === true &&
                                     <Alert message={this.state.message} type={this.state.alertType}/>
                                 }
                                 <h1>First Time Login</h1>

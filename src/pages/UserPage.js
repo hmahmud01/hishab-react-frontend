@@ -43,7 +43,11 @@ class UserPage extends Component {
     
     render() {
         switch (this.state.location){
-            case "#/":
+            case "#/report":
+                return(
+                    <ReportPage type={this.state.reportType}/>
+                );
+            default:
                 return(
                 <div className="wrapper">
                     <LeftNav logo={HishabLogo}/>
@@ -59,7 +63,7 @@ class UserPage extends Component {
                             <div className="row">
                                 <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick=   {this.widgetClicked}/>
+                                <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="usd" header="Transactions" subheader="Daily" className="lazur-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="line-chart" header="Sales" subheader="All" className="navy-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR template" className="red-bg" onClick={this.akijClicked}/>
@@ -69,10 +73,6 @@ class UserPage extends Component {
                     </ContentWrapper>
                 </div>
             );
-            case "#/report":
-                return(
-                    <ReportPage type={this.state.reportType}/>
-                );
         }
     }
 }

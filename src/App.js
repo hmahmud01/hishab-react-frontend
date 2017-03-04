@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 
@@ -26,7 +24,7 @@ class App extends Component {
     onRouteChange() {
         if (this.state.location === window.location.hash) {
             return;
-        } else if (window.location.hash == "#/" || window.location.hash == "#/home"){
+        } else if (window.location.hash === "#/" || window.location.hash === "#/home"){
             this.setState({location: window.location.hash});
         }
     }

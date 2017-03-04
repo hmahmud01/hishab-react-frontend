@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
 import Row from './Row';
 import Col from './Col';
 

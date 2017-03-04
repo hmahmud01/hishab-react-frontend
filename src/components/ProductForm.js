@@ -1,12 +1,10 @@
 import React, {Component} from  'react';
-import ReactDOM from 'react-dom';
 import Modal from './Modal';
 import DataTable from './DataTable';
 import TextInput from './TextInput';
 import AddNewProductForm from './AddNewProductForm';
 import AddNewCategoryForm from './AddNewCategoryForm';
 import AutoSuggestText from './AutoSuggestText';
-import sample from '../pages/sound/sample.mp3';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 
@@ -107,18 +105,25 @@ class ProductForm extends Component {
                 output[4] = {header: "Quantity", data: data.product_quantity};
 
                 
-                // for (var i=5; i< data.product_attribute; i++){
-                //     output[i] = {header: data.product_attribute[i-5], data: ""};
-                //     headers[i] = data.product_attribute[i-5];
-                // }
+                 for (var i=5; i< data.product_attribute.length+5; i++){
+                     output[i] = {header: data.product_attribute[i-5], data: ""};
+                     headers[i] = data.product_attribute[i-5];
+                 }
+                
+                // todo: move to add existing product area
+//                 for (var i=3; i < data.length+3; i++){
+//                     console.log(data[i])
+//                     output[i] = {header: data[i-3], data: ""};
+//                     headers[i] = data[i-3];
+//                 }
 
                 // dummy product attribute test
-                var dummy = ["f1", "f2"];                
-                for (var i=3; i < dummy.length+3; i++){
-                    output[i] = {header: dummy[i-3], data: ""};
-                    headers[i] = dummy[i-3];
-                    console.log("header: "+headers[i]+" output: "+output[i]);
-                }
+//                var dummy = ["f1", "f2"];                
+//                for (var i=3; i < dummy.length+3; i++){
+//                    output[i] = {header: dummy[i-3], data: ""};
+//                    headers[i] = dummy[i-3];
+//                    console.log("header: "+headers[i]+" output: "+output[i]);
+//                }
                 // test ends
 
 

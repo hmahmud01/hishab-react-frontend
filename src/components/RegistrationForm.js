@@ -53,10 +53,6 @@ class RegistrationForm extends Component {
     }
     
 	render(){
-        var listItems = this.state.orgdata.map(
-            (listItem, index) => 
-            <option key={index} value={listItem.org_name}>{listItem.org_id}</option>
-        );
         const divStyle = {
           width: '100%',          
         };

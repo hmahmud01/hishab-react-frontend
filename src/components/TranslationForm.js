@@ -1,5 +1,4 @@
-import React, {Component} from  'react'
-import sample from '../pages/sound/sample.mp3';
+import React, {Component} from  'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import Alert from '../components/Alert';
@@ -29,9 +28,8 @@ class TranslationForm extends Component {
 
             success: function(response){
                 console.log(response);
-                var data = $.parseJSON(response);
                 window.location.hash="#/home";
-            }.bind(this),
+            },
             error: function(response){
                 console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
@@ -52,9 +50,8 @@ class TranslationForm extends Component {
 
             success: function(response){
                 console.log(response);
-                var data = $.parseJSON(response);
                 window.location.hash="#/home";
-            }.bind(this),
+            },
             error: function(response){
                 console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
@@ -69,7 +66,7 @@ class TranslationForm extends Component {
         };
 		return (
             <div>
-                {this.state.isError == true &&
+                {this.state.isError === true &&
                     <Alert message={this.state.message} type={this.state.alertType}/>
                 }
                 <div className="col-lg-12">
@@ -133,15 +130,15 @@ class TranslationForm extends Component {
                                 <div className="modal-body">
                                     <div className="row">
                                         <div className="col-sm-10">
-                                            <div><label> <input type="radio" name="audioErr" value="Audio Issue" /> <i></i> Audio Issue </label></div>
-                                            <div><label> <input type="radio" name="audioErr" value="System error" name="system" /> <i></i> System Error </label></div>
-                                            <div><label> <input type="radio" name="audioErr" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
-                                            <div><label> <input type="radio" name="audioErr" value="Others" name="others" /> <i></i> Others </label></div>
+                                            <div><label> <input type="radio" value="Audio Issue" /> <i></i> Audio Issue </label></div>
+                                            <div><label> <input type="radio" value="System error" name="system" /> <i></i> System Error </label></div>
+                                            <div><label> <input type="radio" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
+                                            <div><label> <input type="radio" value="Others" name="others" /> <i></i> Others </label></div>
 
-                                            <div><label> <input type="radio" name="audioErr" value="option1" name="a" /> <i></i> one </label></div>
-                                            <div><label> <input type="radio" name="audioErr" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
+                                            <div><label> <input type="radio" value="option1" name="a" /> <i></i> one </label></div>
+                                            <div><label> <input type="radio" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
                                             <div><label> <input type="radio" name="audioErr" checked="" value="option2" /> <i></i> three checked and disabled </label></div>
-                                            <div><label> <input type="radio" name="audioErr" disabled="" name="a" /> <i></i> four disabled </label></div>
+                                            <div><label> <input type="radio" disabled="" name="a" /> <i></i> four disabled </label></div>
                                             
                                         </div>                                       
                                     </div>

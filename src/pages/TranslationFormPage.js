@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
-import RegistrationForm from '../components/RegistrationForm';
 import TranslationForm from '../components/TranslationForm';
 import HishabLogo from './images/logo.png';
 

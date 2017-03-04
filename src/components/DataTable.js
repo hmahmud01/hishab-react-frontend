@@ -1,6 +1,4 @@
 import React , {Component} from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
 
 class DataTable extends Component{
     constructor(props){

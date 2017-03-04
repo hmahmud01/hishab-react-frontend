@@ -47,10 +47,10 @@ class TranscriptionPage extends Component {
         
         var callback = function(response, status){
             var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 this.typeClickHandler(data.get('data')[1].callType, "Transcriptions");
                 this.setState({items: data.get('data')});
-            }else if (status == "error"){
+            }else if (status === "error"){
                 // todo: Create error alert
             }
         }.bind(this);
@@ -75,7 +75,7 @@ class TranscriptionPage extends Component {
         
         var callback = function(response, status){
 //            var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 console.log(response);
                 var data = $.parseJSON(response);
                 if (data.length < 1)
@@ -83,7 +83,7 @@ class TranscriptionPage extends Component {
                 else
                     this.setState({callItems: data, hasAlert:false});
                 console.log(response);
-            }else if (status == "error"){
+            }else if (status === "error"){
                 this.setState({hasAlert:true, alertMessage: "No Data Available", alertType: "danger",callItems: data});
             }
         }.bind(this);
@@ -98,13 +98,13 @@ class TranscriptionPage extends Component {
         if (type >= 100){
             this.setState({location: "#/translation", transId: key});
             window.location.hash = "#/translation";
-        }else if (type == 0){
+        }else if (type === "0"){
             this.setState({location: "#/register", transId: key});
             window.location.hash = "#/register";
-        }else if (type == 1){
+        }else if (type === "1"){
             this.setState({location: "#/transcription", transId: key, callType: "Buy"});
             window.location.hash = "#/transcription";
-        }else if (type == 2){
+        }else if (type === "2"){
             this.setState({location: "#/transcription", transId: key, callType: "Sell"});
             window.location.hash = "#/transcription";
         }else{
@@ -115,21 +115,6 @@ class TranscriptionPage extends Component {
     
     render() {
         switch (this.state.location){
-            case "#/":
-                return(
-                <div className="wrapper">
-                    <LeftNav logo={HishabLogo}/>
-                    <ContentWrapper>
-                        <Header username={Cookies.get("uname")}/>
-                        <Content>
-                                <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
-                            <TypeList items = {this.state.items} onClick = {this.typeClickHandler}/>
-                            <CallList title={this.state.title} items={this.state.callItems} onClick = {this.callItemClickHandler}/>
-                        </Content>
-                        <Footer/>
-                    </ContentWrapper>
-                </div>
-                );
             case "#/register":
                 return(
                     <RegistrationFormPage transId={this.state.transId}/>
@@ -145,6 +130,21 @@ class TranscriptionPage extends Component {
             case "#/revision":
                 return(
                     <RevisionFormPage transId={this.state.transId}/>
+                );
+            default:
+                return(
+                <div className="wrapper">
+                    <LeftNav logo={HishabLogo}/>
+                    <ContentWrapper>
+                        <Header username={Cookies.get("uname")}/>
+                        <Content>
+                                <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
+                            <TypeList items={this.state.items} onClick={this.typeClickHandler}/>
+                            <CallList title={this.state.title} items={this.state.callItems} onClick={this.callItemClickHandler}/>
+                        </Content>
+                        <Footer/>
+                    </ContentWrapper>
+                </div>
                 );
         }
     }

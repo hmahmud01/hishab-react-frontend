@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
 import Cookies from 'js-cookie';
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -25,11 +24,11 @@ class TranscriptionFormPage extends Component{
         
         var callback = function(response, status){
             var data = new Json(response);
-            if (status == "success"){
+            if (status === "success"){
                 this.setState({
                     data: data.getData()
                 });
-            }else if (status == "error"){
+            }else if (status === "error"){
                 
             }
         }.bind(this);

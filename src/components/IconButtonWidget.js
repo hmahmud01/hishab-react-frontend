@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
 
 class IconButtonWidget extends Component{
     constructor(props){

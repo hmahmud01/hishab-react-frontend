@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
-import Cookies from 'js-cookie';
-import AutoSuggestText from './AutoSuggestText';
 
 class FormBase extends Component{
 	constructor(props){

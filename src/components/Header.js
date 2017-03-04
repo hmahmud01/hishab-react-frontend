@@ -19,7 +19,6 @@ class Header extends Component {
             },
             success: function(response){
                 console.log(response);
-                var data = $.parseJSON(response);
                 Cookies.remove('uid');
                 Cookies.remove('uty');
                 Cookies.remove('uname');
