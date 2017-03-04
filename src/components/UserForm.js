@@ -3,6 +3,8 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import AutoSuggestText from './AutoSuggestText';
 import TextInput from './TextInput';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 import sample from '../pages/sound/sample.mp3';
 
 
@@ -31,7 +33,17 @@ class UserForm extends Component {
     }
     
     onUserAddClicked(event){
-        var data = {
+        
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status == "success"){
+                this.setState({isError: false, message: data.get('msg'), alertType: "success"});
+            }else if (status == "error"){
+                this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
@@ -39,33 +51,37 @@ class UserForm extends Component {
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
-            }// event.preventDefault();
-        console.log(data);
-        console.log("in user registration");
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/register',
-            data: {
-                "tid": this.props.transId,
-                "uphone": document.getElementById("ph_number").value, 
-                "uname": document.getElementById("name").value,
-                "utype": 0,
-                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
-                "uorg": document.getElementById("organization").value,
-                "uid": Cookies.get("uid"),
-            },            
-
-            success: function(response){
-                console.log(response);
-                var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
-            }.bind(this),
-            error: function(response){
-                console.log(response.responseText);
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        
+//        console.log(data);
+//        console.log("in user registration");
+//        $.ajax({
+//            method: 'get',
+//            url: 'http://192.168.5.2:8000/api/v1/register',
+//            data: {
+//                "tid": this.props.transId,
+//                "uphone": document.getElementById("ph_number").value, 
+//                "uname": document.getElementById("name").value,
+//                "utype": 0,
+//                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+//                "uorg": document.getElementById("organization").value,
+//                "uid": Cookies.get("uid"),
+//            },            
+//
+//            success: function(response){
+//                console.log(response);
+//                var data = $.parseJSON(response);
+//                this.setState({isError: false, message: data.msg, alertType: "success"});
+//            }.bind(this),
+//            error: function(response){
+//                console.log(response.responseText);
+//                var data = $.parseJSON(response.responseText);
+//                this.setState({isError: true, message: data.msg, alertType: "danger"});
+//            }.bind(this),
+//        });
     }
 
 	render(){
