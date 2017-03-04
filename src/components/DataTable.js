@@ -13,6 +13,20 @@ class DataTable extends Component{
         this.deleteRow = this.deleteRow.bind(this);
     }
     
+    /**
+    EXPECTED OUTPUT
+    
+    {
+        static_headers: ['Product Name', 'Category Name', 'Unit Price Header, 'Unit Header', 'Quantity Header'],
+        values: [
+            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
+            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
+            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
+        ]
+    }
+    
+    */
+    
     editRow(index){
         var data = this.state.rowValues[index];
         var headers = this.state.columns;
@@ -26,6 +40,16 @@ class DataTable extends Component{
     }
     
     addRow(data, index){
+        /**
+        EXPECTED INPUT
+        
+        {
+            values: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'],
+            attributes: ['Attribute 1', 'Attribute 2'],
+            attrValues: ['1 Value', '2 Value']
+        }
+        
+        */
         var newRow = this.state.rowValues;
         if (index !== undefined){
             this.deleteRow(index);
@@ -94,6 +118,7 @@ class DataTableHeader extends Component{
             <thead>
                 <tr>
                     {columns}
+                    <td>Attributes</td>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -129,6 +154,9 @@ class DataTableRow extends Component{
         return (
         <tr>
             {columns}
+            <td>
+                <h1>Attributes</h1>
+            </td>
             <td>
                 <a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product" onClick={this.edit}>
                     <i className="fa fa-paste"></i> Edit 

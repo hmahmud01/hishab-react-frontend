@@ -109,25 +109,6 @@ class ProductForm extends Component {
                      output[i] = {header: data.product_attribute[i-5], data: ""};
                      headers[i] = data.product_attribute[i-5];
                  }
-                
-                // todo: move to add existing product area
-//                 for (var i=3; i < data.length+3; i++){
-//                     console.log(data[i])
-//                     output[i] = {header: data[i-3], data: ""};
-//                     headers[i] = data[i-3];
-//                 }
-
-                // dummy product attribute test
-//                var dummy = ["f1", "f2"];                
-//                for (var i=3; i < dummy.length+3; i++){
-//                    output[i] = {header: dummy[i-3], data: ""};
-//                    headers[i] = dummy[i-3];
-//                    console.log("header: "+headers[i]+" output: "+output[i]);
-//                }
-                // test ends
-
-
-
 
                 var modalFields = output.map(
                     function (product, index){
@@ -136,24 +117,7 @@ class ProductForm extends Component {
                         console.log("fileds"+id);
                         console.log(head);
                         return(
-                            // need to check if the header is equal to category or not
-                            // <div>
-                            //     <AutoSuggestText 
-                            //         id="category"
-                            //         placeholder="Category"
-                            //         datalist="categorylist"
-                            //         url="http://192.168.5.2:8000/api/v1/transaction/search/category"
-                            //         onSelect={this.productNewSelected}>
-                            //         <span className="input-group-btn">
-                            //             <a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">
-                            //                 <i className="fa fa-plus" aria-hidden="true"></i>
-                            //             </a>
-                            //         </span>
-                            //     </AutoSuggestText>
-
-
-                                <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>    
-                             // </div>
+                            <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
                         );
                     }
                 );
@@ -165,7 +129,6 @@ class ProductForm extends Component {
             }
         });
     }
-
     
     categorySelected(id){
         
