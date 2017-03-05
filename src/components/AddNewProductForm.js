@@ -48,13 +48,6 @@ class AddNewProductForm extends Component{
                 output[2] = {header: "Unit Price", data: ""};
 
                 console.log("product selected");
-                
-// todo: move to add existing product area
-//                 for (var i=3; i < data.length+3; i++){
-//                     console.log(data[i])
-//                     output[i] = {header: data[i-3], data: ""};
-//                     headers[i] = data[i-3];
-//                 }
 
                 var modalFields = output.map(
                     function (product, index){                        
