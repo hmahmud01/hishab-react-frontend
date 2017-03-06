@@ -63,7 +63,6 @@ class TranscriptionForm extends Component {
                 <UserForm ref="userData" transId={this.props.transId} audio={this.props.data.audio} formtype={this.props.data.cty} phone={this.props.data.phone}/>
                 <ProductForm ref="products"/>
                 <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked}/> 
-                <Testform />
             </div>
 
 		);
