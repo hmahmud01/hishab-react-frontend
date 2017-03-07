@@ -5,6 +5,7 @@ class DataTable extends Component{
         super(props);
         this.state = {
             columns : [],
+            headers: [],
             rowValues : []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -28,8 +29,11 @@ class DataTable extends Component{
     */
     
     editRow(index){
+        console.log("Inside on edit")
         var data = this.state.rowValues[index];
-        var headers = this.state.columns;
+        console.log(data)
+        var headers = this.state.headers[index];
+        console.log(headers)
         this.props.editRow(headers, data, index);
     }
     
@@ -37,9 +41,13 @@ class DataTable extends Component{
         var newRows = this.state.rowValues;
         newRows.splice(index, 1);
         this.setState({rowValues : newRows});
+        
+        var newHeaders = this.state.headers;
+        newHeaders.splice(index, 1);
+        this.setState({headers : newHeaders});
     }
     
-    addRow(data, index){
+    addRow(data, headers, index){
         /**
         EXPECTED INPUT
         
@@ -51,24 +59,31 @@ class DataTable extends Component{
         
         */
         var newRow = this.state.rowValues;
+        var newHeader = this.state.headers;
+        
         if (index !== undefined){
             this.deleteRow(index);
             newRow = this.state.rowValues;
             newRow.splice(index, 0, data);
-        }else
+            
+            newHeader = this.state.headers;
+            newHeader.splice(index, 0, headers);
+        }else{
             newRow.push(data);
-        this.setState({rowValues : newRow});
+            newHeader.push(headers);
+        }
+        this.setState({rowValues : newRow, headers: newHeader});
     }
     
     componentDidMount(){
         var dataPassed = this.props.passData.bind(this);
-        dataPassed(this.state.columns, this.state.rowValues);
+        dataPassed(this.state.columns, this.state.headers, this.state.rowValues);
     }
     
     render(){
         var rows = this.state.rowValues.map(
             (row, index) => 
-                <DataTableRow key={index} data={row} index={index} crow={this.state.columns} deleteRow={this.deleteRow} editRow={this.editRow}/>
+                <DataTableRow key={index} data={row} index={index} crow={this.state.headers[index]} deleteRow={this.deleteRow} editRow={this.editRow}/>
         );
         
         return(

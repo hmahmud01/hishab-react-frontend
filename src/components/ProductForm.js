@@ -17,6 +17,7 @@ class ProductForm extends Component {
             headers: [],
             modalFields : [],
             modalFieldsNew : [],
+            headerCollection: []
         };
         this.receiveData = this.receiveData.bind(this);
         this.editRow = this.editRow.bind(this);
@@ -26,8 +27,8 @@ class ProductForm extends Component {
         this.categorySelected = this.categorySelected.bind(this);
     }
     
-    receiveData(headers, data){
-        this.setState({headers: headers, data: data});
+    receiveData(headers, headerCollection, data){
+        this.setState({headers: headers, headerCollection: headerCollection, data: data});
     }
     
     editRow(headers, data, index){
@@ -48,7 +49,7 @@ class ProductForm extends Component {
         );
         console.log("After Creating Modal Fields: ");
         console.log(output);
-        this.setState({modalFields: modalFields});
+        this.setState({headers: headers, modalFields: modalFields});
     }
     
     addRow(){
@@ -60,7 +61,8 @@ class ProductForm extends Component {
         }
         console.log("Result: "+output);
         this.setState({currIndex: undefined});
-        this.refs.data.addRow(output, this.state.currIndex);
+        this.refs.data.setState({columns: this.state.headers});
+        this.refs.data.addRow(output, this.state.headers, this.state.currIndex);
     }
         
     addMoreProducts(){
@@ -122,7 +124,12 @@ class ProductForm extends Component {
                         );
                     }
                 );
-                this.refs.data.setState({columns : headers});
+                
+                var headerArray = this.refs.data.state.headers.slice();
+                headerArray.push(headers);
+                
+                
+//                this.refs.data.setState({columns : headers, headers : headerArray});
                 this.setState({headers: headers, modalFields: modalFields});
             }.bind(this),
             error: function(response){

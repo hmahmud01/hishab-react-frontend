@@ -18,12 +18,12 @@ class TranscriptionForm extends Component {
     onTranscriptionClicked(event){
         event.preventDefault();
         
-        var headers = this.refs.products.state.headers;
+        var headers = this.refs.products.state.headerCollection;
         var products = this.refs.products.state.data;
         
         var output = []
         for (var i=0; i<products.length; i++)
-            output[i] = {header: headers, value: products[i]};
+            output[i] = {header: headers[i], value: products[i]};
         var data = {
                 "buyer": document.getElementById("buyer").value,
                 "seller": document.getElementById("seller").value,
