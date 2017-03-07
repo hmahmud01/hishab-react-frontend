@@ -15,7 +15,7 @@ class SummaryForm extends Component {
         console.log($('input[name="error"]:checked').val());
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/error',
+            url: 'http://192.168.5.2:8000/api/v1/translation/error',
             data: {
                 "tid": this.props.transId,
                 "error" : $('input[name="error"]:checked').val(),

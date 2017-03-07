@@ -68,7 +68,7 @@ class DataTable extends Component{
     render(){
         var rows = this.state.rowValues.map(
             (row, index) => 
-                <DataTableRow key={index} data={row} index={index} deleteRow={this.deleteRow} editRow={this.editRow}/>
+                <DataTableRow key={index} data={row} index={index} crow={this.state.columns} deleteRow={this.deleteRow} editRow={this.editRow}/>
         );
         
         return(
@@ -110,7 +110,7 @@ class DataTableHeader extends Component{
     }
     
     render(){
-        var columns = this.props.columns.map(
+        var columns = this.props.columns.slice(0, 5).map(
             (column, index) => 
                 <th key={index}>{column}</th>
         );
@@ -118,7 +118,7 @@ class DataTableHeader extends Component{
             <thead>
                 <tr>
                     {columns}
-                    <td>Attributes</td>
+                    <th>Attributes</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -147,16 +147,22 @@ class DataTableRow extends Component{
     }
     
     render(){
-        var columns = this.props.data.map(
+        var attr = "";
+        var rows = this.props.data.slice(0, 5).map(
             (column, index) => 
                 <td key={index}>{column}</td>
         );
+
+        for(var i=5; i<this.props.data.length; i++){
+            attr += this.props.crow[i] + ": " + this.props.data[i] + ", ";
+        }
+        
+        attr = attr.slice(0, -2);
+
         return (
         <tr>
-            {columns}
-            <td>
-                <h1>Attributes</h1>
-            </td>
+            {rows}
+            <td>{attr}</td>
             <td>
                 <a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product" onClick={this.edit}>
                     <i className="fa fa-paste"></i> Edit 

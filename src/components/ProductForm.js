@@ -53,9 +53,10 @@ class ProductForm extends Component {
     
     addRow(){
         var output = [];
+        var n = this.state.modalFields.length;
         for (var i=0; i< this.state.modalFields.length; i++){
-            if (i < 3)
-                output[i] = document.getElementById("item"+i).value;
+            // if (i < 5)
+            output[i] = document.getElementById("item"+i).value;
         }
         console.log("Result: "+output);
         this.setState({currIndex: undefined});
