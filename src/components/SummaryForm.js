@@ -41,6 +41,9 @@ class SummaryForm extends Component {
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
                             <h5>Transaction summary</h5>
+                            <div className="ibox-tools">
+                                <a className="btn btn-primary pull-right" onClick={this.props.onSummary}>Calculate</a>      
+                            </div>
                         </div>
                         <div className="ibox-content">                                            
                             <form className="form-horizontal">                        

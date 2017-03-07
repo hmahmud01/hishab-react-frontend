@@ -10,9 +10,29 @@ class TranscriptionForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data : this.props.data
+            data : this.props.data,
+            total : 0
         };
         this.onTranscriptionClicked = this.onTranscriptionClicked.bind(this);
+        this.onSummary = this.onSummary.bind(this);
+    }
+
+    onSummary(){
+        var headers = this.refs.products.state.headers;
+        var products = this.refs.products.state.data;
+        var total = 0;
+
+        var summary = [];
+        for (var i=0; i<products.length; i++){
+            summary[i] = {header: headers, value: products[i]};
+        }
+
+        for (var i=0; i<summary.length; i++){
+            total += parseInt(summary[i].value[2]);
+        }
+
+        console.log(total);
+        $("#total").val(total);
     }
 
     onTranscriptionClicked(event){
@@ -21,38 +41,42 @@ class TranscriptionForm extends Component {
         var headers = this.refs.products.state.headers;
         var products = this.refs.products.state.data;
         
-        var output = []
-        for (var i=0; i<products.length; i++)
+        var output = [];
+        for (var i=0; i<products.length; i++){
             output[i] = {header: headers, value: products[i]};
+            console.log(output[i].value[2]);
+        }
+
         var data = {
                 "buyer": document.getElementById("buyer").value,
                 "seller": document.getElementById("seller").value,
                 "products": output,
+                "summary": [],
                 "total": document.getElementById("total").value,
                 "discount": document.getElementById("discount").value,
                 "paid": document.getElementById("paid").value,
                 "due": document.getElementById("due").value,
                 "uid": Cookies.get("uid"),
-                "tid": 1
+                "tid": this.props.transId
         };
         console.log(data);
         //TODO create a tabletojson function to store the table products in json format
-        $.ajax({
-            method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
-            data: data,
+        // $.ajax({
+        //     method: 'post',
+        //     url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
+        //     data: data,
 
-            success: function(response){
-                console.log(response);
-                var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
-            }.bind(this),
-            error: function(response){
-                console.log(response.responseText);
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+        //     success: function(response){
+        //         console.log(response);
+        //         var data = $.parseJSON(response);
+        //         this.setState({isError: false, message: data.msg, alertType: "success"});
+        //     }.bind(this),
+        //     error: function(response){
+        //         console.log(response.responseText);
+        //         var data = $.parseJSON(response.responseText);
+        //         this.setState({isError: true, message: data.msg, alertType: "danger"});
+        //     }.bind(this),
+        // });
     }
 
     
@@ -62,7 +86,7 @@ class TranscriptionForm extends Component {
             <div>
                 <UserForm ref="userData" transId={this.props.transId} audio={this.props.data.audio} formtype={this.props.data.cty} phone={this.props.data.phone}/>
                 <ProductForm ref="products"/>
-                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked}/> 
+                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary}/> 
             </div>
 
 		);
