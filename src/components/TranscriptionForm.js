@@ -58,22 +58,22 @@ class TranscriptionForm extends Component {
         };
         console.log(data);
         //TODO create a tabletojson function to store the table products in json format
-        // $.ajax({
-        //     method: 'post',
-        //     url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
-        //     data: data,
+         $.ajax({
+             method: 'post',
+             url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
+             data: data,
 
-        //     success: function(response){
-        //         console.log(response);
-        //         var data = $.parseJSON(response);
-        //         this.setState({isError: false, message: data.msg, alertType: "success"});
-        //     }.bind(this),
-        //     error: function(response){
-        //         console.log(response.responseText);
-        //         var data = $.parseJSON(response.responseText);
-        //         this.setState({isError: true, message: data.msg, alertType: "danger"});
-        //     }.bind(this),
-        // });
+             success: function(response){
+                 console.log(response);
+                 var data = $.parseJSON(response);
+                 this.setState({isError: false, message: data.msg, alertType: "success"});
+             }.bind(this),
+             error: function(response){
+                 console.log(response.responseText);
+                 var data = $.parseJSON(response.responseText);
+                 this.setState({isError: true, message: data.msg, alertType: "danger"});
+             }.bind(this),
+         });
     }
 
     
