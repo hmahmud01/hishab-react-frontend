@@ -6,7 +6,8 @@ class DataTable extends Component{
         this.state = {
             columns : [],
             headers: [],
-            rowValues : []
+            rowValues : [],
+            idValues: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.addRow = this.addRow.bind(this);
@@ -125,7 +126,7 @@ class DataTableHeader extends Component{
     }
     
     render(){
-        var columns = this.props.columns.slice(0, 5).map(
+        var columns = this.props.columns.slice(0, 6).map(
             (column, index) => 
                 <th key={index}>{column}</th>
         );
@@ -163,17 +164,16 @@ class DataTableRow extends Component{
     
     render(){
         var attr = "";
-        var rows = this.props.data.slice(0, 5).map(
+        var rows = this.props.data.slice(0, 6).map(
             (column, index) => 
                 <td key={index}>{column}</td>
         );
 
-        for(var i=5; i<this.props.data.length; i++){
+        for(var i=6; i<this.props.data.length; i++){
             attr += this.props.crow[i] + ": " + this.props.data[i] + ", ";
         }
-        
-        attr = attr.slice(0, -2);
 
+        attr = attr.slice(0, -2);
         return (
         <tr>
             {rows}

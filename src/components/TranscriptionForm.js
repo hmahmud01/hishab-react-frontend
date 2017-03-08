@@ -41,6 +41,7 @@ class TranscriptionForm extends Component {
         
         var headers = this.refs.products.state.headerCollection;
         var products = this.refs.products.state.data;
+        var id = this.refs.products.state.idCollection;
         
         var output = []
         for (var i=0; i<products.length; i++)
