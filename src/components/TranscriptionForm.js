@@ -48,14 +48,14 @@ class TranscriptionForm extends Component {
         var data = {
                 "buyer": document.getElementById("buyer").value,
                 "seller": document.getElementById("seller").value,
-                "products": output,
+                "products": JSON.stringify(output),
                 "summary": [],
                 "total": document.getElementById("total").value,
                 "discount": document.getElementById("discount").value,
                 "paid": document.getElementById("paid").value,
                 "due": document.getElementById("due").value,
-                "uid": Cookies.get("uid"),
-                "tid": this.props.transId
+                "tid": this.props.transId,
+                "uid": Cookies.get("uid")
         };
         console.log(data);
         //TODO create a tabletojson function to store the table products in json format
@@ -63,7 +63,9 @@ class TranscriptionForm extends Component {
              method: 'post',
              url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
              data: data,
-
+             header: {
+                 "content-type": "application/json"
+             },
              success: function(response){
                  console.log(response);
                  var data = $.parseJSON(response);
@@ -91,4 +93,4 @@ class TranscriptionForm extends Component {
 	}
 }
 
-export default TranscriptionForm; 
+export default TranscriptionForm;
