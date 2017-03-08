@@ -6,8 +6,26 @@ class SummaryForm extends Component {
         super(props);
         this.state = {};
         this.onErrorClicked = this.onErrorClicked.bind(this);
+        this.update = this.update.bind(this);
     }
 
+    // paidCount(){
+    //     $("#paid").keyup(function(){
+    //         update();
+    //     });
+    // }   
+
+
+    // $("#paid, #due").keyup(function(){
+    // update();
+    // });
+
+    update() {
+        console.log("inside update");
+        var due = 0;
+        due = $("#total").val() - $("#paid").val();
+        $("#due").val(due);
+    }
 
     //make url to accept the error report submit
     onErrorClicked(event){
@@ -56,11 +74,11 @@ class SummaryForm extends Component {
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Paid</label>
-                                    <div className="col-sm-10"><input type="text" id="paid" className="form-control" /></div>
+                                    <div className="col-sm-10"><input type="text" id="paid" className="form-control" onkeyup={this.update}/></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Due</label>
-                                    <div className="col-sm-10"><input type="text" id="due" className="form-control" /></div>
+                                    <div className="col-sm-10"><input type="text" id="due" className="form-control" onkeyup={this.update}/></div>
                                 </div>             
                             </form>   
                             <div className="hr-line-dashed"></div>

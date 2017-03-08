@@ -17,7 +17,8 @@ class ProductForm extends Component {
             headers: [],
             modalFields : [],
             modalFieldsNew : [],
-            headerCollection: []
+            headerCollection: [],
+            idCollection: []
         };
         this.receiveData = this.receiveData.bind(this);
         this.editRow = this.editRow.bind(this);
@@ -34,6 +35,8 @@ class ProductForm extends Component {
     editRow(headers, data, index){
         console.log(headers);
         console.log(data);
+        headers.splice(0,1);
+        data.splice(0,1);
         this.setState({modalFields: [], currIndex: index});
         var output = [];
         for (var i =0; i< data.length; i++){
@@ -54,14 +57,28 @@ class ProductForm extends Component {
     
     addRow(){
         var output = [];
+        var id = document.getElementById("product").value;
+        output.push(id);
+
         var n = this.state.modalFields.length;
         for (var i=0; i< this.state.modalFields.length; i++){
-            output[i] = document.getElementById("item"+i).value;
+            // output[i+1] = document.getElementById("item"+i).value;
+            output.push(document.getElementById("item"+i).value);
         }
+
+
+        
+        var idHeader = this.state.headers;
+        idHeader.splice(0, 0, "id");
+
+        this.setState({headers: idHeader});
+
         console.log("Result: "+output);
+        console.log("id: "+id);
+        console.log("header: "+idHeader);
         this.setState({currIndex: undefined});
-        this.refs.data.setState({columns: this.state.headers});
-        this.refs.data.addRow(output, this.state.headers, this.state.currIndex);
+        this.refs.data.setState({columns: idHeader});
+        this.refs.data.addRow(output, idHeader, this.state.currIndex);
     }
         
     addMoreProducts(){
