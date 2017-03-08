@@ -28,8 +28,8 @@ class TranscriptionForm extends Component {
         }
 
         for (var i=0; i<summary.length; i++){
-            var multi = parseInt(summary[i].value[4])
-            total += (parseFloat(summary[i].value[2])*multi);
+            var multi = parseInt(summary[i].value[5])
+            total += (parseFloat(summary[i].value[3])*multi);
         }
 
         console.log(total);
