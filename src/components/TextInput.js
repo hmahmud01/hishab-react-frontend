@@ -5,10 +5,17 @@ class TextInput extends InputComponent{
     constructor(props){
         super(props);
         this.setValue = this.setValue.bind(this);
+        this._handleKeyPress = this._handleKeyPress.bind(this);
     }
     
     setValue(event){
         super.setValue(event);
+    }
+
+    _handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          console.log('do validate');
+        }
     }
 
     render(){
@@ -20,7 +27,7 @@ class TextInput extends InputComponent{
                 <label className="col-sm-4 control-label">{this.props.label}</label>
             }
             <div className={classname}>
-                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue}/>
+                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue} onKeyPress={this._handleKeyPress}/>
             </div>
         </div>
         );
