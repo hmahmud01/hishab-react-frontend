@@ -17,7 +17,6 @@ class LoginPage extends Component{
         };
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onPasswordForgotClicked = this.onPasswordForgotClicked.bind(this);
-        this.onPress = this.onPress.bind(this);
     }
     
     componentDidMount(){
