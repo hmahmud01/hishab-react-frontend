@@ -25,7 +25,7 @@ class AddNewCategoryForm extends Component{
         console.log(datia)
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/category',
+            url: 'http://app.hishab.co/api/v1/transaction/submit/category',
             data: {
                 "cname": document.getElementById("category-name").value, 
                 "cfield": (document.getElementById("category-fields").value).trim().split(","),

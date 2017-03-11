@@ -101,7 +101,7 @@ class ProductForm extends Component {
         console.log(id);
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/product/attribute',
+            url: 'http://app.hishab.co/api/v1/transaction/product/attribute',
             data: {
                 "uid" : Cookies.get("uid"),
                 "pid" : id
@@ -170,7 +170,7 @@ class ProductForm extends Component {
                                 id="product"
                                 placeholder="Product"
                                 datalist="productlist"
-                                url="http://192.168.5.2:8000/api/v1/transaction/search/product"
+                                url="http://app.hishab.co/api/v1/transaction/search/product"
                                 onSelect={this.productSelected}>
                                 <span className="input-group-btn">
                                     <a data-toggle="modal" className="btn btn-primary" href="#modal-product-new" onClick={this.addMoreProducts}>

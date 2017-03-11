@@ -13,7 +13,7 @@ class Header extends Component {
         console.log("Hello");
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/logout',
+            url: 'http://app.hishab.co/api/v1/logout',
             data: {
                 uid: Cookies.get('uid')
             },

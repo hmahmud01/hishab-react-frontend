@@ -24,7 +24,7 @@ class TranslationFormPage extends Component{
             window.location.hash = "#/";
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/translation/details',
+            url: 'http://app.hishab.co/api/v1/translation/details',
             data: {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
@@ -33,7 +33,7 @@ class TranslationFormPage extends Component{
                 console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({
-                    audio: "http://192.168.5.2:8000"+data.audio,
+                    audio: "http://app.hishab.co"+data.audio,
                     phone: data.phone
                 });
             }.bind(this),

@@ -28,7 +28,7 @@ class AddNewProductForm extends Component{
         console.log(id);
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/category/attribute',
+            url: 'http://app.hishab.co/api/v1/transaction/category/attribute',
             data: {
                 "uid" : Cookies.get("uid"),
                 "cid" : id
@@ -69,7 +69,7 @@ class AddNewProductForm extends Component{
         console.log("in add new product");
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
+            url: 'http://app.hishab.co/api/v1/transaction/submit/product',
             data: {
                 "pname": document.getElementById("itemn0").value, 
                 "pcatg": document.getElementById("itemn1").value,
@@ -99,7 +99,7 @@ class AddNewProductForm extends Component{
 	                    	id="category"
 	                        placeholder="Category"
 	                        datalist="categorylist"
-	                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
+	                        url="http://app.hishab.co/api/v1/transaction/search/category"
 	                        onSelect={this.productNewSelected}>
 	                       	<span className="input-group-btn">
 	                        	<a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">

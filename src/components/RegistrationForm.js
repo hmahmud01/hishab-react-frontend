@@ -28,7 +28,7 @@ class RegistrationForm extends Component {
         
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/register',
+            url: 'http://app.hishab.co/api/v1/register',
             data: {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
@@ -89,7 +89,7 @@ class RegistrationForm extends Component {
                                                     id="organization"
                                                     placeholder="Organization"
                                                     datalist="orglist"
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization">
+                                                    url="http://app.hishab.co/api/v1/transaction/search/organization">
                                                     <span className="input-group-btn"> 
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
                                                             <i className="fa fa-plus" aria-hidden="true"></i>

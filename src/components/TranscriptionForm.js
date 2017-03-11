@@ -62,7 +62,7 @@ class TranscriptionForm extends Component {
         //TODO create a tabletojson function to store the table products in json format
          $.ajax({
              method: 'post',
-             url: 'http://192.168.5.2:8000/api/v1/transcription/submit',
+             url: 'http://app.hishab.co/api/v1/transcription/submit',
              data: data,
              header: {
                  "content-type": "application/json"
