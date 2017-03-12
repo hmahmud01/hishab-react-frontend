@@ -21,7 +21,7 @@ class RevisionFormPage extends Component{
     componentWillMount(){
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/details',
+            url: 'http://app.hishab.co/api/v1/transaction/details',
             data: {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.transId,

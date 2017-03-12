@@ -19,7 +19,7 @@ class TranslationForm extends Component {
         event.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/translation/submit',
+            url: 'http://app.hishab.co/api/v1/translation/submit',
             data: {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.tid,
@@ -42,7 +42,7 @@ class TranslationForm extends Component {
         event.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/error/submit',
+            url: 'http://app.hishab.co/api/v1/error/submit',
             data: {
                 "error_data": $('input[name="genderS"]:checked').val(), 
                 "uid": Cookies.get("uid"),

@@ -58,11 +58,11 @@ class TranscriptionPage extends Component {
         var params = {"uid": Cookies.get("uid")};
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/get/call/count', params);
+        ajax.getData('http://app.hishab.co/api/v1/get/call/count', params);
         
         
         window.autoInterval = setInterval(
-            ajax.getData('http://192.168.5.2:8000/api/v1/get/call/count', params), 
+            ajax.getData('http://app.hishab.co/api/v1/get/call/count', params), 
             30000);
     }
     
@@ -91,7 +91,7 @@ class TranscriptionPage extends Component {
         var params = {"uid": Cookies.get("uid"),"cty": key};
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/get/transaction/list', params);
+        ajax.getData('http://app.hishab.co/api/v1/get/transaction/list', params);
     }
     
     callItemClickHandler(key, type) {

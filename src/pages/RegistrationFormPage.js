@@ -18,7 +18,7 @@ class RegistrationFormPage extends Component{
     componentDidMount(){
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/details',
+            url: 'http://app.hishab.co/api/v1/transaction/details',
             data: {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
@@ -27,7 +27,7 @@ class RegistrationFormPage extends Component{
                 console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({
-                    audio: "http://192.168.5.2:8000"+data.audio,
+                    audio: "http://app.hishab.co"+data.audio,
                     phone: data.phone
                 });
             }.bind(this),

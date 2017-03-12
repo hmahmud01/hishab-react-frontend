@@ -25,7 +25,7 @@ class RegistrationFormPage extends Component{
     componentDidMount(){
         $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/form/user',
+            url: 'http://app.hishab.co/api/v1/get/form/user',
             success: function(response){
 
                 this.setState({response: response});
