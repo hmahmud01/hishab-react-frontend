@@ -8,11 +8,12 @@ class AkijReport extends Component {
             border: "1px solid"
         };
 		return (
+
 			<div className="row">
 			    <div className="col-lg-12">
 			        <div className="ibox float-e-margins">
 			            <div className="ibox-title">
-			                <h5>Akij Report</h5>
+			                <h5>Akij Reports</h5>
 			            </div>
 				        <div className="ibox-content">
 					        <table id="akij-report" className="table table-striped table-bordered table-hover">
