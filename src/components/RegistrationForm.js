@@ -33,7 +33,7 @@ class RegistrationForm extends Component {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
-                "utype": document.getElementById("type").value,
+                "utype": $('#type :selected').val(),
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
@@ -80,7 +80,7 @@ class RegistrationForm extends Component {
                                     <div className="form-group">
                                         <label className="col-sm-4 control-label">User Type</label>
                                         <div className="col-sm-8">
-                                            <select className="form-control" name="type">
+                                            <select className="form-control" name="type" id="type">
                                                 <option value="0">INDIVIDUAL</option>
                                                 <option value="1">ORGANIZATION REPRESENTATIVE</option>
                                                 <option value="2">ORGANIZATION ADMIN</option>
@@ -100,8 +100,7 @@ class RegistrationForm extends Component {
                                                     id="organization"
                                                     placeholder="Organization"
                                                     datalist="orglist"
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
-                                                >
+                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization">
                                                     <span className="input-group-btn"> 
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
                                                             <i className="fa fa-plus" aria-hidden="true"></i>

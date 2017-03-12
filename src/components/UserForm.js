@@ -1,5 +1,6 @@
 import React, {Component} from  'react';
 import Cookies from 'js-cookie';
+import $ from 'jquery';
 import AutoSuggestText from './AutoSuggestText';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
@@ -44,7 +45,7 @@ class UserForm extends Component {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
-                "utype": document.getElementById("type").value,
+                "utype": $('#type :selected').val(),
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
@@ -188,9 +189,15 @@ class UserForm extends Component {
                                                 <input type="text" id="name" placeholder="Name" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Type</label>
+                                        <div className="form-group">
+                                            <label className="col-sm-4 control-label">User Type</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="type" placeholder="Type" className="form-control" />
+                                                <select className="form-control" name="type" id="type">
+                                                    <option value="0">INDIVIDUAL</option>
+                                                    <option value="1">ORGANIZATION REPRESENTATIVE</option>
+                                                    <option value="2">ORGANIZATION ADMIN</option>
+                                                    <option value="3">TRANSCRIBER</option>
+                                                </select>                                        
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>

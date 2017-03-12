@@ -17,7 +17,6 @@ class LoginPage extends Component{
         };
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onPasswordForgotClicked = this.onPasswordForgotClicked.bind(this);
-        this.onPress = this.onPress.bind(this);
     }
     
     componentDidMount(){
@@ -91,7 +90,7 @@ class LoginPage extends Component{
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                     <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
                         <TextInput id="uphone" type="text" placeholder="Phone Number"/>
-                        <TextInput id="upass" type="password" placeholder="password" onClick={this.onLoginClicked}/>
+                        <TextInput id="upass" type="password" placeholder="password"/>
                 </FormBase> 
                 <a href="#" onClick={this.onPasswordForgotClicked}><small>Forgot password?</small></a>
                 <p className="m-t"> <small>Hishab &copy; 2017</small> </p>

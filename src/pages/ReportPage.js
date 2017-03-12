@@ -9,7 +9,9 @@ import SalesReport from '../components/SalesReport';
 import SalesTransactionDetail from '../components/SalesTransactionDetail';
 import PurchaseReport from '../components/PurchaseReport';
 import PurchaseTransactionDetail from '../components/PurchaseTransactionDetail';
+import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
+
 
 class ReportPage extends Component {
     constructor(props){
@@ -36,12 +38,6 @@ class ReportPage extends Component {
             $.each(data, function(key, val){
                 for (var i = 0; i<val.products.length; i++){
                     items.push("<tr>");
-                    //organization
-                    //total purchase
-                    //paid amount
-                    //payable
-                    //last paid amount
-                    //last payment date
                     items.push("<td>" +val.seller.phone+"</td>" );
                     items.push("<td>" +val.total_bill+"</td>" );
                     items.push("<td>" +val.paid_amount+"</td>" );
@@ -68,13 +64,6 @@ class ReportPage extends Component {
             $.each(data, function(key, val){
                 for (var i = 0; i<val.products.length; i++){
                     items.push("<tr>");
-                    //transaction id
-                    //organization
-                    //person
-                    //total sell
-                    //payment received
-                    //receivable
-                    //date
                     items.push("<td>" +val.status+"</td>" );
                     items.push("<td>" +val.trx_id+"</td>" );
                     items.push("<td>" +val.products[i].product_name+"</td>" );
@@ -104,12 +93,6 @@ class ReportPage extends Component {
             $.each(data, function(key, val){
                 for (var i; i < val.products.length; i++){
                     items.push("<tr>");
-                    //organization
-                    //total purchase
-                    //pad amount
-                    //payable
-                    //last paid amount
-                    //last payment date
                     items.push("<td>" +val.seller.phone+"</td>" );
                     items.push("<td>" +val.total_bill+"</td>" );
                     items.push("<td>" +val.paid_amount+"</td>" );
@@ -138,13 +121,6 @@ class ReportPage extends Component {
             $.each(data, function(key, val){
                 for (var i = 0; i<val.products.length; i++){
                     items.push("<tr>");
-                    //transaction id
-                    //organization
-                    //person
-                    //total sell
-                    //payment received
-                    //receivable
-                    //date
                     items.push("<td>" +val.trx_id+"</td>" );
                     items.push("<td>" +val.buyer.phone+"</td>" );
                     items.push("<td>" +val.buyer.phone+"</td>" );
@@ -205,6 +181,9 @@ class ReportPage extends Component {
                     	<PurchaseTransactionDetail />
                     </Content>
 
+                    <Content>
+                        <AkijReport />
+                    </Content>                    
 
                     <Footer/>
                 </ContentWrapper>
