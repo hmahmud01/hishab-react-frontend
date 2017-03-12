@@ -53,32 +53,6 @@ class UserForm extends Component {
         var ajax = new Ajax(callback);
         ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
         
-//        console.log(data);
-//        console.log("in user registration");
-//        $.ajax({
-//            method: 'get',
-//            url: 'http://192.168.5.2:8000/api/v1/register',
-//            data: {
-//                "tid": this.props.transId,
-//                "uphone": document.getElementById("ph_number").value, 
-//                "uname": document.getElementById("name").value,
-//                "utype": 0,
-//                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
-//                "uorg": document.getElementById("organization").value,
-//                "uid": Cookies.get("uid"),
-//            },            
-//
-//            success: function(response){
-//                console.log(response);
-//                var data = $.parseJSON(response);
-//                this.setState({isError: false, message: data.msg, alertType: "success"});
-//            }.bind(this),
-//            error: function(response){
-//                console.log(response.responseText);
-//                var data = $.parseJSON(response.responseText);
-//                this.setState({isError: true, message: data.msg, alertType: "danger"});
-//            }.bind(this),
-//        });
     }
 
 	render(){
