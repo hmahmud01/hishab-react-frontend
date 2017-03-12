@@ -34,7 +34,7 @@ class ReportPage extends Component {
         var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid="+uid;
         console.log(url)
 
-        var url_akij = example;
+        var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr";
         console.log(url_akij);
 
         $.getJSON(url_akij, function (data) {

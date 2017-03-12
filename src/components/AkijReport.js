@@ -5,9 +5,15 @@ class AkijReport extends Component {
         super(props);
         this.state = {
             productList : ["Marlboro", "Winston", "Sheikh"], 
-            dataList : [{sr: "Abul", route: "Gulshan", sales: [[30,15,10],[15,20,22],[25,45,60]]},
-                       {sr: "Kashem", route: "Dhanmondi", sales: [[30,15,10],[15,20,22],[25,45,60]]},
-                       {sr: "Rashid", route: "Bonani", sales: [[30,15,10],[15,20,22],[25,45,60]]}]
+            dataList : [{sr: "Abul", route: "Gulshan", sales: [{buy: 30, sell: 15, ret: 10},
+            													{buy: 15, sell: 20, ret: 22},
+            													{buy: 25, sell: 45, ret: 60}]},
+                       {sr: "Kashem", route: "Dhanmondi", sales: [{buy: 14, sell: 15, ret: 10},
+            													{buy: 115, sell: 20, ret: 22},
+            													{buy: 225, sell: 45, ret: 60}]},
+                       {sr: "Rashid", route: "Bonani", sales: [{buy: 2230, sell: 15, ret: 10},
+            													{buy: 415, sell: 20, ret: 22},
+            													{buy: 525, sell: 45, ret: 60}]}]
         };
     }
     
@@ -38,18 +44,26 @@ class AkijReport extends Component {
                 }
             );
         });
+
+
         
         var dataRows = this.state.dataList.map(function(data, index){
-//            return data.map(function(dt, ind){
-                return(
-                    <tr key={index}>
-                        <td >{data.sr}</td>
-                        <td >{data.route}</td>
-                        <td >{data.sales}</td>
-                    </tr>
-                );
-            });
-//        });
+            return(
+                <tr key={index}>
+            	    <td >{data.sr}</td>
+            	    <td >{data.route}</td>
+                    {data.sales.map(function(individualData,index){
+                    	return (
+                			<td key={index}>{individualData.buy} {individualData.sell} {individualData.ret}</td>
+                			// <td key={index}>{individualData.buy}</td>
+                			// <td key={index}>{individualData.buy}</td>
+                    	)
+                    })
+                	}
+                </tr>
+            );
+        });
+
             
 		return (
 
