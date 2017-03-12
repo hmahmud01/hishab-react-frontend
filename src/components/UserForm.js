@@ -44,7 +44,7 @@ class UserForm extends Component {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
-                "utype": 0,
+                "utype": document.getElementById("type").value,
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
@@ -186,6 +186,11 @@ class UserForm extends Component {
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
                                                 <input type="text" id="name" placeholder="Name" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Type</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="type" placeholder="Type" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>

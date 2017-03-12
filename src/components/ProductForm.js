@@ -60,7 +60,7 @@ class ProductForm extends Component {
         var id = document.getElementById("product").value;
         output.push(id);
 
-        var n = this.state.modalFields.length;
+        // var n = this.state.modalFields.length;
         for (var i=0; i< this.state.modalFields.length; i++){
             // output[i+1] = document.getElementById("item"+i).value;
             output.push(document.getElementById("item"+i).value);

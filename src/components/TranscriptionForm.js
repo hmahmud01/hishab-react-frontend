@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 import UserForm from './UserForm';
 import SummaryForm from './SummaryForm';
 import ProductForm from './ProductForm';
-import Testform from './Testform';
 
 class TranscriptionForm extends Component {
     constructor(props){
@@ -27,9 +26,9 @@ class TranscriptionForm extends Component {
             summary[i] = {header: headers, value: products[i]};
         }
 
-        for (var i=0; i<summary.length; i++){
-            var multi = parseInt(summary[i].value[5])
-            total += (parseFloat(summary[i].value[3])*multi);
+        for (var j=0; j<summary.length; j++){
+            var multi = parseInt(summary[j].value[5], 10);
+            total += (parseFloat(summary[j].value[3])*multi);
         }
 
         console.log(total);
@@ -41,7 +40,7 @@ class TranscriptionForm extends Component {
         
         var headers = this.refs.products.state.headerCollection;
         var products = this.refs.products.state.data;
-        var id = this.refs.products.state.idCollection;
+        // var id = this.refs.products.state.idCollection;
         
         var output = []
         for (var i=0; i<products.length; i++)
