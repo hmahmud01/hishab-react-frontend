@@ -11,6 +11,7 @@ import PurchaseReport from '../components/PurchaseReport';
 import PurchaseTransactionDetail from '../components/PurchaseTransactionDetail';
 import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
+import example from './example.json';
 
 
 class ReportPage extends Component {
@@ -32,6 +33,40 @@ class ReportPage extends Component {
 
         var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid="+uid;
         console.log(url)
+
+        var url_akij = example;
+        console.log(url_akij);
+
+        $.getJSON(url_akij, function (data) {
+            console.log(url_akij);  
+            for(var i=0; i<data.length; i++){
+                console.log("inside scope number: "+data[i].products.length);
+                console.log("buyer phone: "+data[i].buyer.phone+" buyer name: "+data[i].buyer.name);
+                console.log("buyer phone: "+data[i].seller.phone+" buyer name: "+data[i].seller.name);
+                console.log("status: "+data[i].status);
+                console.log("trx_id: "+data[i].trx_id);
+                var prod = data[i].products
+                var p_length = prod.length;
+                for(var k=0; k<p_length; k++){
+                    console.log("inside products scope");
+                    var item = prod[k];
+                    console.log("p_id: "+item.product_id);
+                    console.log("p_name: "+item.product_name);
+                    console.log("p_unit_price: "+item.product_unit_price);
+                    console.log("p_complementary_quantity: "+item.product_complementary_quantity);
+                    console.log("p_quantity: "+item.product_quantity);
+                    console.log("p_discount: "+item.product_discount);
+                    console.log("p_attr: "+item.attributes.length);
+                    for(var j=0; j<item.attributes.length; j++){
+                        console.log(item.attributes[j].key+" : "+item.attributes[j].value);
+                    }
+                }
+                console.log("paid_amount: "+data[i].paid_amount);
+                console.log("total_bill: "+data[i].total_bill);
+                console.log("discount_amount: "+data[i].discount_amount);
+            }
+        });
+
         $.getJSON(url, function(data){
             var items = [];
             // var val = {this.state.data};
