@@ -77,7 +77,7 @@ class AkijReport extends Component {
 									    <td>Kashen</td>
 									    <td>Dhanmondi</td>
             
-									    <td>50 stick</td>
+									    <td>500 stick</td>
 									    <td>20 Stick</td>
 									    <td>30 stick</td>
             
