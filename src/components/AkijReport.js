@@ -1,12 +1,56 @@
 import React, {Component} from  'react'
 
 class AkijReport extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            productList : ["Marlboro", "Winston", "Sheikh"], 
+            dataList : [{sr: "Abul", route: "Gulshan", sales: [[30,15,10],[15,20,22],[25,45,60]]},
+                       {sr: "Kashem", route: "Dhanmondi", sales: [[30,15,10],[15,20,22],[25,45,60]]},
+                       {sr: "Rashid", route: "Bonani", sales: [[30,15,10],[15,20,22],[25,45,60]]}]
+        };
+    }
+    
+//    dataList : [[30,15,10],[15,20,22],[25,45,60],
+//                       [30,15,10],[15,20,22],[25,45,60],
+//                       [30,15,10],[15,20,22],[25,45,60]]
+    
+
 	render(){
         var headerDesign = {
             verticalAlign: "middle",
             textAlign: "center",
             border: "1px solid"
         };
+        
+        var productHeaders = this.state.productList.map(function(product, index){
+            return(
+                <th key={index} colSpan="3" style={headerDesign}>{product}</th>
+            );
+        });
+        
+        var productSubHeaders = this.state.productList.map(function(product, index){
+            var subHeading = ["Buy", "Sell", "Return"];
+            return subHeading.map(function(subHead, ind){
+                return (
+                    <th key={ind} style={headerDesign}>{subHead}</th>
+                );
+                }
+            );
+        });
+        
+        var dataRows = this.state.dataList.map(function(data, index){
+//            return data.map(function(dt, ind){
+                return(
+                    <tr key={index}>
+                        <td >{data.sr}</td>
+                        <td >{data.route}</td>
+                        <td >{data.sales}</td>
+                    </tr>
+                );
+            });
+//        });
+            
 		return (
 
 			<div className="row">
@@ -21,33 +65,14 @@ class AkijReport extends Component {
 								  	<tr>
 									    <th rowSpan="2" style={headerDesign}>S.R. Name</th>
 									    <th rowSpan="2" style={headerDesign}>Route</th>
-									    <th colSpan="3" style={headerDesign}>Marlboro</th>
-                                        <th colSpan="3" style={headerDesign}>Winston</th>
+                                        {productHeaders}
 								  	</tr>
                                     <tr>
-									    
-									    <th style={headerDesign}>Buy</th>
-                                        <th style={headerDesign}>Sell</th>
-                                        <th style={headerDesign}>Return</th>
-                                        <th style={headerDesign}>Buy</th>
-                                        <th style={headerDesign}>Sell</th>
-                                        <th style={headerDesign}>Return</th>
+									    {productSubHeaders}
 								  	</tr>
 							  	</thead>
 							  	<tbody>
-								  	<tr>
-									    <td>Abul</td>
-									    <td>Gulshan</td>
-            
-									    <td>30 Stick</td>
-									    <td>30 Stick</td>
-									    <td>30 Stick</td>
-            
-									    <td>30 Stick</td>
-									    <td>10 stick</td>
-									    <td>50 stick</td>
-               
-								  	</tr>
+								  	{dataRows}
 								  	<tr>
 									    <td>Kashen</td>
 									    <td>Dhanmondi</td>
