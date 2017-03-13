@@ -29,7 +29,7 @@ class ReportPage extends Component {
             window.location.hash = "#/";
         
 
-        var url_akij = "http://192.168.5.2:8000/api/v1/reports/sr?uid="+"01817061650";
+        var url_akij = "http://app.hishab.co/api/v1/reports/sr?uid="+"01817061650";
         console.log(url_akij);
 
 

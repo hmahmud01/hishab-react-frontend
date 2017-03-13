@@ -79,7 +79,7 @@ class RegistrationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/transaction/submit/organization', params);
+        ajax.postData('http://app.hishab.co/api/v1/transaction/submit/organization', params);
         
     }
     
@@ -132,7 +132,7 @@ class RegistrationForm extends Component {
                                                         id="organization"
                                                         placeholder="Organization"
                                                         datalist="orglist"
-                                                        url="http://192.168.5.2:8000/api/v1/transaction/search/organization">
+                                                        url="http://app.hishab.co/api/v1/transaction/search/organization">
                                                         <span className="input-group-btn"> 
                                                             <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
                                                                 <i className="fa fa-plus" aria-hidden="true"></i>

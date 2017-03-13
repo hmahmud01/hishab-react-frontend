@@ -51,7 +51,7 @@ class AkijReport extends Component {
             };
                 
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/reports/sr', params);
+        ajax.getData('http://app.hishab.co/api/v1/reports/sr', params);
 
     }
     
