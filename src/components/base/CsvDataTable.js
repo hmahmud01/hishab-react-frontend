@@ -9,8 +9,12 @@ class CsvDataTable extends Component{
         };
     }
     
+    stringSplit(val, delimeter){
+        return val.split(delimeter);
+    }
+
     render(){
-        var rowsStrings = this.state.dataString.split("\n");
+        var rowsStrings = this.stringSplit(this.state.dataString, "\n");
         var headers =  rowsStrings.map(function(row, index){
             if (index < this.state.headerRows){
             return (
@@ -37,8 +41,6 @@ class CsvDataTable extends Component{
           </table>
         );
     }
-    
-    
 }
 
 class CsvDataRow extends Component{
@@ -54,13 +56,13 @@ class CsvDataRow extends Component{
         this.setState({colString: props});
     }
     
-    stringSplit(val){
-        return val.split(",");
+    stringSplit(val,delimeter){
+        return val.split(delimeter);
     }
     
     render(){
         
-        var cols = this.stringSplit(this.state.colString);
+        var cols = this.stringSplit(this.state.colString, ",");
         var cells = cols.map(function(value, index){
             return(
                 <CsvDataCell type={this.props.type} key={index} value={value}/>
@@ -83,8 +85,7 @@ class CsvDataCell extends Component{
         var headerDesign = {
             verticalAlign: "middle",
             textAlign: "center",
-            borderTop: "1px solid",
-            borderBottom: "1px solid"
+            border: "1px solid"
         };
         
         if (this.props.type === "header"){
