@@ -89,10 +89,16 @@ class UserForm extends Component {
         const divStyle = {
           width: '100%',          
         };
-        
+        var results = undefined;
         var audio = this.props.audio;
-        if (audio !== undefined)
-            audio = "http://app.hishab.co"+audio[0];
+        if (audio !== undefined){
+            results = audio.map(function(singleAudio, index){
+                var audioUrl = "http://app.hishab.co" + singleAudio;
+                return (
+                    <audio style={divStyle} ref="audio_tag" src={audioUrl} controls />
+                );
+            }.bind(this));
+        }
 		return (
             <div>
                 <div className="col-lg-12">
@@ -159,7 +165,7 @@ class UserForm extends Component {
                                             <div className="col-xs-12">
                                                 <span className="pull-right"> <i className="fa fa-music"></i> Audio </span>
                                                 <h2 className="font-bold">
-                                                    <audio style={divStyle} ref="audio_tag" src={audio} controls />
+                                                    {results}
                                                 </h2>                                        
                                             </div>
                                         </div>
