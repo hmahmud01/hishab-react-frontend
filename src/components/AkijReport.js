@@ -9,23 +9,25 @@ class AkijReport extends Component {
     constructor(props){
         super(props);
         this.state = {
-            productList : ["Marlboro", "Winston", "Sheikh"], 
-            dataList : [{
-                        sr: "Abul", 
-                        route: "Gulshan",
-                        products: ["Marlboro", "Winston", "Sheikh"],
-                        sales : [[30,15,10],[15,20,22],[25,45,60]]
-                        },
-                       {
-                        sr: "Kashem", route: "Dhanmondi", 
-                        products: ["Marlboro", "Winston", "Sheikh"],
-                        sales: [[30,15,10],[15,20,22],[25,45,6]]
-                        },
-                       {
-                        sr: "Rashid", route: "Bonani", 
-                        products: ["Marlboro", "Winston", "Sheikh"],
-                        sales: [[30,15,10],[15,20,22],[25,45,60]]
-                        }]
+            // productList : ["Marlboro", "Winston", "Sheikh"],
+            // dataList : [{
+            //             sr: "Abul", 
+            //             route: "Gulshan",
+            //             products: ["Marlboro", "Winston", "Sheikh"],
+            //             sales : [[30,15,10],[15,20,22],[25,45,60]]
+            //             },
+            //            {
+            //             sr: "Kashem", route: "Dhanmondi", 
+            //             products: ["Marlboro", "Winston", "Sheikh"],
+            //             sales: [[30,15,10],[15,20,22],[25,45,6]]
+            //             },
+            //            {
+            //             sr: "Rashid", route: "Bonani", 
+            //             products: ["Marlboro", "Winston", "Sheikh"],
+            //             sales: [[30,15,10],[15,20,22],[25,45,60]]
+            //             }]
+            productList : [], 
+            dataList : []
         };
     }
 
@@ -36,7 +38,9 @@ class AkijReport extends Component {
             var data = new Json(response);
             if (status === "success"){
                 console.log("in akij report");
-                this.setState({productList:((data.getData())[0])['product'] , dataList:data.getData()});
+                console.log(data.getData()[0]);
+                console.log(data.getData()[1]);
+                this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
             }else if (status === "error"){
                 console.log("in akij report error");
             }
@@ -58,6 +62,12 @@ class AkijReport extends Component {
             textAlign: "center",
             border: "1px solid"
         };
+
+        var tableDesign = {
+            width: "100%",
+            overflow: "auto"
+        }
+
 
         var productDataList = this.state.dataList.map(function(pData, index){
             return pData.products
@@ -106,7 +116,7 @@ class AkijReport extends Component {
 			            <div className="ibox-title">
 			                <h5>Akij Reports</h5>
 			            </div>
-				        <div className="ibox-content">
+				        <div className="ibox-content" style={tableDesign}>
 					        <table id="akij-report" className="table table-striped table-bordered table-hover">
 							  	<thead>
 								  	<tr>
