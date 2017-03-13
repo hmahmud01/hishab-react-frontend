@@ -207,9 +207,20 @@ class ReportPage extends Component {
                 <LeftNav logo={HishabLogo}/>
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
+                    /** Sales report Contents */
+                    <Content>                    	
+                    	<SalesReport />
+			            <SalesTransactionDetail />
+                    </Content>
+                    /** Purchase report Contents */
+                    <Content>
+                    	<PurchaseReport />
+                    	<PurchaseTransactionDetail />
+                    </Content>
+
                     <Content>
                         <AkijReport />
-                    </Content>                   
+                    </Content>                    
 
                     <Footer/>
                 </ContentWrapper>

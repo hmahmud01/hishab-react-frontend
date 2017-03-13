@@ -1,19 +1,47 @@
 import React, {Component} from  'react'
+import $ from 'jquery';
 
 class AkijReport extends Component {
     constructor(props){
         super(props);
         this.state = {
             productList : ["Marlboro", "Winston", "Sheikh"], 
-            dataList : [{sr: "Abul", route: "Gulshan", sales: [[30,15,10],[15,20,22],[25,45,60]]},
-                       {sr: "Kashem", route: "Dhanmondi", sales: [[30,15,10],[15,20,22],[25,45,60]]},
-                       {sr: "Rashid", route: "Bonani", sales: [[30,15,10],[15,20,22],[25,45,60]]}]
+            dataList : [{
+                        sr: "Abul", 
+                        route: "Gulshan",
+                        products: ["Marlboro", "Winston", "Sheikh"],
+                        sales : [[30,15,10],[15,20,22],[25,45,60]]
+                        },
+                       {
+                        sr: "Kashem", route: "Dhanmondi", 
+                        products: ["Marlboro", "Winston", "Sheikh"],
+                        sales: [[30,15,10],[15,20,22],[25,45,6]]
+                        },
+                       {
+                        sr: "Rashid", route: "Bonani", 
+                        products: ["Marlboro", "Winston", "Sheikh"],
+                        sales: [[30,15,10],[15,20,22],[25,45,60]]
+                        }]
         };
     }
-    
-//    dataList : [[30,15,10],[15,20,22],[25,45,60],
-//                       [30,15,10],[15,20,22],[25,45,60],
-//                       [30,15,10],[15,20,22],[25,45,60]]
+
+    componentDidMount(){
+        var url = "http://192.168.5.34:8000/api/v1/reports/sr?uid=01817061650";
+
+        $.getJSON(url, function(data){
+            var dataList = data.map(function(list, index){
+
+            })
+            .done(function() {
+                console.log("in akij report");
+            console.log( "success" );
+            })
+            .fail(function() {
+                console.log("in akij report");
+                console.log("error");
+        });
+        });
+    }
     
 
 	render(){
@@ -22,12 +50,26 @@ class AkijReport extends Component {
             textAlign: "center",
             border: "1px solid"
         };
+
+        var productDataList = this.state.dataList.map(function(pData, index){
+            return pData.products
+        });
+
+
+        // var productHeaders = this.state.dataList.map(function(pData, index){
+        //     return pData.products.map(function(ph, index){
+        //         return(
+        //         <th key={index} colSpan="3" style={headerDesign}>{ph}</th>
+        //         );
+        //     });            
+        // });
         
         var productHeaders = this.state.productList.map(function(product, index){
             return(
                 <th key={index} colSpan="3" style={headerDesign}>{product}</th>
             );
         });
+        
         
         var productSubHeaders = this.state.productList.map(function(product, index){
             var subHeading = ["Buy", "Sell", "Return"];
@@ -38,18 +80,27 @@ class AkijReport extends Component {
                 }
             );
         });
+
+
         
         var dataRows = this.state.dataList.map(function(data, index){
-//            return data.map(function(dt, ind){
-                return(
-                    <tr key={index}>
-                        <td >{data.sr}</td>
-                        <td >{data.route}</td>
-                        <td >{data.sales}</td>
-                    </tr>
-                );
-            });
-//        });
+            return(
+                <tr key={index}>
+            	    <td >{data.sr}</td>
+            	    <td >{data.route}</td>
+                    {
+                        data.sales.map(function(individualData,index){                    	   
+                            return individualData.map(function(cell, di){
+                                return(
+                                    <th key={di}>{cell}</th>
+                                )
+                            });
+                        })
+                	}
+                </tr>
+            );
+        });
+
             
 		return (
 
@@ -73,18 +124,6 @@ class AkijReport extends Component {
 							  	</thead>
 							  	<tbody>
 								  	{dataRows}
-								  	<tr>
-									    <td>Kashen</td>
-									    <td>Dhanmondi</td>
-            
-									    <td>500 stick</td>
-									    <td>20 Stick</td>
-									    <td>30 stick</td>
-            
-									    <td>10 stick</td>
-									    <td>05 Stick</td>
-									    <td>05 stick</td>
-								  	</tr>
 							  	</tbody>	
 							</table>
 				    	</div>
