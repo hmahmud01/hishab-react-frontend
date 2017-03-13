@@ -20,6 +20,7 @@ class UserForm extends Component {
             orgdata: []
         };
         this.onUserAddClicked = this.onUserAddClicked.bind(this);
+        this.onOrganizationAddClicked = this.onOrganizationAddClicked.bind(this);
     }
     
     componentWillReceiveProps(props){
@@ -53,6 +54,34 @@ class UserForm extends Component {
         
         var ajax = new Ajax(callback);
         ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        
+    }
+
+    onOrganizationAddClicked(event){
+        
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                this.setState({isError: false, message: data.get('msg'), alertType: "success"});
+            }else if (status === "error"){
+                this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
+                "tid": this.props.transId,                
+                "oname": document.getElementById("org_name").value,
+                "ocode": document.getElementById("org_code").value,
+                "otrade": document.getElementById("org_trade").value,
+                "oemail": document.getElementById("org_email").value,
+                "ophone": document.getElementById("org_phone").value, 
+                "otype": $('#org_type :selected').val(),
+                "oadr": document.getElementById("org_add1").value + " " + document.getElementById("org_add2").value, 
+                "uid": Cookies.get("uid"),
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.postData('http://192.168.5.2:8000/api/v1/transaction/submit/organization', params);
         
     }
 
@@ -189,7 +218,7 @@ class UserForm extends Component {
                                                     url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
                                                 >
                                                     <span className="input-group-btn"> 
-                                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
+                                                    <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
                                                         <i className="fa fa-plus" aria-hidden="true"></i>
                                                     </a>
                                                     </span>
@@ -201,6 +230,71 @@ class UserForm extends Component {
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>                                
                                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onUserAddClicked}>Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="modal-org" className="modal fade" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 className="modal-title">Add Organization</h4>
+                            </div>
+
+                            <form className="form-horizontal">
+                                <div className="modal-body">
+                                    <div className="row">
+                                        <div className="form-group"><label className="col-sm-4 control-label">Organization Name</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_name" placeholder="Organization Name" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Organization Code</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_code" placeholder="Organization Code" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Trade License Number</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_trade" placeholder="Trade License Number" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Email</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_email" placeholder="Email" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Official Phone</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_phone" placeholder="Official Phone Number" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="col-sm-4 control-label">Orgnaization Type</label>
+                                            <div className="col-sm-8">
+                                                <select className="form-control" name="org_type" id="org_type">
+                                                    <option value="0">Grocery</option>
+                                                    <option value="1">Distributor</option>
+                                                    <option value="2">Telco</option>
+                                                    <option value="3">Telco Distributor</option>
+                                                </select>                                        
+                                            </div>
+                                        </div>
+                                        <div className="form-group"><label className="col-sm-4 control-label">Address</label>
+                                            <div className="col-sm-8">
+                                                <input type="text" id="org_add1" placeholder="Address" className="form-control" />
+                                                <input type="text" id="org_add2" placeholder="Address" className="form-control" />
+                                            </div>
+                                        </div>                                  
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>                                
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onOrganizationAddClicked}>Submit</button>
                                 </div>
                             </form>
                         </div>

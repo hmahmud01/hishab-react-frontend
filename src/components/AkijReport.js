@@ -1,5 +1,9 @@
 import React, {Component} from  'react'
 import $ from 'jquery';
+import Cookies from 'js-cookie';
+
+import Json from '../utils/Json';
+import Ajax from '../utils/Ajax';
 
 class AkijReport extends Component {
     constructor(props){
@@ -25,21 +29,27 @@ class AkijReport extends Component {
         };
     }
 
-    // componentDidMount(){
-    //     var url = "http://192.168.5.2:8000/api/v1/reports/sr?uid=01817061650";
 
-    //     $.getJSON(url, function(data){
-    //         var dataList = data.map(function(list, index){
+    componentDidMount(){
+        
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                console.log("in akij report");
+                this.setState({productList:((data.getData())[0])['product'] , dataList:data.getData()});
+            }else if (status === "error"){
+                console.log("in akij report error");
+            }
+        }.bind(this);
+        
+        var params = {
+                "uid": Cookies.get("uid")
+            };
+                
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/reports/sr', params);
 
-    //         })
-    //         .done(function() {
-    //             console.log("in akij report success");
-    //         })
-    //         .fail(function() {
-    //             console.log("in akij report error");
-    //         });
-    //     });
-    // }
+    }
     
 
 	render(){
@@ -52,22 +62,12 @@ class AkijReport extends Component {
         var productDataList = this.state.dataList.map(function(pData, index){
             return pData.products
         });
-
-
-        // var productHeaders = this.state.dataList.map(function(pData, index){
-        //     return pData.products.map(function(ph, index){
-        //         return(
-        //         <th key={index} colSpan="3" style={headerDesign}>{ph}</th>
-        //         );
-        //     });            
-        // });
         
         var productHeaders = this.state.productList.map(function(product, index){
             return(
                 <th key={index} colSpan="3" style={headerDesign}>{product}</th>
             );
         });
-        
         
         var productSubHeaders = this.state.productList.map(function(product, index){
             var subHeading = ["Buy", "Sell", "Return"];
@@ -78,8 +78,6 @@ class AkijReport extends Component {
                 }
             );
         });
-
-
         
         var dataRows = this.state.dataList.map(function(data, index){
             return(

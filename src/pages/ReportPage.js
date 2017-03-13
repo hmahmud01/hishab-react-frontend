@@ -34,8 +34,8 @@ class ReportPage extends Component {
 
 
         $.getJSON(url_akij, function(data){
-            
-        })
+
+        }).done()
 
 
         
