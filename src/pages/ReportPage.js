@@ -13,8 +13,6 @@ import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
 import example from './example.json';
 
-import CsvDataTable from '../components/base/CsvDataTable';
-
 
 class ReportPage extends Component {
     constructor(props){
@@ -31,10 +29,14 @@ class ReportPage extends Component {
             window.location.hash = "#/";
         
 
-        var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr?uid="+"01817061650";
+        var url_akij = "http://192.168.5.2:8000/api/v1/reports/sr?uid="+"01817061650";
         console.log(url_akij);
 
-        
+
+        $.getJSON(url_akij, function(data){
+
+        }).done()
+
 
         
         setInterval(function(){
@@ -63,10 +65,6 @@ class ReportPage extends Component {
                 <LeftNav logo={HishabLogo}/>
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
-                    <Content>
-                        <CsvDataTable />
-                    </Content> 
-        
                     <Content>
                         <AkijReport />
                     </Content>                    

@@ -29,6 +29,7 @@ class AkijReport extends Component {
         };
     }
 
+
     componentDidMount(){
         
         var callback = function(response, status){
@@ -37,8 +38,7 @@ class AkijReport extends Component {
                 console.log("in akij report");
                 this.setState({productList:((data.getData())[0])['product'] , dataList:data.getData()});
             }else if (status === "error"){
-                console.log("Error");
-                console.log("in akij report");
+                console.log("in akij report error");
             }
         }.bind(this);
         
