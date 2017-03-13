@@ -13,6 +13,8 @@ import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
 import example from './example.json';
 
+import CsvDataTable from '../components/base/CsvDataTable';
+
 
 class ReportPage extends Component {
     constructor(props){
@@ -216,6 +218,10 @@ class ReportPage extends Component {
                     	<PurchaseTransactionDetail />
                     </Content>
 
+                    <Content>
+                        <CsvDataTable />
+                    </Content> 
+        
                     <Content>
                         <AkijReport />
                     </Content>                    
