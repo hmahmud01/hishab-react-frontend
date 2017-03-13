@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 
 import ReportPage from './ReportPage';
+import akij from './akij';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -47,6 +48,11 @@ class UserPage extends Component {
                 return(
                     <ReportPage type={this.state.reportType}/>
                 );
+
+            case "#/akij":
+                return(
+                    <akij type={this.state.reportType}/>
+                );
             default:
                 return(
                 <div className="wrapper">
@@ -66,7 +72,7 @@ class UserPage extends Component {
                                 <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="usd" header="Transactions" subheader="Daily" className="lazur-bg" onClick={this.widgetClicked}/>
                                 <IconButtonWidget icon="line-chart" header="Sales" subheader="All" className="navy-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="line-chart" header="Akij" subheader="SR template" className="red-bg" onClick={this.akijClicked}/>
+                                <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
                             </div>
                         </Content>
                         <Footer/>
