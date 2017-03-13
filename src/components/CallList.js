@@ -69,6 +69,14 @@ class ListItem extends Component{
     }
     
     render(){
+        var type = ["Register", "Buy", "Sell", "Due", "Repay"]
+        var labelColor = ["danger", "success", "primary", "warning", "warning"]
+        
+        var labelStyle = {
+            font: "sans-serif"
+        }
+        
+        var label = "label label-"+labelColor[this.props.type];
         return(
         <tr className={ this.state.isUnread === true ? "unread" : "read"}>
                     
@@ -82,7 +90,7 @@ class ListItem extends Component{
                         <span>{this.props.time}</span>
                     </td>
                     <td>
-                        <span className="badge badge-danger">{this.props.type}</span>
+                        <span className={label}>{type[this.props.type]}</span>
                     </td>
                     <td className="text-right mail-date">
                         <span>{this.props.transcriber}</span>
