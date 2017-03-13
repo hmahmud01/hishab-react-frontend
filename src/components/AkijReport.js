@@ -25,23 +25,21 @@ class AkijReport extends Component {
         };
     }
 
-    componentDidMount(){
-        var url = "http://192.168.5.34:8000/api/v1/reports/sr?uid=01817061650";
+    // componentDidMount(){
+    //     var url = "http://192.168.5.2:8000/api/v1/reports/sr?uid=01817061650";
 
-        $.getJSON(url, function(data){
-            var dataList = data.map(function(list, index){
+    //     $.getJSON(url, function(data){
+    //         var dataList = data.map(function(list, index){
 
-            })
-            .done(function() {
-                console.log("in akij report");
-            console.log( "success" );
-            })
-            .fail(function() {
-                console.log("in akij report");
-                console.log("error");
-        });
-        });
-    }
+    //         })
+    //         .done(function() {
+    //             console.log("in akij report success");
+    //         })
+    //         .fail(function() {
+    //             console.log("in akij report error");
+    //         });
+    //     });
+    // }
     
 
 	render(){
