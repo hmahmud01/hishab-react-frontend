@@ -36,7 +36,7 @@ class TranscriptionFormPage extends Component{
         var params = {"uid": Cookies.get("uid"),"tid": this.props.transId};
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/transaction/details', params);
+        ajax.getData('http://app.hishab.co/api/v1/transaction/details', params);
         
     }
     

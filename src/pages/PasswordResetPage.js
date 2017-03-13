@@ -29,7 +29,7 @@ class PasswordResetPage extends Component {
         event.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/changepass',
+            url: 'http://app.hishab.co/api/v1/changepass',
             data: {
                 "pass": document.getElementById("passwd").value, 
                 "pasc": document.getElementById("passwc").value, 

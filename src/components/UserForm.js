@@ -53,7 +53,7 @@ class UserForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        ajax.getData('http://app.hishab.co/api/v1/register', params);
         
     }
 
@@ -92,7 +92,7 @@ class UserForm extends Component {
         
         var audio = this.props.audio;
         if (audio !== undefined)
-            audio = "http://192.168.5.2:8000"+audio[0];
+            audio = "http://app.hishab.co"+audio[0];
 		return (
             <div>
                 <div className="col-lg-12">
@@ -112,7 +112,7 @@ class UserForm extends Component {
                                                     placeholder="Buyer"
                                                     datalist="buyerlist"
                                                     value={this.state.buyerVal}
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                    url="http://app.hishab.co/api/v1/transaction/search/user"
                                                 >
                                                     <span className="input-group-btn">
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
@@ -129,7 +129,7 @@ class UserForm extends Component {
                                                     placeholder="Seller"
                                                     datalist="sellerlist"
                                                     value={this.state.sellerVal}
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                    url="http://app.hishab.co/api/v1/transaction/search/user"
                                                 >
                                                     <span className="input-group-btn"> 
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
@@ -215,7 +215,7 @@ class UserForm extends Component {
                                                     id="organization"
                                                     placeholder="Organization"
                                                     datalist="orglist"
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
+                                                    url="http://app.hishab.co/api/v1/transaction/search/organization"
                                                 >
                                                     <span className="input-group-btn"> 
                                                     <a data-toggle="modal" className="btn btn-primary" href="#modal-org">

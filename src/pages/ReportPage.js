@@ -42,7 +42,7 @@ class ReportPage extends Component {
         setInterval(function(){
             $.ajax({
             method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
+            url: 'http://app.hishab.co/api/v1/get/call/count',
             data: {
                 "uid": Cookies.get("uid"),
                 // this.setState.uid = uid
