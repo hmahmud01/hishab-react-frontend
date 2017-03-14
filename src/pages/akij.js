@@ -33,7 +33,7 @@ class ReportPage extends Component {
 
         var url = "http://app.hishab.co/api/v1/transaction/report?uid="+uid;
 
-        var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr?uid="+"01817061650";
+        var url_akij = "http://app.hishab.co/api/v1/reports/sr?uid="+"01817061650";
 
         $.getJSON(url_akij, function (data) {
             for(var i=0; i<data.length; i++){
