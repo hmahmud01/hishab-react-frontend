@@ -15,6 +15,7 @@ class LoginPage extends Component{
             isError: false,
             alertType: "danger"
         };
+        
         this.onLoginClicked = this.onLoginClicked.bind(this);
         this.onPasswordForgotClicked = this.onPasswordForgotClicked.bind(this);
     }
