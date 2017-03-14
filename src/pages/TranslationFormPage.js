@@ -30,7 +30,6 @@ class TranslationFormPage extends Component{
                 "tid": this.props.transId,
             },
             success: function(response) {
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({
                     audio: "http://app.hishab.co"+data.audio,
@@ -38,7 +37,6 @@ class TranslationFormPage extends Component{
                 });
             }.bind(this),
             error: function(response){
-                console.log(response);
             }
         });
     }

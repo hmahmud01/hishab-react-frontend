@@ -16,13 +16,11 @@ class AddNewCategoryForm extends Component{
 
     
     addNewCategory(){
-        console.log("in add new category");
         var datia = {
                 "cname": document.getElementById("category-name").value, 
                 "cfield": (document.getElementById("category-fields").value).trim().split(", "),
                 "uid": Cookies.get("uid")
             };
-        console.log(datia)
         $.ajax({
             method: 'get',
             url: 'http://app.hishab.co/api/v1/transaction/submit/category',
@@ -32,10 +30,8 @@ class AddNewCategoryForm extends Component{
                 "uid": Cookies.get("uid")
             },
             success: function(response){
-                console.log(response);
             },
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg});
             }.bind(this),

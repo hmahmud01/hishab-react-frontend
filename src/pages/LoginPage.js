@@ -40,7 +40,6 @@ class LoginPage extends Component{
                 Cookies.set('ust', data.get('ust'), { path: '/' });
                 window.location.hash="#/home";
             }else if (status === "error"){
-                console.log("Error");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);

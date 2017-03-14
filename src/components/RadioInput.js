@@ -20,12 +20,10 @@ class RadioInput extends Component{
 				value: "value"
 			},
 			success: function(response){
-				console.log(response);
 				var data = $.parseJSON(response)
 				this.setState({data : data})
 			}.bind(this),
 			error: function(response){
-				console.log(response)
 			}
 
 

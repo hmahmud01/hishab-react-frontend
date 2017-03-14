@@ -27,15 +27,12 @@ class RevisionFormPage extends Component{
                 "tid": this.props.transId,
             },
             success:function(response){
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({
                     data: data
                 });
-                console.log(data);
             }.bind(this),
             error:function(response){
-                console.log(response.responseText);
             }
         });
     }

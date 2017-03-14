@@ -36,12 +36,18 @@ class PasswordResetPage extends Component {
                 "uid": Cookies.get("uid")
             },
             success: function(response){
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({isError: true, message: data.msg, alertType: "success"});
+                
+                Cookies.remove('uid');
+                Cookies.remove('uty');
+                Cookies.remove('uname');
+                Cookies.remove('ust');
+                
+                window.location.hash = "#/";
+                window.location.reload();
             }.bind(this),
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),

@@ -27,11 +27,9 @@ class TranslationForm extends Component {
             },
 
             success: function(response){
-                console.log(response);
                 window.location.hash="#/home";
             },
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),
@@ -49,11 +47,10 @@ class TranslationForm extends Component {
             },
 
             success: function(response){
-                console.log(response);
                 window.location.hash="#/home";
+                window.location.reload();
             },
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),

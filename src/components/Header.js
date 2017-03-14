@@ -10,7 +10,6 @@ class Header extends Component {
     }
     
     logout(){
-        console.log("Hello");
         $.ajax({
             method: 'get',
             url: 'http://app.hishab.co/api/v1/logout',
@@ -18,18 +17,15 @@ class Header extends Component {
                 uid: Cookies.get('uid')
             },
             success: function(response){
-                console.log(response);
                 Cookies.remove('uid');
                 Cookies.remove('uty');
                 Cookies.remove('uname');
                 Cookies.remove('ust');
-                console.log(document.cookie);
                 window.location.hash="#/";
             },
             error: function(status, response){
                 if (status === 400)
                     Cookies.remove("uid")
-                console.log(response);
                 var data = $.parseJSON(response);
                 alert(data.msg);
             },
@@ -95,7 +91,6 @@ class TopNavLinks extends Component{
     handleClick() {
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));
-        console.log(this.props);
         this.props.onClick();
     }
     

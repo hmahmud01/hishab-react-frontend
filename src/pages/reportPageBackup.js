@@ -34,38 +34,36 @@ class ReportPage extends Component {
 
 
         var url = "http://app.hishab.co/api/v1/transaction/report?uid="+uid;
-        console.log(url)
 
         var url_akij = "http://app.hishab.co/api/v1/reports/sr?uid="+"01817061650";
-        console.log(url_akij);
 
         $.getJSON(url_akij, function (data) {
-            console.log(url_akij);  
+            
             for(var i=0; i<data.length; i++){
-                console.log("inside scope number: "+data[i].products.length);
-                console.log("buyer phone: "+data[i].buyer.phone+" buyer name: "+data[i].buyer.name);
-                console.log("buyer phone: "+data[i].seller.phone+" buyer name: "+data[i].seller.name);
-                console.log("status: "+data[i].status);
-                console.log("trx_id: "+data[i].trx_id);
+                
+                
+                
+                
+                
                 var prod = data[i].products
                 var p_length = prod.length;
                 for(var k=0; k<p_length; k++){
-                    console.log("inside products scope");
+                    
                     var item = prod[k];
-                    console.log("p_id: "+item.product_id);
-                    console.log("p_name: "+item.product_name);
-                    console.log("p_unit_price: "+item.product_unit_price);
-                    console.log("p_complementary_quantity: "+item.product_complementary_quantity);
-                    console.log("p_quantity: "+item.product_quantity);
-                    console.log("p_discount: "+item.product_discount);
-                    console.log("p_attr: "+item.attributes.length);
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     for(var j=0; j<item.attributes.length; j++){
-                        console.log(item.attributes[j].key+" : "+item.attributes[j].value);
+                        
                     }
                 }
-                console.log("paid_amount: "+data[i].paid_amount);
-                console.log("total_bill: "+data[i].total_bill);
-                console.log("discount_amount: "+data[i].discount_amount);
+                
+                
+                
             }
         });
 
@@ -87,12 +85,12 @@ class ReportPage extends Component {
             $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-report" );    
         })
         .done(function() {
-            console.log( "in salse report" );
-            console.log( "success" );
+            
+            
         })
         .fail(function() {
-            console.log( "in salse report" );
-            console.log( "error" );
+            
+            
         });
 
         //Sales detail report        
@@ -115,16 +113,16 @@ class ReportPage extends Component {
             $("<tbody/>", { html: items.join( "" ) }).appendTo( "#sales-transaction-detail" );       
         })
         .done(function() {
-            console.log( "in salse detail report" );
-            console.log( "success" );
+            
+            
         })
         .fail(function() {
-            console.log( "in sales detail report" );
-            console.log( "error" );
+            
+            
         });
 
         //purchase report
-        // console.log(url)
+        // 
         $.getJSON(url, function(data){
             var items = [];
             $.each(data, function(key, val){
@@ -141,15 +139,15 @@ class ReportPage extends Component {
                 }
             });
             $("<tbody/>", { html: items.join( "" ) }).appendTo( "#purchase-report" );    
-            // console.log(items)     
+            // 
         })
         .done(function() {
-            console.log( "in purchase report" );
-            console.log( "success" );
+            
+            
         })
         .fail(function() {
-            console.log( "in purchase report" );
-            console.log( "error" );
+            
+            
         });
 
         //purchase detail report
@@ -172,12 +170,12 @@ class ReportPage extends Component {
             $("<tbody/>", { html: items.join( "" ) }).appendTo( "#purchase-transaction-detail" );       
         })
         .done(function() {
-            console.log( "in purchase detail report" );
-            console.log( "success" );
+            
+            
         })
         .fail(function() {
-            console.log( "in purchase detail report" );
-            console.log( "error" );
+            
+            
         });
 
         
@@ -191,11 +189,11 @@ class ReportPage extends Component {
             },
             success: function(response) {
                 var data = $.parseJSON(response);
-                console.log(response);
+                
                 this.setState({items: data.data});
             }.bind(this),
             error: function(response) {
-                console.log(response.responseText);
+                
             }
         });
         }.bind(this), 30000);

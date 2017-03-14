@@ -30,11 +30,8 @@ class DataTable extends Component{
     */
     
     editRow(index){
-        console.log("Inside on edit")
         var data = this.state.rowValues[index];
-        console.log(data)
         var headers = this.state.headers[index];
-        console.log(headers)
         this.props.editRow(headers, data, index);
     }
     
@@ -153,7 +150,6 @@ class DataTableRow extends Component{
     
     edit(event){
         var editRow = this.props.editRow.bind(this);
-        console.log(this.props.index);
         editRow(this.props.index);
     }
     
