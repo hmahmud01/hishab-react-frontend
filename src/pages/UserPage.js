@@ -40,6 +40,12 @@ class UserPage extends Component {
             reportType: widgetLocation
         });
     }
+    // existing possible reports. dont delete
+    // <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
+    // <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
+    // <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick={this.widgetClicked}/>
+    // <IconButtonWidget icon="usd" header="Transactions" subheader="Daily" className="lazur-bg" onClick={this.widgetClicked}/>
+    // <IconButtonWidget icon="line-chart" header="Sales" subheader="All" className="navy-bg" onClick={this.widgetClicked}/>
 
     
     render() {
@@ -51,7 +57,7 @@ class UserPage extends Component {
 
             case "#/akij":
                 return(
-                    <akij type={this.state.reportType}/>
+                    <ReportPage type={this.state.reportType}/>
                 );
             default:
                 return(
@@ -66,12 +72,7 @@ class UserPage extends Component {
                                     <h3>{ this.props.type === 0 ? "User" : "Organization"} Name: {this.props.name}</h3>
                                 </div>
                             </div>
-                            <div className="row">
-                                <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="file-text-o" header="Transactions" subheader="Weekly" className="red-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="usd" header="Transactions" subheader="Daily" className="lazur-bg" onClick={this.widgetClicked}/>
-                                <IconButtonWidget icon="line-chart" header="Sales" subheader="All" className="navy-bg" onClick={this.widgetClicked}/>
+                            <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
                             </div>
                         </Content>

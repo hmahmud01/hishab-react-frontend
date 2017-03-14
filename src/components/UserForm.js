@@ -90,9 +90,11 @@ class UserForm extends Component {
           width: '100%',          
         };
         
+
         var audio = this.props.audio;
         if (audio !== undefined)
             audio = "http://192.168.5.2:8000"+audio[0];
+        
 		return (
             <div>
                 <div className="col-lg-12">
@@ -158,8 +160,9 @@ class UserForm extends Component {
                                         <div className="row">
                                             <div className="col-xs-12">
                                                 <span className="pull-right"> <i className="fa fa-music"></i> Audio </span>
-                                                <h2 className="font-bold">
-                                                    <audio style={divStyle} ref="audio_tag" src={audio} controls />
+                                                <h2 className="font-bold">               
+                                                    <audio style={divStyle} ref="audio_tag" src={audio} controls />        
+                                                    <audio style={divStyle} ref="audio_tag" src={audio} controls />           
                                                 </h2>                                        
                                             </div>
                                         </div>

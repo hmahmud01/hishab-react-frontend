@@ -70,6 +70,7 @@ class TranscriptionForm extends Component {
                  console.log(response);
                  var data = $.parseJSON(response);
                  this.setState({isError: false, message: data.msg, alertType: "success"});
+                 window.location.hash="#/home";
              }.bind(this),
              error: function(response){
                  console.log(response.responseText);

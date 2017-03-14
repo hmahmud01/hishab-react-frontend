@@ -9,23 +9,6 @@ class AkijReport extends Component {
     constructor(props){
         super(props);
         this.state = {
-            // productList : ["Marlboro", "Winston", "Sheikh"],
-            // dataList : [{
-            //             sr: "Abul", 
-            //             route: "Gulshan",
-            //             products: ["Marlboro", "Winston", "Sheikh"],
-            //             sales : [[30,15,10],[15,20,22],[25,45,60]]
-            //             },
-            //            {
-            //             sr: "Kashem", route: "Dhanmondi", 
-            //             products: ["Marlboro", "Winston", "Sheikh"],
-            //             sales: [[30,15,10],[15,20,22],[25,45,6]]
-            //             },
-            //            {
-            //             sr: "Rashid", route: "Bonani", 
-            //             products: ["Marlboro", "Winston", "Sheikh"],
-            //             sales: [[30,15,10],[15,20,22],[25,45,60]]
-            //             }]
             productList : [], 
             dataList : []
         };
@@ -37,12 +20,9 @@ class AkijReport extends Component {
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
-                console.log("in akij report");
-                console.log(data.getData()[0]);
-                console.log(data.getData()[1]);
                 this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
             }else if (status === "error"){
-                console.log("in akij report error");
+                console.log("error");
             }
         }.bind(this);
         
