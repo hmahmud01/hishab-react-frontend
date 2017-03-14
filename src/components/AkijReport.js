@@ -22,7 +22,6 @@ class AkijReport extends Component {
             if (status === "success"){
                 this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
             }else if (status === "error"){
-                console.log("error");
             }
         }.bind(this);
         

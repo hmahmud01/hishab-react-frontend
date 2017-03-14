@@ -12,7 +12,6 @@ class InputComponent extends Component{
     }
     
     componentWillReceiveProps(nextProps){
-        console.log(nextProps.value);
         this.setState({value: nextProps.value});
     }
     

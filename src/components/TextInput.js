@@ -14,7 +14,6 @@ class TextInput extends InputComponent{
 
     _handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-          console.log('do validate');
         }
     }
 

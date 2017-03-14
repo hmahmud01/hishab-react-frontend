@@ -39,11 +39,9 @@ class ReportPage extends Component {
             },
             success: function(response) {
                 var data = $.parseJSON(response);
-                console.log(response);
                 this.setState({items: data.data});
             }.bind(this),
             error: function(response) {
-                console.log(response.responseText);
             }
         });
         }.bind(this), 30000);

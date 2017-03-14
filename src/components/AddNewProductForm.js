@@ -25,7 +25,6 @@ class AddNewProductForm extends Component{
     //  4. Create product attribute edit form.
     
     productNewSelected(id){
-        console.log(id);
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/category/attribute',
@@ -35,8 +34,6 @@ class AddNewProductForm extends Component{
             },
             success: function(response){
                 var data = $.parseJSON(response);
-                console.log("Inside category selected");
-                console.log(data);
                 var output = [];
                 var headers = [];
                 headers[0] = "Product Name";
@@ -47,8 +44,6 @@ class AddNewProductForm extends Component{
                 output[1] = {header: "Category", data: data.product_category};
                 output[2] = {header: "Unit Price", data: ""};
 
-                console.log("product selected");
-
                 var modalFields = output.map(
                     function (product, index){                        
                         var id = "itemn"+index;
@@ -57,7 +52,6 @@ class AddNewProductForm extends Component{
                     }
                 );
                 this.setState({headers: headers, modalFieldsNew: modalFields});
-                console.log("Updated State");
             }.bind(this),
             error: function(response){
                 
@@ -66,7 +60,6 @@ class AddNewProductForm extends Component{
     }
     
     createNewProduct(){
-        console.log("in add new product");
         $.ajax({
             method: 'post',
             url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
@@ -79,10 +72,8 @@ class AddNewProductForm extends Component{
                 "uid": Cookies.get("uid")
             },
             success: function(response){
-                console.log(response);
             },
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg});
             }.bind(this),

@@ -31,7 +31,6 @@ class TranscriptionForm extends Component {
             total += (parseFloat(summary[j].value[3])*multi);
         }
 
-        console.log(total);
         $("#total").val(total);
     }
 
@@ -57,7 +56,6 @@ class TranscriptionForm extends Component {
                 "tid": this.props.transId,
                 "uid": Cookies.get("uid")
         };
-        console.log(data);
         //TODO create a tabletojson function to store the table products in json format
          $.ajax({
              method: 'post',
@@ -67,13 +65,12 @@ class TranscriptionForm extends Component {
                  "content-type": "application/json"
              },
              success: function(response){
-                 console.log(response);
                  var data = $.parseJSON(response);
                  this.setState({isError: false, message: data.msg, alertType: "success"});
                  window.location.hash="#/home";
+                 window.location.reload();
              }.bind(this),
              error: function(response){
-                 console.log(response.responseText);
                  var data = $.parseJSON(response.responseText);
                  this.setState({isError: true, message: data.msg, alertType: "danger"});
              }.bind(this),

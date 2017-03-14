@@ -21,7 +21,6 @@ class SummaryForm extends Component {
     // });
 
     update() {
-        console.log("inside update");
         var due = 0;
         due = $("#total").val() - $("#paid").val();
         $("#due").val(due);
@@ -30,7 +29,6 @@ class SummaryForm extends Component {
     //make url to accept the error report submit
     onErrorClicked(event){
         event.preventDefault();
-        console.log($('input[name="error"]:checked').val());
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/translation/error',
@@ -39,13 +37,11 @@ class SummaryForm extends Component {
                 "error" : $('input[name="error"]:checked').val(),
             },
             success: function(response){
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({isError: false, message: data.msg, alertType: "success"});
                 window.location.hash="#/home";
             }.bind(this),
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),

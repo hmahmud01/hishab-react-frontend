@@ -76,13 +76,11 @@ class TranscriptionPage extends Component {
         var callback = function(response, status){
 //            var data = new Json(response);
             if (status === "success"){
-                console.log(response);
                 var data = $.parseJSON(response);
                 if (data.length < 1)
                     this.setState({hasAlert:true, alertMessage: "No Data Available", alertType: "warning",callItems: data});
                 else
                     this.setState({callItems: data, hasAlert:false});
-                console.log(response);
             }else if (status === "error"){
                 this.setState({hasAlert:true, alertMessage: "No Data Available", alertType: "danger",callItems: data});
             }

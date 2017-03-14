@@ -31,7 +31,6 @@ class RegistrationFormPage extends Component{
                 this.setState({response: response});
             }.bind(this),
             error: function(response){
-                console.log(response.responseText);
             }.bind(this)
         })
     }
