@@ -33,8 +33,6 @@ class ProductForm extends Component {
     }
     
     editRow(headers, data, index){
-        console.log(headers);
-        console.log(data);
         headers.splice(0,1);
         data.splice(0,1);
         this.setState({modalFields: [], currIndex: index});
@@ -50,8 +48,6 @@ class ProductForm extends Component {
                 );
             }
         );
-        console.log("After Creating Modal Fields: ");
-        console.log(output);
         this.setState({headers: headers, modalFields: modalFields});
     }
     
@@ -73,9 +69,6 @@ class ProductForm extends Component {
 
         this.setState({headers: idHeader});
 
-        console.log("Result: "+output);
-        console.log("id: "+id);
-        console.log("header: "+idHeader);
         this.setState({currIndex: undefined});
         this.refs.data.setState({columns: idHeader});
         this.refs.data.addRow(output, idHeader, this.state.currIndex);
@@ -98,7 +91,6 @@ class ProductForm extends Component {
     }
     
     productSelected(id){
-        console.log(id);
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/product/attribute',
@@ -108,7 +100,6 @@ class ProductForm extends Component {
             },
             success: function(response){
                 var data = $.parseJSON(response);
-                console.log(data);
                 var output = [];
                 var headers = [];
                 headers[0] = "Product Name";
@@ -133,8 +124,6 @@ class ProductForm extends Component {
                     function (product, index){
                         var id = "item"+index;
                         var head = product.header;
-                        console.log("fileds"+id);
-                        console.log(head);
                         return(
                             <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
                         );

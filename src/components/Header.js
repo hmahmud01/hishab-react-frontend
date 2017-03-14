@@ -7,10 +7,10 @@ class Header extends Component {
         super(props);
         this.state = {};
         this.logout = this.logout.bind(this);
+        this.onBack = this.onBack.bind(this);
     }
     
     logout(){
-        console.log("Hello");
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/logout',
@@ -18,22 +18,23 @@ class Header extends Component {
                 uid: Cookies.get('uid')
             },
             success: function(response){
-                console.log(response);
                 Cookies.remove('uid');
                 Cookies.remove('uty');
                 Cookies.remove('uname');
                 Cookies.remove('ust');
-                console.log(document.cookie);
                 window.location.hash="#/";
             },
             error: function(status, response){
                 if (status === 400)
                     Cookies.remove("uid")
-                console.log(response);
                 var data = $.parseJSON(response);
                 alert(data.msg);
             },
         });
+    }
+
+    onBack(){
+        window.location.reload();
     }
     
     render(){
@@ -45,12 +46,13 @@ class Header extends Component {
             <nav className="navbar navbar-static-top white-bg" role="navigation" style={divStyle}>
                 <LeftNavCollapser/>
                 <ul className="nav navbar-top-links navbar-right">
+                    <button type="button" className="btn btn-sm" onClick={this.onBack}>Back</button>
                     <li>
                         <span className="m-r-sm text-muted welcome-message">Welcome {this.props.username}</span>
-                    </li>
-                    <TopNavLinks onClick={this.logout}>
+                    </li>                    
+                    <TopNavLinks onClick={this.logout}>                    
                         <i className="fa fa-sign-out"></i>
-                        <span>LogOut</span>
+                        <span>LogOut</span>                        
                     </TopNavLinks>
                 </ul>
 
@@ -71,13 +73,16 @@ class LeftNavCollapser extends Component {
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
     }
+
+    // was inside nav-bar header
+    // <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
+    //             <i className="fa fa-bars"></i> 
+    //         </a>
     
     render(){
         return (
             <div className="navbar-header">
-            <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
-                <i className="fa fa-bars"></i> 
-            </a>
+            
         </div>
         );
     }
@@ -95,7 +100,6 @@ class TopNavLinks extends Component{
     handleClick() {
         this.setState(prevState => 
                       ({isActive: !prevState.isActive}));
-        console.log(this.props);
         this.props.onClick();
     }
     

@@ -2,6 +2,8 @@ import React, {Component} from  'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import Alert from '../components/Alert';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class TranslationForm extends Component {
     constructor(props){
@@ -17,48 +19,52 @@ class TranslationForm extends Component {
 
     onTranslationClicked(event){
         event.preventDefault();
-        $.ajax({
-            method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/translation/submit',
-            data: {
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                window.location.hash="#/home";
+                window.location.reload();
+            }else if (status === "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
                 "uid": Cookies.get("uid"),
                 "tid": this.props.tid,
                 "tda": document.getElementById("trans_data").value
-            },
-
-            success: function(response){
-                console.log(response);
-                window.location.hash="#/home";
-            },
-            error: function(response){
-                console.log(response.responseText);
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.postData('http://192.168.5.2:8000/api/v1/translation/submit', params);
     }
+
+    
 
     onErrorClicked(event){
         event.preventDefault();
-        $.ajax({
-            method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/error/submit',
-            data: {
-                "error_data": $('input[name="genderS"]:checked').val(), 
-                "uid": Cookies.get("uid"),
-            },
 
-            success: function(response){
-                console.log(response);
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
                 window.location.hash="#/home";
-            },
-            error: function(response){
-                console.log(response.responseText);
+                window.location.reload();
+            }else if (status === "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            }
+        }.bind(this);
+        
+        var params = {
+                "error_data": $('input[name="genderS"]:checked').val(), 
+                "uid": Cookies.get("uid"),
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.postData('http://192.168.5.2:8000/api/v1/error/submit', params);
     }
+    
 
 	render(){
         const divStyle = {
@@ -72,8 +78,9 @@ class TranslationForm extends Component {
                 <div className="col-lg-12">
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
-                            <h5>Vocie And User</h5>
+                            <h5>Voice And User</h5>
                         </div>
+                        
                         <div className="ibox-content">
                             <div className="row">
                                 <div className="col-lg-6">

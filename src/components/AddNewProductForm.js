@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import TextInput from './TextInput';
 import AutoSuggestText from './AutoSuggestText'
 import Modal from './Modal';
+import Alert from './Alert';
 
 
 class AddNewProductForm extends Component{
@@ -12,7 +13,10 @@ class AddNewProductForm extends Component{
 		this.state ={
 			data : [],
             headers: [],
-            modalFieldsNew : []
+            modalFieldsNew : [],
+            isError: false,
+            alertType: "success",
+            message: "None"
 		};
 		this.productNewSelected = this.productNewSelected.bind(this);
         this.createNewProduct = this.createNewProduct.bind(this);
@@ -25,7 +29,6 @@ class AddNewProductForm extends Component{
     //  4. Create product attribute edit form.
     
     productNewSelected(id){
-        console.log(id);
         $.ajax({
             method: 'get',
             url: 'http://192.168.5.2:8000/api/v1/transaction/category/attribute',
@@ -35,8 +38,6 @@ class AddNewProductForm extends Component{
             },
             success: function(response){
                 var data = $.parseJSON(response);
-                console.log("Inside category selected");
-                console.log(data);
                 var output = [];
                 var headers = [];
                 headers[0] = "Product Name";
@@ -47,8 +48,6 @@ class AddNewProductForm extends Component{
                 output[1] = {header: "Category", data: data.product_category};
                 output[2] = {header: "Unit Price", data: ""};
 
-                console.log("product selected");
-
                 var modalFields = output.map(
                     function (product, index){                        
                         var id = "itemn"+index;
@@ -57,16 +56,15 @@ class AddNewProductForm extends Component{
                     }
                 );
                 this.setState({headers: headers, modalFieldsNew: modalFields});
-                console.log("Updated State");
             }.bind(this),
             error: function(response){
-                
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
             }
         });
     }
     
     createNewProduct(){
-        console.log("in add new product");
         $.ajax({
             method: 'post',
             url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
@@ -79,12 +77,11 @@ class AddNewProductForm extends Component{
                 "uid": Cookies.get("uid")
             },
             success: function(response){
-                console.log(response);
             },
             error: function(response){
-                console.log(response.responseText);
+                alert("Product Already Exist");
                 var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg});
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),
         });
     }
@@ -93,6 +90,7 @@ class AddNewProductForm extends Component{
 	render(){
 		return(
 			<Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product" onClick={this.createNewProduct}>
+                <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                	<div className="form-group"><label className="col-sm-4 control-label">Category</label>
                     <div className="col-sm-8">
                 	    <AutoSuggestText 

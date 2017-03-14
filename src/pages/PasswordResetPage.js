@@ -7,6 +7,8 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import Alert from '../components/Alert';
 import HishabLogo from './images/logo.png';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class PasswordResetPage extends Component {
     constructor(props) {
@@ -27,23 +29,35 @@ class PasswordResetPage extends Component {
     
     onChangeClicked(event){
         event.preventDefault();
-        $.ajax({
-            method: 'post',
-            url: 'http://192.168.5.2:8000/api/v1/changepass',
-            data: {
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                var data = $.parseJSON(response);
+                this.setState({isError: true, message: data.msg, alertType: "success"});
+                
+                Cookies.remove('uid');
+                Cookies.remove('uty');
+                Cookies.remove('uname');
+                Cookies.remove('ust');
+                
+                window.location.hash = "#/";
+                window.location.reload();
+            }else if (status === "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
                 "pass": document.getElementById("passwd").value, 
                 "pasc": document.getElementById("passwc").value, 
                 "uid": Cookies.get("uid")
-            },
-            success: function(response){
-                var data = $.parseJSON(response);
-                this.setState({isError: true, message: data.msg, alertType: "success"});
-            }.bind(this),
-            error: function(response){
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.postData('http://192.168.5.2:8000/api/v1/changepass', params);
+
     }
     
     render() {

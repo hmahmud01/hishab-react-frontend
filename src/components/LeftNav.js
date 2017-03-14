@@ -5,20 +5,21 @@ class LeftNav extends Component {
         super(props);
         this.state = {};
     }
+
+                    //     <NavbarNavLinks>
+                    //     <i className="fa fa-th-large"></i> 
+                    //     <span className="nav-label">Dashboard</span>
+                    // </NavbarNavLinks>
     
     render(){
         return (
-<nav className="navbar-default navbar-static-side" role="navigation">
-  <div className="sidebar-collapse">
-    <NavbarNavPanel>
-        <NavbarHeader logo={this.props.logo}/>
-        <NavbarNavLinks>
-            <i className="fa fa-th-large"></i> 
-            <span className="nav-label">Dashboard</span>
-        </NavbarNavLinks>
-    </NavbarNavPanel>
-  </div>
-</nav>
+            <nav className="navbar-default navbar-static-side" role="navigation">
+              <div className="sidebar-collapse">
+                <NavbarNavPanel>
+                    <NavbarHeader logo={this.props.logo}/>
+                </NavbarNavPanel>
+              </div>
+            </nav>
         );
     }
 }
@@ -35,10 +36,6 @@ class NavbarHeader extends Component {
         };
         return (
     <li className="nav-header">
-        <div className="dropdown profile-element text-center"> 
-            <img src={this.props.logo} style={imgStyle} role="presentation"/>
-            <h2 className="text-center">Hishab</h2>
-        </div>
         <div className="logo-element">
             <img src={this.props.logo} style={imgStyle} role="presentation"/>
             <h5 className="text-center">Hishab</h5>

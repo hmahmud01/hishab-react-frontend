@@ -24,7 +24,6 @@ class RegistrationFormPage extends Component{
                 "tid": this.props.transId,
             },
             success: function(response) {
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({
                     audio: "http://192.168.5.2:8000"+data.audio,
@@ -32,7 +31,6 @@ class RegistrationFormPage extends Component{
                 });
             }.bind(this),
             error: function(response){
-                console.log(response);
             }
         });
     }

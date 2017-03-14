@@ -1,5 +1,7 @@
 import React, {Component} from  'react';
 import $ from 'jquery';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class SummaryForm extends Component {
     constructor(props){
@@ -9,47 +11,53 @@ class SummaryForm extends Component {
         this.update = this.update.bind(this);
     }
 
-    // paidCount(){
-    //     $("#paid").keyup(function(){
-    //         update();
-    //     });
-    // }   
-
-
-    // $("#paid, #due").keyup(function(){
-    // update();
-    // });
-
     update() {
-        console.log("inside update");
         var due = 0;
         due = $("#total").val() - $("#paid").val();
         $("#due").val(due);
     }
 
-    //make url to accept the error report submit
+    // ajax replaced
+    // $.ajax({
+    //         method: 'get',
+    //         url: 'http://192.168.5.2:8000/api/v1/translation/error',
+    //         data: {
+    //             "tid": this.props.transId,
+    //             "error" : $('input[name="error"]:checked').val(),
+    //         },
+    //         success: function(response){
+    //             var data = $.parseJSON(response);
+    //             this.setState({isError: false, message: data.msg, alertType: "success"});
+    //             window.location.hash="#/home";
+    //         }.bind(this),
+    //         error: function(response){
+    //             var data = $.parseJSON(response.responseText);
+    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
+    //         }.bind(this),
+    //     });
+
     onErrorClicked(event){
         event.preventDefault();
-        console.log($('input[name="error"]:checked').val());
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/translation/error',
-            data: {
-                "tid": this.props.transId,
-                "error" : $('input[name="error"]:checked').val(),
-            },
-            success: function(response){
-                console.log(response);
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
                 var data = $.parseJSON(response);
                 this.setState({isError: false, message: data.msg, alertType: "success"});
                 window.location.hash="#/home";
-            }.bind(this),
-            error: function(response){
-                console.log(response.responseText);
+            }else if (status === "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            }
+        }.bind(this);
+        
+        var params = {
+                "tid": this.props.transId,
+                "error" : $('input[name="error"]:checked').val(),
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/translation/error', params);
     }
 
 	render(){

@@ -38,6 +38,7 @@ class UserForm extends Component {
             if (status === "success"){
                 this.setState({isError: false, message: data.get('msg'), alertType: "success"});
             }else if (status === "error"){
+                alert("Phone Number Matches with Existing User");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);
@@ -64,6 +65,7 @@ class UserForm extends Component {
             if (status === "success"){
                 this.setState({isError: false, message: data.get('msg'), alertType: "success"});
             }else if (status === "error"){
+                alert("Organization Already Exist");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);

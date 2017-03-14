@@ -20,6 +20,7 @@ class IndexPage extends Component {
     
     componentDidMount() {
         document.body.classList.remove("gray-bg-size");   
+        document.body.classList.add("mini-navbar");
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
