@@ -27,16 +27,6 @@ class ReportPage extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
-        
-
-        var url_akij = "http://192.168.5.2:8000/api/v1/reports/sr?uid="+"01817061650";
-        console.log(url_akij);
-
-
-        $.getJSON(url_akij, function(data){
-
-        }).done()
-
 
         
         setInterval(function(){

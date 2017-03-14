@@ -46,11 +46,13 @@ class RegistrationForm extends Component {
                 console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({isError: false, message: data.msg, alertType: "success"});
+                location.reload();
             }.bind(this),
             error: function(response){
                 console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
+                window.location.hash="#/home";
             }.bind(this),
         });
     }
