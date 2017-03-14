@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import TextInput from './TextInput';
 import AutoSuggestText from './AutoSuggestText'
 import Modal from './Modal';
+import Alert from './Alert';
 
 
 class AddNewProductForm extends Component{
@@ -12,7 +13,10 @@ class AddNewProductForm extends Component{
 		this.state ={
 			data : [],
             headers: [],
-            modalFieldsNew : []
+            modalFieldsNew : [],
+            isError: false,
+            alertType: "success",
+            message: "None"
 		};
 		this.productNewSelected = this.productNewSelected.bind(this);
         this.createNewProduct = this.createNewProduct.bind(this);
@@ -54,7 +58,8 @@ class AddNewProductForm extends Component{
                 this.setState({headers: headers, modalFieldsNew: modalFields});
             }.bind(this),
             error: function(response){
-                
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
             }
         });
     }
@@ -74,8 +79,9 @@ class AddNewProductForm extends Component{
             success: function(response){
             },
             error: function(response){
+                alert("Product Already Exist");
                 var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg});
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),
         });
     }
@@ -84,6 +90,7 @@ class AddNewProductForm extends Component{
 	render(){
 		return(
 			<Modal id="modal-product-new" title="New Product Addition" discard="Exit" success="Add Product" onClick={this.createNewProduct}>
+                <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                	<div className="form-group"><label className="col-sm-4 control-label">Category</label>
                     <div className="col-sm-8">
                 	    <AutoSuggestText 
