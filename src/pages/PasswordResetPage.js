@@ -36,12 +36,10 @@ class PasswordResetPage extends Component {
                 "uid": Cookies.get("uid")
             },
             success: function(response){
-                console.log(response);
                 var data = $.parseJSON(response);
                 this.setState({isError: true, message: data.msg, alertType: "success"});
             }.bind(this),
             error: function(response){
-                console.log(response.responseText);
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
             }.bind(this),
@@ -69,7 +67,7 @@ class PasswordResetPage extends Component {
                         <input id="passwd" type="password" className="form-control" placeholder="Password"/>
                         <input id="passwc" type="password" className="form-control" placeholder="Confirm Password"/>
                     </div>
-                    <button type="submit" className="btn btn-success block" onClick={this.onChangeClicked}>Change Password</button>>
+                    <button type="submit" className="btn btn-success block" onClick={this.onChangeClicked}>Change Password</button>
                     </form>
                             </div>
                         </div>
