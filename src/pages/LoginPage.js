@@ -52,7 +52,7 @@ class LoginPage extends Component{
             };
                 
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/login', params);
+        ajax.postData('login', params);
     }
     
     onPasswordForgotClicked(event){
@@ -70,7 +70,7 @@ class LoginPage extends Component{
         var params = {"uphone": document.getElementById("uphone").value, uid: Cookies.get("uid")}
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/resetpass', params);
+        ajax.getData('resetpass', params);
     }
     
     render(){

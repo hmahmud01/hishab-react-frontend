@@ -7,7 +7,7 @@ class Logger{
         this.LEVEL_WARN = 2;
         this.LEVEL_ERROR = 3;
         
-        this.logLevel = this.LEVEL_ERROR;
+        this.logLevel = this.LEVEL_DEBUG;
         
         this.log = this.log.bind(this);
         this.debug = this.debug.bind(this);

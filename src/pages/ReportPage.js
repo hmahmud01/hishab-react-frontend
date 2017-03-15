@@ -44,11 +44,11 @@ class ReportPage extends Component {
             };
             
             var ajax = new Ajax(callback);
-            ajax.getData('http://192.168.5.2:8000/api/v1/get/call/count', params);
+            ajax.getData('get/call/count', params);
 
         //     $.ajax({
         //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/get/call/count',
+        //     url: 'get/call/count',
         //     data: {
         //         "uid": Cookies.get("uid"),
         //         // this.setState.uid = uid

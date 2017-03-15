@@ -65,11 +65,11 @@ class AddNewProductForm extends Component{
             };
 
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/transaction/category/attribute', params)
+        ajax.getData('transaction/category/attribute', params)
 
         // $.ajax({
         //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/transaction/category/attribute',
+        //     url: 'transaction/category/attribute',
         //     data: {
         //         "uid" : Cookies.get("uid"),
         //         "cid" : id
@@ -119,12 +119,12 @@ class AddNewProductForm extends Component{
             };
 
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/transaction/submit/product', params);
+        ajax.postData('transaction/submit/product', params);
 
 
         // $.ajax({
         //     method: 'post',
-        //     url: 'http://192.168.5.2:8000/api/v1/transaction/submit/product',
+        //     url: 'transaction/submit/product',
         //     data: {
         //         "pname": document.getElementById("itemn0").value, 
         //         "pcatg": document.getElementById("itemn1").value,
@@ -152,7 +152,7 @@ class AddNewProductForm extends Component{
 	                    	id="category"
 	                        placeholder="Category"
 	                        datalist="categorylist"
-	                        url="http://192.168.5.2:8000/api/v1/transaction/search/category"
+	                        url="transaction/search/category"
 	                        onSelect={this.productNewSelected}>
 	                       	<span className="input-group-btn">
 	                        	<a data-toggle="modal" className="btn btn-primary" href="#modal-category-new">

@@ -54,7 +54,7 @@ class UserForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        ajax.getData('register', params);
         
     }
 
@@ -83,7 +83,7 @@ class UserForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/transaction/submit/organization', params);
+        ajax.postData('transaction/submit/organization', params);
         
     }
 
@@ -93,11 +93,11 @@ class UserForm extends Component {
         };
         
 
-        var audio = this.props.audio.split(",");
+        var audio = this.props.audio;
         var results = undefined;
         if (audio !== undefined)
             results = audio.map(function(audiolink, index){
-                var aud = "http://192.168.5.2:8000"+audiolink;
+                var aud = new Ajax().baseUrl+audiolink;
                 return(
                     <audio key={index} style={divStyle} ref="audio_tag" src={aud} controls />
                 );
@@ -122,7 +122,7 @@ class UserForm extends Component {
                                                     placeholder="Buyer"
                                                     datalist="buyerlist"
                                                     value={this.state.buyerVal}
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                    url="transaction/search/user"
                                                 >
                                                     <span className="input-group-btn">
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
@@ -139,7 +139,7 @@ class UserForm extends Component {
                                                     placeholder="Seller"
                                                     datalist="sellerlist"
                                                     value={this.state.sellerVal}
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/user"
+                                                    url="transaction/search/user"
                                                 >
                                                     <span className="input-group-btn"> 
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
@@ -225,7 +225,7 @@ class UserForm extends Component {
                                                     id="organization"
                                                     placeholder="Organization"
                                                     datalist="orglist"
-                                                    url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
+                                                    url="transaction/search/organization"
                                                 >
                                                     <span className="input-group-btn"> 
                                                     <a data-toggle="modal" className="btn btn-primary" href="#modal-org">

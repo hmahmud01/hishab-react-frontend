@@ -53,11 +53,11 @@ class RegistrationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        ajax.getData('register', params);
         
     //     $.ajax({
     //         method: 'get',
-    //         url: 'http://192.168.5.2:8000/api/v1/register',
+    //         url: 'register',
     //         data: {
     //             "tid": this.props.transId,
     //             "uphone": document.getElementById("ph_number").value, 
@@ -106,7 +106,7 @@ class RegistrationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/transaction/submit/organization', params);
+        ajax.postData('transaction/submit/organization', params);
         
     }
     
@@ -118,7 +118,7 @@ class RegistrationForm extends Component {
         var results = undefined;
         if (audio !== undefined){
             results = audio.map(function(audioLink, index){
-                var aud = "http://192.168.5.2:8000"+audioLink;
+                var aud = new Ajax().baseUrl+audioLink;
                 return (
                     <audio key={index} style={divStyle} ref="audio_tag" src={aud} controls />
                 );
@@ -170,7 +170,7 @@ class RegistrationForm extends Component {
                                                         id="organization"
                                                         placeholder="Organization"
                                                         datalist="orglist"
-                                                        url="http://192.168.5.2:8000/api/v1/transaction/search/organization">
+                                                        url="transaction/search/organization">
                                                         <span className="input-group-btn"> 
                                                             <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
                                                                 <i className="fa fa-plus" aria-hidden="true"></i>

@@ -34,12 +34,12 @@ class RegistrationFormPage extends Component{
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/transaction/details', params);
+        ajax.getData('transaction/details', params);
 
 
         // $.ajax({
         //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/transaction/details',
+        //     url: 'transaction/details',
         //     data: {
         //         "uid": Cookies.get("uid"),
         //         "tid": this.props.transId,

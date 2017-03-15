@@ -9,15 +9,16 @@ import TranslationForm from '../components/TranslationForm';
 import HishabLogo from './images/logo.png';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 
 class TranslationFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            audio: "",
-            phone: ""
         };
+        
+        this.log = new Logger();
     }
 
     componentDidMount() {
@@ -28,10 +29,13 @@ class TranslationFormPage extends Component{
         var callback = function(response, status){
             if (status == "success"){
                 // Json util not workin 
-                var data = $.parseJSON(response);
+                var data = new Json(response);
+                
+                this.log.debug(data.getData());
+                
                 this.setState({
-                    audio: "http://192.168.5.2:8000"+data.audio,
-                    phone: data.phone
+                    audio: data.get('audio'),
+                    phone: data.get('phone')
                 });
             }
         }.bind(this);
@@ -42,28 +46,11 @@ class TranslationFormPage extends Component{
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/translation/details', params);
-
-        // $.ajax({
-        //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/translation/details',
-        //     data: {
-        //         "uid": Cookies.get("uid"),
-        //         "tid": this.props.transId,
-        //     },
-        //     success: function(response) {
-        //         var data = $.parseJSON(response);
-        //         this.setState({
-        //             audio: "http://192.168.5.2:8000"+data.audio,
-        //             phone: data.phone
-        //         });
-        //     }.bind(this),
-        //     error: function(response){
-        //     }
-        // });
+        ajax.getData('translation/details', params);
     }
     
     render(){
+        this.log.debug(this.state.audio);
         return(
             <div className="wrapper">
                 <LeftNav logo={HishabLogo}/>

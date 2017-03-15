@@ -30,7 +30,7 @@ class Testform extends Component {
 	                            id="organization"
 	                            placeholder="Organization"
 	                            datalist="orglist"
-	                            url="http://192.168.5.2:8000/api/v1/transaction/search/organization"
+	                            url="transaction/search/organization"
 	                        >
 		                        <span className="input-group-btn"> 
 		                        	<a data-toggle="modal" className="btn btn-primary" href="#modal-user">

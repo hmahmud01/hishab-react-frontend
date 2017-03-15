@@ -34,11 +34,11 @@ class RegistrationFormPage extends Component{
         var params = {};
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/get/form/user', params);
+        ajax.getData('get/form/user', params);
 
         // $.ajax({
         //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/get/form/user',
+        //     url: 'get/form/user',
         //     success: function(response){
         //         this.setState({response: response});
         //     }.bind(this),

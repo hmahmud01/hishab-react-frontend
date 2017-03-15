@@ -37,7 +37,7 @@ class AddNewCategoryForm extends Component{
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/transaction/submit/category', params);
+        ajax.getData('transaction/submit/category', params);
         
     }
 

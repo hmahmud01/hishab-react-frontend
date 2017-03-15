@@ -31,7 +31,7 @@ class Header extends Component {
         };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://192.168.5.2:8000/api/v1/logout', params)
+        ajax.getData('logout', params)
         
     }
 

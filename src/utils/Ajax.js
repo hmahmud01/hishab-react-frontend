@@ -3,6 +3,8 @@ import $ from 'jquery';
 class Ajax{
     
     constructor(callback){
+        this.baseUrl = "http://192.168.5.2:8000";
+        this.apiUrl = "/api/v1";
         this.callbackFunction = callback;
         this.getData = this.getData.bind(this);
         this.postData = this.postData.bind(this);
@@ -10,9 +12,12 @@ class Ajax{
     }
     
     getData(url, params){
+        if (!url.startsWith("/"))
+            url = "/"+url;
+        var combinedUrl = this.baseUrl + this.apiUrl + url;
         $.ajax({
             method: 'get',
-            url: url,
+            url: combinedUrl,
             data: params,
             success: function(response, status){
                 try{
@@ -34,9 +39,12 @@ class Ajax{
     }
     
     postData(url, params){
+        if (!url.startsWith("/"))
+            url = "/"+url;
+        var combinedUrl = this.baseUrl + this.apiUrl + url;
         $.ajax({
             method: 'post',
-            url: url,
+            url: combinedUrl,
             data: params,
             success: function(response, status){
                 try{

@@ -33,7 +33,7 @@ class ReportPage extends Component {
 
 
 
-        var url = "http://192.168.5.2:8000/api/v1/transaction/report?uid="+uid;
+        var url = "transaction/report?uid="+uid;
         
 
         var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr?uid="+"01817061650";
@@ -154,7 +154,7 @@ class ReportPage extends Component {
         // setInterval(function(){
         //     $.ajax({
         //     method: 'get',
-        //     url: 'http://192.168.5.2:8000/api/v1/get/call/count',
+        //     url: 'get/call/count',
         //     data: {
         //         "uid": Cookies.get("uid"),
         //         // this.setState.uid = uid

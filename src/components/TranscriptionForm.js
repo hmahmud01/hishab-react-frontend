@@ -82,7 +82,7 @@ class TranscriptionForm extends Component {
             };
             
             var ajax = new Ajax(callback);
-            ajax.postData('http://192.168.5.2:8000/api/v1/transcription/submit', params);            
+            ajax.postData('transcription/submit', params);            
         }else{
             this.setState({isError: true, message: "Buyer and Seller is same", alertType: "danger"});
         }        
