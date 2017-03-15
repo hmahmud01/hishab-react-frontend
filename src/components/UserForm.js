@@ -91,6 +91,9 @@ class UserForm extends Component {
         const divStyle = {
           width: '100%',          
         };
+        
+
+        var audio = this.props.audio.split(",");
         var results = undefined;
         var audio = this.props.audio;
         if (audio !== undefined)

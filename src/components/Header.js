@@ -25,6 +25,11 @@ class Header extends Component {
                 window.location.hash="#/";
             },
             error: function(status, response){
+                Cookies.remove('uid');
+                Cookies.remove('uty');
+                Cookies.remove('uname');
+                Cookies.remove('ust');
+                window.location.hash="#/";
                 if (status === 400)
                     Cookies.remove("uid")
                 var data = $.parseJSON(response);
@@ -44,9 +49,9 @@ class Header extends Component {
         return (
         <div className="row border-bottom">
             <nav className="navbar navbar-static-top white-bg" role="navigation" style={divStyle}>
+
                 <LeftNavCollapser/>
                 <ul className="nav navbar-top-links navbar-right">
-                    <button type="button" className="btn btn-sm" onClick={this.onBack}>Back</button>
                     <li>
                         <span className="m-r-sm text-muted welcome-message">Welcome {this.props.username}</span>
                     </li>                    
@@ -67,6 +72,7 @@ class LeftNavCollapser extends Component {
         super(props);
         this.state = {};
         this.handleClick = this.handleClick.bind(this);
+        this.onBack = this.onBack.bind(this);
     }
     
     handleClick(event){
@@ -74,16 +80,15 @@ class LeftNavCollapser extends Component {
         $("body").toggleClass("mini-navbar");
     }
 
-    // was inside nav-bar header
-    // <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
-    //             <i className="fa fa-bars"></i> 
-    //         </a>
+    onBack(){
+        window.location.reload();
+    }
     
     render(){
         return (
             <div className="navbar-header">
-            
-        </div>
+                <button type="button" className="navbar-minimalize minimalize-styl-2 btn btn-sm btn-info" onClick={this.onBack}>Back</button>            
+            </div>
         );
     }
 }
