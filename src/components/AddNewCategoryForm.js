@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import TextInput from './TextInput';
 import Modal from './Modal';
 import Alert from './Alert';
+import Ajax from '../utils/Ajax';
 
 
 class AddNewCategoryForm extends Component{
@@ -20,13 +21,7 @@ class AddNewCategoryForm extends Component{
     
 
     
-    addNewCategory(){
-        var datia = {
-                "cname": document.getElementById("category-name").value, 
-                "cfield": (document.getElementById("category-fields").value).trim().split(", "),
-                "uid": Cookies.get("uid")
-            };
-        
+    addNewCategory(){        
         var callback = function(response, status){
             if (status == "error"){
                 alert("Category Already Exist");
