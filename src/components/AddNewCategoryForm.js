@@ -26,22 +26,24 @@ class AddNewCategoryForm extends Component{
                 "cfield": (document.getElementById("category-fields").value).trim().split(", "),
                 "uid": Cookies.get("uid")
             };
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/transaction/submit/category',
-            data: {
-                "cname": document.getElementById("category-name").value, 
-                "cfield": (document.getElementById("category-fields").value).trim().split(","),
-                "uid": Cookies.get("uid")
-            },
-            success: function(response){
-            },
-            error: function(response){
+        
+        var callback = function(response, status){
+            if (status == "error"){
                 alert("Category Already Exist");
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            }
+        }.bind(this);
+        
+        var params = {
+                "cname": document.getElementById("category-name").value, 
+                "cfield": (document.getElementById("category-fields").value).trim().split(","),
+                "uid": Cookies.get("uid")
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/transaction/submit/category', params);
+        
     }
 
 	render(){

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import Ajax from '../utils/Ajax';
 
 class Header extends Component {
     constructor(props){
@@ -11,31 +12,27 @@ class Header extends Component {
     }
     
     logout(){
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/logout',
-            data: {
-                uid: Cookies.get('uid')
-            },
-            success: function(response){
-                Cookies.remove('uid');
-                Cookies.remove('uty');
-                Cookies.remove('uname');
-                Cookies.remove('ust');
-                window.location.hash="#/";
-            },
-            error: function(status, response){
-                Cookies.remove('uid');
-                Cookies.remove('uty');
-                Cookies.remove('uname');
-                Cookies.remove('ust');
-                window.location.hash="#/";
-                if (status === 400)
-                    Cookies.remove("uid")
-                var data = $.parseJSON(response);
-                alert(data.msg);
-            },
-        });
+        
+        var callback = function(response, status){
+            if (status == "success"){
+                
+            }else if (status == "error"){
+                
+            }
+            Cookies.remove('uid');
+            Cookies.remove('uty');
+            Cookies.remove('uname');
+            Cookies.remove('ust');
+            window.location.hash="#/";
+        }
+        
+        var params = {
+            uid: Cookies.get('uid')
+        };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/logout', params)
+        
     }
 
     onBack(){
