@@ -92,12 +92,9 @@ class UserForm extends Component {
           width: '100%',          
         };
         
-
-        var audio = this.props.audio.split(",");
         var results = undefined;
         var audio = this.props.audio;
         if (audio !== undefined)
-            audio = audio.split(",");
             results = audio.map(function(audiolink, index){
                 var aud = "http://app.hishab.co"+audiolink;
                 return(
