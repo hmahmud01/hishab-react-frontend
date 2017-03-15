@@ -15,10 +15,6 @@ class TranscriptionFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data : "",
-            cty : "",
-            phone : "",
-            audio : ""
         };
         this.componentWillMount = this.componentWillMount.bind(this);
     }
