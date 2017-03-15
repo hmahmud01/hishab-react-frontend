@@ -25,6 +25,11 @@ class Header extends Component {
                 window.location.hash="#/";
             },
             error: function(status, response){
+                Cookies.remove('uid');
+                Cookies.remove('uty');
+                Cookies.remove('uname');
+                Cookies.remove('ust');
+                window.location.hash="#/";
                 if (status === 400)
                     Cookies.remove("uid")
                 var data = $.parseJSON(response);
@@ -78,11 +83,6 @@ class LeftNavCollapser extends Component {
     onBack(){
         window.location.reload();
     }
-
-    // was inside nav-bar header
-    // <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
-    //             <i className="fa fa-bars"></i> 
-    //         </a>
     
     render(){
         return (

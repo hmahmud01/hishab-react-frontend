@@ -26,7 +26,7 @@ class RegistrationFormPage extends Component{
             success: function(response) {
                 var data = $.parseJSON(response);
                 this.setState({
-                    audio: "http://192.168.5.2:8000"+data.audio,
+                    audio: data.audio,
                     phone: data.phone
                 });
             }.bind(this),
