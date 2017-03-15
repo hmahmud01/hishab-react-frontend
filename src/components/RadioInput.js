@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Row from './Row';
 import Col from './Col';
-import $ from 'jquery';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class RadioInput extends Component{
 	constructor(props){
@@ -12,22 +13,23 @@ class RadioInput extends Component{
 	}
 
 	getData(){
-		$.ajax({
-			method: 'get',
-			url: this.props.url,
-			data: {
+
+		var callback = function(response, status){
+		    if (status == "success"){	
+		    	var data = new Json(response);
+				this.setState({data : data});		
+		    }else if (status == "error"){
+		
+		    }
+		}.bind(this);
+		
+		var params = {
 				id: "1",
 				value: "value"
-			},
-			success: function(response){
-				var data = $.parseJSON(response)
-				this.setState({data : data})
-			}.bind(this),
-			error: function(response){
-			}
-
-
-		});
+			};
+		
+		var ajax = new Ajax(callback);
+		ajax.getData(this.props.url, params);
 	}
 
 	render(){

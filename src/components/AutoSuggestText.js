@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import InputComponent from './InputComponent';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class AutoSuggestText extends InputComponent{
     constructor(props){
@@ -18,20 +20,37 @@ class AutoSuggestText extends InputComponent{
         
         // This handles the data field loading
         if (event.target.value.length > 2){
-            $.ajax({
-            method: 'get',
-            url: this.props.url,
-            data: {
+            var callback = function(response, status){
+                if (status == "success"){
+                    var data = new Json(response);
+                    this.setState({data : data.getData()});
+                }else if (status == "error"){
+
+                }
+            }.bind(this);
+
+            var params = {
                 "uid": Cookies.get("uid"),
                 "search": event.target.value,
-            },
-            success: function(response) {
-                var data = $.parseJSON(response)
-                this.setState({data : data});
-            }.bind(this),
-            error: function(response) {
-            }
-            });
+            };
+
+            var ajax = new Ajax(callback);
+            ajax.getData(this.props.url, params);
+
+            // $.ajax({
+            // method: 'get',
+            // url: this.props.url,
+            // data: {
+            //     "uid": Cookies.get("uid"),
+            //     "search": event.target.value,
+            // },
+            // success: function(response) {
+            //     var data = $.parseJSON(response);
+            //     this.setState({data : data});
+            // }.bind(this),
+            // error: function(response) {
+            // }
+            // });
         }
         
         // This handles the data selection segment

@@ -28,11 +28,21 @@ class RegistrationForm extends Component {
 
     onRegistrationClicked(event){
         event.preventDefault();
+
+        var callback = function(response, status){
+            if (status == "success"){
+                var data = $.parseJSON(response);
+                this.setState({isError: false, message: data.msg, alertType: "success"});
+                window.location.hash = "#/home";
+                window.location.reload();
+            }else if (status == "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+                window.location.hash="#/home";
+            }
+        }.bind(this);
         
-        $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/register',
-            data: {
+        var params = {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
@@ -40,20 +50,36 @@ class RegistrationForm extends Component {
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
-            },
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://192.168.5.2:8000/api/v1/register', params);
+        
+    //     $.ajax({
+    //         method: 'get',
+    //         url: 'http://192.168.5.2:8000/api/v1/register',
+    //         data: {
+    //             "tid": this.props.transId,
+    //             "uphone": document.getElementById("ph_number").value, 
+    //             "uname": document.getElementById("name").value,
+    //             "utype": $('#type :selected').val(),
+    //             "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+    //             "uorg": document.getElementById("organization").value,
+    //             "uid": Cookies.get("uid"),
+    //         },
 
-            success: function(response){
-                var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
-                window.location.hash = "#/home";
-                window.location.reload();
-            }.bind(this),
-            error: function(response){
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-                window.location.hash="#/home";
-            }.bind(this),
-        });
+    //         success: function(response){
+    //             var data = $.parseJSON(response);
+    //             this.setState({isError: false, message: data.msg, alertType: "success"});
+    //             window.location.hash = "#/home";
+    //             window.location.reload();
+    //         }.bind(this),
+    //         error: function(response){
+    //             var data = $.parseJSON(response.responseText);
+    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
+    //             window.location.hash="#/home";
+    //         }.bind(this),
+    //     });
     }
 
     onOrganizationAddClicked(event){

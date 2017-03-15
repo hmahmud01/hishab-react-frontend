@@ -6,7 +6,7 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import TranscriptionForm from '../components/TranscriptionForm';
 import HishabLogo from './images/logo.png';
-
+import $ from 'jquery';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
@@ -15,7 +15,10 @@ class TranscriptionFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data : ""
+            data : "",
+            cty : "",
+            phone : "",
+            audio : ""
         };
         this.componentWillMount = this.componentWillMount.bind(this);
     }
@@ -24,9 +27,13 @@ class TranscriptionFormPage extends Component{
         
         var callback = function(response, status){
             var data = new Json(response);
+            // var data = $.parseJson(response);
             if (status === "success"){
                 this.setState({
-                    data: data.getData()
+                    data: data.getData(),
+                    cty: data.get('cty'),
+                    phone: data.get('phone'),
+                    audio: data.get('audio')
                 });
             }else if (status === "error"){
                 
@@ -48,9 +55,8 @@ class TranscriptionFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Transcription for {this.props.callType} </h1>    
-                        <TranscriptionForm transId={this.props.transId} data={this.state.data}/>
+                        <TranscriptionForm transId={this.props.transId} data={this.state.data} cty={this.state.cty} phone={this.state.phone} audio={this.state.audio}/>
                     </Content>
-
                     <Footer/>
                 </ContentWrapper>
             </div>

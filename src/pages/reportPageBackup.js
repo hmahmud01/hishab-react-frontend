@@ -39,36 +39,6 @@ class ReportPage extends Component {
         var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr?uid="+"01817061650";
         
 
-        $.getJSON(url_akij, function (data) {
-            
-            for(var i=0; i<data.length; i++){
-                
-                
-                
-                
-                
-                var prod = data[i].products
-                var p_length = prod.length;
-                for(var k=0; k<p_length; k++){
-                    
-                    var item = prod[k];
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    for(var j=0; j<item.attributes.length; j++){
-                        
-                    }
-                }
-                
-                
-                
-            }
-        });
-
         $.getJSON(url, function(data){
             var items = [];
             // var val = {this.state.data};
@@ -181,24 +151,24 @@ class ReportPage extends Component {
         });
 
         
-        setInterval(function(){
-            $.ajax({
-            method: 'get',
-            url: 'http://192.168.5.2:8000/api/v1/get/call/count',
-            data: {
-                "uid": Cookies.get("uid"),
-                // this.setState.uid = uid
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
+        // setInterval(function(){
+        //     $.ajax({
+        //     method: 'get',
+        //     url: 'http://192.168.5.2:8000/api/v1/get/call/count',
+        //     data: {
+        //         "uid": Cookies.get("uid"),
+        //         // this.setState.uid = uid
+        //     },
+        //     success: function(response) {
+        //         var data = $.parseJSON(response);
                 
-                this.setState({items: data.data});
-            }.bind(this),
-            error: function(response) {
+        //         this.setState({items: data.data});
+        //     }.bind(this),
+        //     error: function(response) {
                 
-            }
-        });
-        }.bind(this), 30000);
+        //     }
+        // });
+        // }.bind(this), 30000);
     }
     
     render() {
