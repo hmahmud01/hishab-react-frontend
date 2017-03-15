@@ -62,7 +62,7 @@ class TranslationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://192.168.5.2:8000/api/v1/error/submit', params);
+        ajax.postData('http://app.hishab.co/api/v1/error/submit', params);
     }
     
 
