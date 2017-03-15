@@ -93,7 +93,7 @@ class UserForm extends Component {
         };
         
 
-        var audio = this.props.audio;
+        var audio = this.props.audio.split(",");
         var results = undefined;
         if (audio !== undefined)
             results = audio.map(function(audiolink, index){
