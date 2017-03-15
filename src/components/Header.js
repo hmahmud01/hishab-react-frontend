@@ -44,9 +44,9 @@ class Header extends Component {
         return (
         <div className="row border-bottom">
             <nav className="navbar navbar-static-top white-bg" role="navigation" style={divStyle}>
+
                 <LeftNavCollapser/>
                 <ul className="nav navbar-top-links navbar-right">
-                    <button type="button" className="btn btn-sm" onClick={this.onBack}>Back</button>
                     <li>
                         <span className="m-r-sm text-muted welcome-message">Welcome {this.props.username}</span>
                     </li>                    
@@ -67,11 +67,16 @@ class LeftNavCollapser extends Component {
         super(props);
         this.state = {};
         this.handleClick = this.handleClick.bind(this);
+        this.onBack = this.onBack.bind(this);
     }
     
     handleClick(event){
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
+    }
+
+    onBack(){
+        window.location.reload();
     }
 
     // was inside nav-bar header
@@ -82,8 +87,8 @@ class LeftNavCollapser extends Component {
     render(){
         return (
             <div className="navbar-header">
-            
-        </div>
+                <button type="button" className="navbar-minimalize minimalize-styl-2 btn btn-sm btn-info" onClick={this.onBack}>Back</button>            
+            </div>
         );
     }
 }
