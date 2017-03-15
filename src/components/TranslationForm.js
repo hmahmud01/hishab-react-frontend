@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Alert from '../components/Alert';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 class TranslationForm extends Component {
     constructor(props){
@@ -37,7 +38,7 @@ class TranslationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://app.hishab.co/api/v1/translation/submit', params);
+        ajax.postData('translation/submit', params);
     }
 
     
@@ -62,7 +63,7 @@ class TranslationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://app.hishab.co/api/v1/error/submit', params);
+        ajax.postData('error/submit', params);
     }
     
 
@@ -70,18 +71,16 @@ class TranslationForm extends Component {
         const divStyle = {
           width: '100%',          
         };
-        
-        var results = undefined;
         var audio = this.props.audio;
+        var results = undefined;
         if (audio !== undefined){
-            results = audio.map(function(singleAudio, index){
-                var audioUrl = "http://app.hishab.co" + singleAudio;
+            results = audio.map(function(audioLink, index){
+                var aud = new Ajax().baseUrl+audioLink;
                 return (
-                    <audio style={divStyle} ref="audio_tag" src={audioUrl} controls />
+                    <audio key={index} style={divStyle} ref="audio_tag" src={aud} controls />
                 );
-            }.bind(this));
+            });
         }
-        
 		return (
             <div>
                 {this.state.isError === true &&

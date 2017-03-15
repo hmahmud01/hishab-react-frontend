@@ -82,10 +82,10 @@ class TranscriptionForm extends Component {
             };
             
             var ajax = new Ajax(callback);
-            ajax.postData('http://app.hishab.co/api/v1/transcription/submit', params);            
+            ajax.postData('transcription/submit', params);            
         }else{
-            this.setState({isError: true, message: "buyer and seller is same", alertType: "danger"});
-        }
+            this.setState({isError: true, message: "Buyer and Seller is same", alertType: "danger"});
+        }        
     }
 
     
@@ -94,7 +94,7 @@ class TranscriptionForm extends Component {
 		return (
             <div>
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
-                <UserForm ref="userData" transId={this.props.transId} audio={this.props.data.audio} formtype={this.props.data.cty} phone={this.props.data.phone}/>
+                <UserForm ref="userData" transId={this.props.transId} audio={this.props.audio} formtype={this.props.cty} phone={this.props.phone}/>
                 <ProductForm ref="products"/>
                 <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary}/>                 
             </div>

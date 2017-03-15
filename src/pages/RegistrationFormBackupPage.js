@@ -23,16 +23,28 @@ class RegistrationFormPage extends Component{
     }
     
     componentDidMount(){
-        $.ajax({
-            method: 'get',
-            url: 'http://app.hishab.co/api/v1/get/form/user',
-            success: function(response){
 
+
+        var callback = function(response, status){
+            if (status == "success"){
                 this.setState({response: response});
-            }.bind(this),
-            error: function(response){
-            }.bind(this)
-        })
+            }
+        }.bind(this);
+        
+        var params = {};
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('get/form/user', params);
+
+        // $.ajax({
+        //     method: 'get',
+        //     url: 'get/form/user',
+        //     success: function(response){
+        //         this.setState({response: response});
+        //     }.bind(this),
+        //     error: function(response){
+        //     }.bind(this)
+        // })
     }
     
     render(){

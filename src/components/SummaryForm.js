@@ -17,6 +17,25 @@ class SummaryForm extends Component {
         $("#due").val(due);
     }
 
+    // ajax replaced
+    // $.ajax({
+    //         method: 'get',
+    //         url: 'translation/error',
+    //         data: {
+    //             "tid": this.props.transId,
+    //             "error" : $('input[name="error"]:checked').val(),
+    //         },
+    //         success: function(response){
+    //             var data = $.parseJSON(response);
+    //             this.setState({isError: false, message: data.msg, alertType: "success"});
+    //             window.location.hash="#/home";
+    //         }.bind(this),
+    //         error: function(response){
+    //             var data = $.parseJSON(response.responseText);
+    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
+    //         }.bind(this),
+    //     });
+
     onErrorClicked(event){
         event.preventDefault();
 
@@ -38,7 +57,7 @@ class SummaryForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('http://app.hishab.co/api/v1/translation/error', params);
+        ajax.getData('translation/error', params);
     }
 
 	render(){

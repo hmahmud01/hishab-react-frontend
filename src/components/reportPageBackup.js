@@ -12,6 +12,8 @@ import PurchaseTransactionDetail from '../components/PurchaseTransactionDetail';
 import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
 import example from './example.json';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 
 class ReportPage extends Component {
@@ -33,7 +35,7 @@ class ReportPage extends Component {
 
 
 
-        var url = "http://app.hishab.co/api/v1/transaction/report?uid="+uid;
+        var url = "transaction/report?uid="+uid;
 
         var url_akij = "http://app.hishab.co/api/v1/reports/sr?uid="+"01817061650";
 
@@ -144,20 +146,33 @@ class ReportPage extends Component {
 
         
         setInterval(function(){
-            $.ajax({
-            method: 'get',
-            url: 'http://app.hishab.co/api/v1/get/call/count',
-            data: {
+            var callback = function(response, status){
+                if (status == "success"){
+                    var data = new Json(response);
+                    this.setState({items: data.data});            
+                }
+            }.bind(this);
+            
+            var params = {
                 "uid": Cookies.get("uid"),
-                // this.setState.uid = uid
-            },
-            success: function(response) {
-                var data = $.parseJSON(response);
-                this.setState({items: data.data});
-            }.bind(this),
-            error: function(response) {
-            }
-        });
+            };
+            
+            var ajax = new Ajax(callback);
+            ajax.getData('get/call/count', params);
+
+        //     $.ajax({
+        //     method: 'get',
+        //     url: 'get/call/count',
+        //     data: {
+        //         "uid": Cookies.get("uid"),
+        //     },
+        //     success: function(response) {
+        //         var data = $.parseJSON(response);
+        //         this.setState({items: data.data});
+        //     }.bind(this),
+        //     error: function(response) {
+        //     }
+        // });
         }.bind(this), 30000);
     }
     

@@ -7,6 +7,8 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import TranscriptionForm from '../components/TranscriptionForm';
 import HishabLogo from './images/logo.png';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 
 class RevisionFormPage extends Component{
@@ -19,22 +21,38 @@ class RevisionFormPage extends Component{
     }
     
     componentWillMount(){
-        $.ajax({
-            method: 'get',
-            url: 'http://app.hishab.co/api/v1/transaction/details',
-            data: {
-                "uid": Cookies.get("uid"),
-                "tid": this.props.transId,
-            },
-            success:function(response){
-                var data = $.parseJSON(response);
+        var callback = function(response, status){
+            if (status == "success"){
+                var data = new Json(response);
                 this.setState({
                     data: data
                 });
-            }.bind(this),
-            error:function(response){
             }
-        });
+        }.bind(this);
+        
+        var params = {
+                "uid": Cookies.get("uid"),
+                "tid": this.props.transId,
+            };        
+        var ajax = new Ajax(callback);
+        ajax.getData('transaction/details', params);
+
+        // $.ajax({
+        //     method: 'get',
+        //     url: 'transaction/details',
+        //     data: {
+        //         "uid": Cookies.get("uid"),
+        //         "tid": this.props.transId,
+        //     },
+        //     success:function(response){
+        //         var data = $.parseJSON(response);
+        //         this.setState({
+        //             data: data
+        //         });
+        //     }.bind(this),
+        //     error:function(response){
+        //     }
+        // });
     }
     
     

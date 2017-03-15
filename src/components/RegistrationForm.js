@@ -28,11 +28,21 @@ class RegistrationForm extends Component {
 
     onRegistrationClicked(event){
         event.preventDefault();
+
+        var callback = function(response, status){
+            if (status == "success"){
+                var data = $.parseJSON(response);
+                this.setState({isError: false, message: data.msg, alertType: "success"});
+                window.location.hash = "#/home";
+                window.location.reload();
+            }else if (status == "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+                window.location.hash="#/home";
+            }
+        }.bind(this);
         
-        $.ajax({
-            method: 'get',
-            url: 'http://app.hishab.co/api/v1/register',
-            data: {
+        var params = {
                 "tid": this.props.transId,
                 "uphone": document.getElementById("ph_number").value, 
                 "uname": document.getElementById("name").value,
@@ -40,20 +50,36 @@ class RegistrationForm extends Component {
                 "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
                 "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
-            },
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('register', params);
+        
+    //     $.ajax({
+    //         method: 'get',
+    //         url: 'register',
+    //         data: {
+    //             "tid": this.props.transId,
+    //             "uphone": document.getElementById("ph_number").value, 
+    //             "uname": document.getElementById("name").value,
+    //             "utype": $('#type :selected').val(),
+    //             "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+    //             "uorg": document.getElementById("organization").value,
+    //             "uid": Cookies.get("uid"),
+    //         },
 
-            success: function(response){
-                var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
-                window.location.hash = "#/home";
-                window.location.reload();
-            }.bind(this),
-            error: function(response){
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-                window.location.hash="#/home";
-            }.bind(this),
-        });
+    //         success: function(response){
+    //             var data = $.parseJSON(response);
+    //             this.setState({isError: false, message: data.msg, alertType: "success"});
+    //             window.location.hash = "#/home";
+    //             window.location.reload();
+    //         }.bind(this),
+    //         error: function(response){
+    //             var data = $.parseJSON(response.responseText);
+    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
+    //             window.location.hash="#/home";
+    //         }.bind(this),
+    //     });
     }
 
     onOrganizationAddClicked(event){
@@ -80,7 +106,7 @@ class RegistrationForm extends Component {
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('http://app.hishab.co/api/v1/transaction/submit/organization', params);
+        ajax.postData('transaction/submit/organization', params);
         
     }
     
@@ -92,7 +118,7 @@ class RegistrationForm extends Component {
         var results = undefined;
         if (audio !== undefined){
             results = audio.map(function(audioLink, index){
-                var aud = "http://app.hishab.co"+audioLink;
+                var aud = new Ajax().baseUrl+audioLink;
                 return (
                     <audio key={index} style={divStyle} ref="audio_tag" src={aud} controls />
                 );
@@ -144,7 +170,7 @@ class RegistrationForm extends Component {
                                                         id="organization"
                                                         placeholder="Organization"
                                                         datalist="orglist"
-                                                        url="http://app.hishab.co/api/v1/transaction/search/organization">
+                                                        url="transaction/search/organization">
                                                         <span className="input-group-btn"> 
                                                             <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
                                                                 <i className="fa fa-plus" aria-hidden="true"></i>
