@@ -13,6 +13,7 @@ class Modal extends Component{
             <div className="modal-dialog">
                 <div className="modal-content">
                     <ModalHeader title={this.props.title}/>
+                    
                     <form className="form-horizontal">
                         <div className="modal-body">
                             <div className="row">

@@ -7,6 +7,7 @@ class Header extends Component {
         super(props);
         this.state = {};
         this.logout = this.logout.bind(this);
+        this.onBack = this.onBack.bind(this);
     }
     
     logout(){
@@ -31,6 +32,10 @@ class Header extends Component {
             },
         });
     }
+
+    onBack(){
+        window.location.reload();
+    }
     
     render(){
         const divStyle = {
@@ -41,12 +46,13 @@ class Header extends Component {
             <nav className="navbar navbar-static-top white-bg" role="navigation" style={divStyle}>
                 <LeftNavCollapser/>
                 <ul className="nav navbar-top-links navbar-right">
+                    <button type="button" className="btn btn-sm" onClick={this.onBack}>Back</button>
                     <li>
                         <span className="m-r-sm text-muted welcome-message">Welcome {this.props.username}</span>
-                    </li>
-                    <TopNavLinks onClick={this.logout}>
+                    </li>                    
+                    <TopNavLinks onClick={this.logout}>                    
                         <i className="fa fa-sign-out"></i>
-                        <span>LogOut</span>
+                        <span>LogOut</span>                        
                     </TopNavLinks>
                 </ul>
 
@@ -67,13 +73,16 @@ class LeftNavCollapser extends Component {
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
     }
+
+    // was inside nav-bar header
+    // <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
+    //             <i className="fa fa-bars"></i> 
+    //         </a>
     
     render(){
         return (
             <div className="navbar-header">
-            <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" onClick={this.handleClick}>
-                <i className="fa fa-bars"></i> 
-            </a>
+            
         </div>
         );
     }

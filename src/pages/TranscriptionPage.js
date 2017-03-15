@@ -74,7 +74,6 @@ class TranscriptionPage extends Component {
         this.setState({title: title});
         
         var callback = function(response, status){
-//            var data = new Json(response);
             if (status === "success"){
                 var data = $.parseJSON(response);
                 if (data.length < 1)
@@ -136,7 +135,7 @@ class TranscriptionPage extends Component {
                     <ContentWrapper>
                         <Header username={Cookies.get("uname")}/>
                         <Content>
-                                <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
+                            <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
                             <TypeList items={this.state.items} onClick={this.typeClickHandler}/>
                             <CallList title={this.state.title} items={this.state.callItems} onClick={this.callItemClickHandler}/>
                         </Content>
