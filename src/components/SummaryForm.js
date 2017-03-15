@@ -1,5 +1,7 @@
 import React, {Component} from  'react';
 import $ from 'jquery';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class SummaryForm extends Component {
     constructor(props){
@@ -9,43 +11,34 @@ class SummaryForm extends Component {
         this.update = this.update.bind(this);
     }
 
-    // paidCount(){
-    //     $("#paid").keyup(function(){
-    //         update();
-    //     });
-    // }   
-
-
-    // $("#paid, #due").keyup(function(){
-    // update();
-    // });
-
     update() {
         var due = 0;
         due = $("#total").val() - $("#paid").val();
         $("#due").val(due);
     }
 
-    //make url to accept the error report submit
     onErrorClicked(event){
         event.preventDefault();
-        $.ajax({
-            method: 'get',
-            url: 'http://app.hishab.co/api/v1/translation/error',
-            data: {
-                "tid": this.props.transId,
-                "error" : $('input[name="error"]:checked').val(),
-            },
-            success: function(response){
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
                 var data = $.parseJSON(response);
                 this.setState({isError: false, message: data.msg, alertType: "success"});
                 window.location.hash="#/home";
-            }.bind(this),
-            error: function(response){
+            }else if (status === "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            }
+        }.bind(this);
+        
+        var params = {
+                "tid": this.props.transId,
+                "error" : $('input[name="error"]:checked').val(),
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('http://app.hishab.co/api/v1/translation/error', params);
     }
 
 	render(){
@@ -71,11 +64,11 @@ class SummaryForm extends Component {
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Paid</label>
-                                    <div className="col-sm-10"><input type="text" id="paid" className="form-control" onkeyup={this.update}/></div>
+                                    <div className="col-sm-10"><input type="text" id="paid" className="form-control" onKeyUp={this.update}/></div>
                                 </div>
 
                                 <div className="form-group"><label className="col-sm-2 control-label">Due</label>
-                                    <div className="col-sm-10"><input type="text" id="due" className="form-control" onkeyup={this.update}/></div>
+                                    <div className="col-sm-10"><input type="text" id="due" className="form-control" onKeyUp={this.update}/></div>
                                 </div>             
                             </form>   
                             <div className="hr-line-dashed"></div>

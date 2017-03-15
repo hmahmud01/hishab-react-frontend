@@ -38,6 +38,7 @@ class UserForm extends Component {
             if (status === "success"){
                 this.setState({isError: false, message: data.get('msg'), alertType: "success"});
             }else if (status === "error"){
+                alert("Phone Number Matches with Existing User");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);
@@ -64,6 +65,7 @@ class UserForm extends Component {
             if (status === "success"){
                 this.setState({isError: false, message: data.get('msg'), alertType: "success"});
             }else if (status === "error"){
+                alert("Organization Already Exist");
                 this.setState({isError: true, message: data.get('msg'), alertType: "danger"});
             }
         }.bind(this);
@@ -91,14 +93,13 @@ class UserForm extends Component {
         };
         var results = undefined;
         var audio = this.props.audio;
-        if (audio !== undefined){
-            results = audio.map(function(singleAudio, index){
-                var audioUrl = "http://app.hishab.co" + singleAudio;
-                return (
-                    <audio style={divStyle} ref="audio_tag" src={audioUrl} controls />
+        if (audio !== undefined)
+            results = audio.map(function(audiolink, index){
+                var aud = "http://app.hishab.co"+audiolink;
+                return(
+                    <audio key={index} style={divStyle} ref="audio_tag" src={aud} controls />
                 );
-            }.bind(this));
-        }
+            });
 		return (
             <div>
                 <div className="col-lg-12">
@@ -166,7 +167,7 @@ class UserForm extends Component {
                                                 <span className="pull-right"> <i className="fa fa-music"></i> Audio </span>
                                                 <h2 className="font-bold">
                                                     {results}
-                                                </h2>                                        
+                                                </h2>                                   
                                             </div>
                                         </div>
                                     </div>

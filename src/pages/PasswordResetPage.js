@@ -7,6 +7,8 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import Alert from '../components/Alert';
 import HishabLogo from './images/logo.png';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class PasswordResetPage extends Component {
     constructor(props) {
@@ -27,15 +29,10 @@ class PasswordResetPage extends Component {
     
     onChangeClicked(event){
         event.preventDefault();
-        $.ajax({
-            method: 'post',
-            url: 'http://app.hishab.co/api/v1/changepass',
-            data: {
-                "pass": document.getElementById("passwd").value, 
-                "pasc": document.getElementById("passwc").value, 
-                "uid": Cookies.get("uid")
-            },
-            success: function(response){
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
                 var data = $.parseJSON(response);
                 this.setState({isError: true, message: data.msg, alertType: "success"});
                 
@@ -46,12 +43,21 @@ class PasswordResetPage extends Component {
                 
                 window.location.hash = "#/";
                 window.location.reload();
-            }.bind(this),
-            error: function(response){
+            }else if (status === "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }.bind(this),
-        });
+            }
+        }.bind(this);
+        
+        var params = {
+                "pass": document.getElementById("passwd").value, 
+                "pasc": document.getElementById("passwc").value, 
+                "uid": Cookies.get("uid")
+            };
+        
+        var ajax = new Ajax(callback);
+        ajax.postData('http://192.168.5.2:8000/api/v1/changepass', params);
+
     }
     
     render() {
@@ -75,7 +81,7 @@ class PasswordResetPage extends Component {
                         <input id="passwd" type="password" className="form-control" placeholder="Password"/>
                         <input id="passwc" type="password" className="form-control" placeholder="Confirm Password"/>
                     </div>
-                    <button type="submit" className="btn btn-success block" onClick={this.onChangeClicked}>Change Password</button>>
+                    <button type="submit" className="btn btn-success block" onClick={this.onChangeClicked}>Change Password</button>
                     </form>
                             </div>
                         </div>
