@@ -83,8 +83,19 @@ class AkijReport extends Component {
             // console.log("inside col");
             // console.log(cols);
 
-            for (var j=0; j<cols.length; j++)
-                row.push(cols[j].innerText);
+            for (var j=0; j<cols.length; j++){
+                if (i == 0 && j > 1){
+                    row.push('');
+                    row.push(cols[j].innerText);
+                    row.push('');
+                }else if (i == 1 && j == 0){
+                    row.push('');
+                    row.push('');
+                    row.push(cols[j].innerText);
+                }else{
+                    row.push(cols[j].innerText);
+                }
+            }
 
             csv.push(row.join(","));
         }
