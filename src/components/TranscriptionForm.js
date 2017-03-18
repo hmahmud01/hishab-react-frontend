@@ -23,6 +23,27 @@ class TranscriptionForm extends Component {
         this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
+
+    componentWillReceiveProps(newProps){
+        this.setState({
+            audio: newProps.data.cau, 
+            phone: newProps.data.cin,
+            buyer: newProps.data.bin,
+            seller: newProps.data.sin
+        });
+        if (newProps.data.hasOwnProperty('pda')){
+            this.setState({
+                product: newProps.data.pda
+            });
+        }
+        if (newProps.data.uda.hasOwnProperty('uor')){
+            this.setState({
+                orgId: newProps.data.uda.uor.oid,
+                orgName: newProps.data.uda.uor.ona
+            });
+        }
+    }
+
     onSummary(){
         var headers = this.refs.products.state.headers;
         var products = this.refs.products.state.data;
@@ -123,8 +144,8 @@ class TranscriptionForm extends Component {
 		return (
             <div>
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
-                <UserForm ref="userData" transId={this.props.transId} audio={this.props.audio} formtype={this.props.cty} phone={this.props.phone}/>
-                <ProductForm ref="products"/>
+                <UserForm ref="userData" transId={this.props.transId} buyer={this.state.buyer} seller={this.state.seller} audio={this.state.audio} formtype={this.props.cty} phone={this.state.phone}/>
+                <ProductForm ref="products" product={this.state.product}/>
                 <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary} onError={this.onErrorClicked}/>                 
             </div>
 

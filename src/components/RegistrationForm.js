@@ -28,19 +28,22 @@ class RegistrationForm extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
-
     }
     
     componentWillReceiveProps(newProps){
         this.setState({
             audio: newProps.data.cau, 
             phone: newProps.data.cin,
-            name: newProps.data.uda.una,
-            type: newProps.data.uda.uty,
-            addr: newProps.data.uda.uad,
-            orgn: newProps.data.uor.ona,
-            orgi: newProps.data.uor.oid
+            username: newProps.data.uda.una,
+            usertype: newProps.data.uda.uty,
+            useraddr: newProps.data.uda.uad === null ? undefined : newProps.data.uda.uad,
         });
+        if (newProps.data.uda.hasOwnProperty('uor')){
+            this.setState({
+                orgId: newProps.data.uda.uor.oid,
+                orgName: newProps.data.uda.uor.ona
+            });
+        }
     }
 
     onRegistrationClicked(event){
@@ -142,6 +145,13 @@ class RegistrationForm extends Component {
             });
         }
         
+        var userTypes = ['INDIVIDUAL', 'ORGANIZATION REPRESENTATIVE', 'ORGANIZATION ADMIN', 'TRANSCRIBER']
+        var typeOptions = userTypes.map(function(type, index){
+            if (this.state.usertype !== undefined && this.state.usertype.toString() === index.toString())
+                return (<option key={index} selected value={index}>{type}</option>);
+            else
+                return (<option key={index} value={index}>{type}</option>);
+        }.bind(this));
 		return (
             <div>
                 <div className="col-lg-12">
@@ -161,38 +171,22 @@ class RegistrationForm extends Component {
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.name}/>
+                                                <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.username}/>
+
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className="col-sm-4 control-label">User Type</label>
                                             <div className="col-sm-8">
                                                 <select className="form-control" name="type" id="type">
-                                                    { this.state.type == "0" &&
-                                                        <option selected value="0">INDIVIDUAL</option>
-                                                    }
-
-                                                    { this.state.type == "1" &&
-                                                        <option selected value="1">ORGANIZATION REPRESENTATIVE</option>
-                                                    }
-
-                                                    { this.state.type == "2" &&
-                                                        <option selected value="2">ORGANIZATION ADMIN</option>
-                                                    }
-
-                                                    { this.state.type == "3" &&
-                                                        <option selected value="3">TRANSCRIBER</option>
-                                                    }
-                                                    <option value="0">INDIVIDUAL</option>
-                                                    <option value="1">ORGANIZATION REPRESENTATIVE</option>
-                                                    <option value="2">ORGANIZATION ADMIN</option>
-                                                    <option value="3">TRANSCRIBER</option>
+                                                    {typeOptions}
                                                 </select>                                        
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.addr}/>
+                                                <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.useraddr}/>
+
                                                 <input type="text" id="address2" placeholder="Address" className="form-control" />
                                             </div>
                                         </div>
@@ -201,7 +195,7 @@ class RegistrationForm extends Component {
                                                 <AutoSuggestText 
                                                     id="organization"
                                                     placeholder="Organization"
-                                                    value={this.state.orgn}
+                                                    value={this.state.orgName}
                                                     datalist="orglist"
                                                     url="transaction/search/organization">
                                                     <span className="input-group-btn"> 
