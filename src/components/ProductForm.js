@@ -20,7 +20,9 @@ class ProductForm extends Component {
             modalFields : [],
             modalFieldsNew : [],
             headerCollection: [],
-            idCollection: []
+            idCollection: [],
+            propsData: [],
+            propsHeader: []
         };
         this.receiveData = this.receiveData.bind(this);
         this.editRow = this.editRow.bind(this);
@@ -38,12 +40,15 @@ class ProductForm extends Component {
         if (newProps !== []){
             newProps.map(function(key, value){
                 this.setState({
-                    data: value,
-                    headers: key
+                    propsData: value,
+                    propdHeaders: key
                 });
             });
         }
     }
+
+
+
     
     editRow(headers, data, index){
         headers.splice(0,1);
@@ -157,6 +162,7 @@ class ProductForm extends Component {
     }
     
 	render(){
+
 		return (
             <div>
                 <DataTable header="Added Products" ref="data" passData={this.receiveData} editRow={this.editRow} onClick={this.addMoreProducts}/>
