@@ -5,6 +5,7 @@ import Alert from '../components/Alert';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 import Logger from '../utils/Logger';
+import Modal from './Modal';
 
 class TranslationForm extends Component {
     constructor(props){
@@ -61,9 +62,6 @@ class TranslationForm extends Component {
                 "tid": this.props.tid,
                 "error": $('input[name="errorS"]:checked').val(), 
             };
-        
-
-            // forms/error/registration | transaction | translation
 
         console.log(params);
         var ajax = new Ajax(callback);
@@ -140,33 +138,16 @@ class TranslationForm extends Component {
                     </div>
                 </div>
 
-                <div id="modal-error" className="modal fade" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Error Type</h4>
-                            </div>
 
-                            <form className="form-horizontal">
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="col-sm-10">
-                                            <div><label> <input type="radio" value="0" name="errorS"/> Audio Issue </label></div>
-                                            <div><label> <input type="radio" value="1" name="errorS" /> System Error </label></div>
-                                            <div><label> <input type="radio" value="2" name="errorS" /> Insufficient Data </label></div>
-                                            <div><label> <input type="radio" value="3" name="errorS" /> Others </label></div>                                            
-                                        </div>                                       
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" onClick={this.onErrorClicked}>Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
+                <Modal id="modal-error" title="Error Type" onClick={this.onErrorClicked}>
+                    <div className="col-sm-10">
+                        <div><label> <input type="radio" value="0" name="errorS"/> Audio Issue </label></div>
+                        <div><label> <input type="radio" value="1" name="errorS" /> System Error </label></div>
+                        <div><label> <input type="radio" value="2" name="errorS" /> Insufficient Data </label></div>
+                        <div><label> <input type="radio" value="3" name="errorS" /> Others </label></div>                                            
+                    </div>                                        
+                </Modal>
             </div>
 		);
 	}

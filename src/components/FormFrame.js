@@ -18,6 +18,11 @@ class FormFrame extends Component{
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
                             <h5>{this.props.head}</h5>
+                            { this.props.onClick !== undefined &&
+                                <div className="ibox-tools">
+                                    <a className="btn btn-xs btn-primary pull-right" onClick={this.props.onClick}>Calculate</a>      
+                                </div>
+                            }                            
                         </div>
                         <div className="ibox-content">
                             <Row cName="row">
