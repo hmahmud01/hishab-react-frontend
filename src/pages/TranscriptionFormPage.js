@@ -14,34 +14,73 @@ import Json from '../utils/Json';
 class TranscriptionFormPage extends Component{
     constructor(props){
         super(props);
-        this.state = {
-        };
+        this.state = {};
         this.componentWillMount = this.componentWillMount.bind(this);
+
+        this.TRANSACTION_DATA = "data";
+
+        this.TRANSACTION_ID = "tid"
+        this.TRANSACTION_STATUS = "tst"
+        this.CALLER_NAME = "cin"
+        this.TARGET_NAME = "tin"
+
+        this.CALL_AUDIO = "cau"
+        this.CALL_TIME = "cti"
+
+        this.STATIC_DATA = "sda"
+        this.PRODUCT_DATA = "pda"
+
+        this.PARAM_KEY = 'key'
+        this.PARAM_VALUE = 'value'
+        this.PARAM_PRODUCT_NAME = 'product_name'
+        this.PARAM_PRODUCT_ID = 'product_id'
+        this.PARAM_PRODUCT_UNIT_PRICE = 'product_unit_price'
+        this.PARAM_PRODUCT_QUANTITY = 'product_quantity'
+        this.PARAM_PRODUCT_DISCOUNT = 'product_discount'
+        this.PARAM_PRODUCT_COMPLIMENTARY_QUANTITY = 'product_complementary_quantity'
+        this.PARAM_ATTRIBUTES = 'attributes'
     }
     
     componentWillMount(){
         
-        var callback = function(response, status){
-            var data = new Json(response);
-            // var data = $.parseJson(response);
-            if (status === "success"){
-                this.setState({
-                    data: data.getData(),
-                    cty: data.get('cty'),
-                    phone: data.get('phone'),
-                    audio: data.get('audio')
-                });
-            }else if (status === "error"){
+        // var callback = function(response, status){
+        //     var data = new Json(response);
+        //     if (status === "success"){
+        //         this.setState({
+        //             data: data.getData(),
+        //             cty: data.get('cty'),
+        //             phone: data.get('phone'),
+        //             audio: data.get('audio')
+        //         });
+        //     }else if (status === "error"){
                 
+        //     }
+        // }.bind(this);
+        
+        // var params = {"uid": Cookies.get("uid"),"tid": this.props.transId};
+        
+        // var ajax = new Ajax(callback);
+        // ajax.getData('transaction/details', params);
+
+        var callback = function(response, status){
+            if (status == "success"){
+                var data = new Json(response);
+                this.setState({
+                    data: data.get(this.TRANSACTION_DATA)
+                });            
             }
         }.bind(this);
         
-        var params = {"uid": Cookies.get("uid"),"tid": this.props.transId};
+        var params = new Json();
+        params.addParam("uid", Cookies.get("uid"));
+        params.addParam(this.TRANSACTION_ID, this.props.transId);
         
         var ajax = new Ajax(callback);
-        ajax.getData('transaction/details', params);
-        
+        ajax.getData('forms/get/transaction', params.getData());
+
     }
+        
+    
     
     render(){
         return(
@@ -51,7 +90,7 @@ class TranscriptionFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Transcription for {this.props.callType} </h1>    
-                        <TranscriptionForm transId={this.props.transId} data={this.state.data} cty={this.state.cty} phone={this.state.phone} audio={this.state.audio}/>
+                        <TranscriptionForm transId={this.props.transId} data={this.state.data}/>
                     </Content>
                     <Footer/>
                 </ContentWrapper>

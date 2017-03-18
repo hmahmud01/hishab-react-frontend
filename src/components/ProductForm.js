@@ -33,6 +33,17 @@ class ProductForm extends Component {
     receiveData(headers, headerCollection, data){
         this.setState({headers: headers, headerCollection: headerCollection, data: data});
     }
+
+    componentWillRecieveProps(newProps){
+        if (newProps !== []){
+            newProps.map(function(key, value){
+                this.setState({
+                    data: value,
+                    headers: key
+                });
+            });
+        }
+    }
     
     editRow(headers, data, index){
         headers.splice(0,1);
@@ -93,8 +104,6 @@ class ProductForm extends Component {
     }
     
     productSelected(id){
-
-
         var callback = function(response, status){
             if (status == "success"){
                 var data = new Json(response);

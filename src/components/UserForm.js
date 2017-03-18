@@ -16,7 +16,6 @@ class UserForm extends Component {
             isError: false,
             message: "None",
             alertType: "success",
-            phoneNumber: "0101",
             orgdata: []
         };
         this.onUserAddClicked = this.onUserAddClicked.bind(this);
@@ -58,8 +57,7 @@ class UserForm extends Component {
         
     }
 
-    onOrganizationAddClicked(event){
-        
+    onOrganizationAddClicked(event){        
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
@@ -108,7 +106,7 @@ class UserForm extends Component {
                 <div className="col-lg-12">
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
-                            <h5>Vocie And User</h5>
+                            <h5>Voice And User</h5>
                         </div>
                         <div className="ibox-content">
                             <div className="row">
@@ -120,8 +118,8 @@ class UserForm extends Component {
                                                 <AutoSuggestText 
                                                     id="buyer"
                                                     placeholder="Buyer"
+                                                    value={this.props.buyer}
                                                     datalist="buyerlist"
-                                                    value={this.state.buyerVal}
                                                     url="transaction/search/user"
                                                 >
                                                     <span className="input-group-btn">
@@ -137,8 +135,8 @@ class UserForm extends Component {
                                                 <AutoSuggestText 
                                                     id="seller"
                                                     placeholder="Seller"
+                                                    value={this.props.seller}
                                                     datalist="sellerlist"
-                                                    value={this.state.sellerVal}
                                                     url="transaction/search/user"
                                                 >
                                                     <span className="input-group-btn"> 

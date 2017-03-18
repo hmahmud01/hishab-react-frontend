@@ -16,7 +16,7 @@ class RegistrationForm extends Component {
             alertType: "success",
             phoneNumber: "0101",
             orgdata: [],
-            data: []
+            data: [],
 
         };
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
@@ -28,7 +28,6 @@ class RegistrationForm extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
-
     }
     
     componentWillReceiveProps(newProps){
@@ -177,6 +176,7 @@ class RegistrationForm extends Component {
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
                                                 <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.username}/>
+
                                             </div>
                                         </div>
                                         <div className="form-group">
@@ -190,22 +190,24 @@ class RegistrationForm extends Component {
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
                                                 <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.useraddr}/>
+
                                                 <input type="text" id="address2" placeholder="Address" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Organization</label>
                                             <div className="col-sm-8">
                                                 <AutoSuggestText 
-                                                        id="organization"
-                                                        placeholder="Organization"
-                                                        datalist="orglist"
-                                                        url="transaction/search/organization">
-                                                        <span className="input-group-btn"> 
-                                                            <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
-                                                                <i className="fa fa-plus" aria-hidden="true"></i>
-                                                            </a>
-                                                        </span>
-                                                    </AutoSuggestText>
+                                                    id="organization"
+                                                    placeholder="Organization"
+                                                    value={this.state.orgName}
+                                                    datalist="orglist"
+                                                    url="transaction/search/organization">
+                                                    <span className="input-group-btn"> 
+                                                        <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
+                                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                                        </a>
+                                                    </span>
+                                                </AutoSuggestText>
                                             </div>
                                         </div>  
                                         <div className="hr-line-dashed"></div>
