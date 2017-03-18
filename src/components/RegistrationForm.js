@@ -32,7 +32,19 @@ class RegistrationForm extends Component {
     }
     
     componentWillReceiveProps(newProps){
-        this.setState({audio: newProps.data.cau, phone: newProps.data.cin});
+        this.setState({
+            audio: newProps.data.cau, 
+            phone: newProps.data.cin,
+            username: newProps.data.uda.una,
+            usertype: newProps.data.uda.uty,
+            useraddr: newProps.data.uda.uad === null ? undefined : newProps.data.uda.uad,
+        });
+        if (newProps.data.uda.hasOwnProperty('uor')){
+            this.setState({
+                orgId: newProps.data.uda.uor.oid,
+                orgName: newProps.data.uda.uor.ona
+            });
+        }
     }
 
     onRegistrationClicked(event){
@@ -134,6 +146,13 @@ class RegistrationForm extends Component {
             });
         }
         
+        var userTypes = ['INDIVIDUAL', 'ORGANIZATION REPRESENTATIVE', 'ORGANIZATION ADMIN', 'TRANSCRIBER']
+        var typeOptions = userTypes.map(function(type, index){
+            if (this.state.usertype !== undefined && this.state.usertype.toString() === index.toString())
+                return (<option key={index} selected value={index}>{type}</option>);
+            else
+                return (<option key={index} value={index}>{type}</option>);
+        }.bind(this));
 		return (
             <div>
                 <div className="col-lg-12">
@@ -153,23 +172,20 @@ class RegistrationForm extends Component {
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="name" placeholder="Name" className="form-control" />
+                                                <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.username}/>
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className="col-sm-4 control-label">User Type</label>
                                             <div className="col-sm-8">
                                                 <select className="form-control" name="type" id="type">
-                                                    <option value="0">INDIVIDUAL</option>
-                                                    <option value="1">ORGANIZATION REPRESENTATIVE</option>
-                                                    <option value="2">ORGANIZATION ADMIN</option>
-                                                    <option value="3">TRANSCRIBER</option>
+                                                    {typeOptions}
                                                 </select>                                        
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="address1" placeholder="Address" className="form-control" />
+                                                <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.useraddr}/>
                                                 <input type="text" id="address2" placeholder="Address" className="form-control" />
                                             </div>
                                         </div>
