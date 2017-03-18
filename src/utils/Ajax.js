@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Logger from './Logger';
 
 class Ajax{
     
@@ -9,6 +10,8 @@ class Ajax{
         this.getData = this.getData.bind(this);
         this.postData = this.postData.bind(this);
         this.onDataReceived = this.onDataReceived.bind(this);
+        
+        this.log = new Logger();
     }
     
     getData(url, params){
@@ -66,6 +69,8 @@ class Ajax{
     }
     
     onDataReceived(response, status){
+        this.log.debug("Request Status: " + status);
+        this.log.debug($.parseJSON(response));
         if (this.callbackFunction !== undefined){
             var callbackFunc = this.callbackFunction.bind(this);
             callbackFunc(response, status);
