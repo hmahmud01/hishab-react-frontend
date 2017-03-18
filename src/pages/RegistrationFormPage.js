@@ -15,22 +15,24 @@ class RegistrationFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {};
-        var TRANSACTION_ID = "tid";
+        
+        this.TRANSACTION_ID = "tid";
+        this.TRANSACTION_DATA = "data";
 
-        var TRANSACTION_STATUS = "tst";
-        var CALLER_NAME = "cin";
-        var CALL_AUDIO = "cau";
-        var CALL_TIME = "cti";
+        this.TRANSACTION_STATUS = "tst";
+        this.CALLER_NAME = "cin";
+        this.CALL_AUDIO = "cau";
+        this.CALL_TIME = "cti";
 
-        var STATIC_DATA = "sda";
-        var USER_DATA = "uda";
+        this.STATIC_DATA = "sda";
+        this.USER_DATA = "uda";
 
-        var USER_NAME = "una";
-        var USER_ADDRESS = "uad";
-        var USER_ORGANIZATION = "uor";
+        this.USER_NAME = "una";
+        this.USER_ADDRESS = "uad";
+        this.USER_ORGANIZATION = "uor";
 
-        var ORGANIZATION_ID = "oid";
-        var ORGANIZATION_NAME = "ona";
+        this.ORGANIZATION_ID = "oid";
+        this.ORGANIZATION_NAME = "ona";
     }
     
     componentDidMount(){
@@ -40,36 +42,17 @@ class RegistrationFormPage extends Component{
             if (status == "success"){
                 var data = new Json(response);
                 this.setState({
-                    audio: data.getData().audio,
-                    phone: data.getData().phone
+                    data: data.get(this.TRANSACTION_DATA)
                 });            
             }
         }.bind(this);
         
-        var params = {
-                "uid": Cookies.get("uid"),
-                "tid": this.props.transId,
-            };
+        var params = new Json();
+        params.addParam("uid", Cookies.get("uid"));
+        params.addParam(this.TRANSACTION_ID, this.props.transId);
         
         var ajax = new Ajax(callback);
-        ajax.getData('transaction/details', params);
-
-
-        //user data from server
-        var callback = function(response, status){
-            if (status == "success"){
-        
-            }else if (status == "error"){
-        
-            }
-        }.bind(this);
-        
-        var params = {
-            "tid": this.props.transId
-        };
-        
-        var ajax = new Ajax(callback);
-        ajax.getData('forms/get/registration', params);
+        ajax.getData('forms/get/registration', params.getData());
 
 
     }
@@ -83,7 +66,7 @@ class RegistrationFormPage extends Component{
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
                     <h1> Registration </h1>    
-                        <RegistrationForm transId={this.props.transId} audio={this.state.audio} phone={this.state.phone}/>
+                        <RegistrationForm transId={this.props.transId} data={this.state.data}/>
                     </Content>
 
 

@@ -3,7 +3,11 @@ import $ from 'jquery';
 class Json{
     
     constructor(jsonString){
-        this.data = $.parseJSON(jsonString);
+        if (jsonString === undefined){
+            this.data = {}
+        }else{
+            this.data = $.parseJSON(jsonString);
+        }
         this.addParam = this.addParam.bind(this);
         this.removeParam = this.removeParam.bind(this);
         this.get = this.get.bind(this);

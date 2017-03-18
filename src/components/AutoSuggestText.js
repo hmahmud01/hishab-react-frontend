@@ -37,20 +37,6 @@ class AutoSuggestText extends InputComponent{
             var ajax = new Ajax(callback);
             ajax.getData(this.props.url, params);
 
-            // $.ajax({
-            // method: 'get',
-            // url: this.props.url,
-            // data: {
-            //     "uid": Cookies.get("uid"),
-            //     "search": event.target.value,
-            // },
-            // success: function(response) {
-            //     var data = $.parseJSON(response);
-            //     this.setState({data : data});
-            // }.bind(this),
-            // error: function(response) {
-            // }
-            // });
         }
         
         // This handles the data selection segment
@@ -73,8 +59,11 @@ class AutoSuggestText extends InputComponent{
     
     render(){
         var listItems = this.state.data.map(
-            (listItem, index) => 
-            <option key={index} value={listItem.value}>{listItem.id}</option>
+            function(listItem, index) {
+                return (
+                    <option key={index} value={listItem.value}>{listItem.id}</option>
+                );
+            }
         );
         return (
             <div className="input-group">

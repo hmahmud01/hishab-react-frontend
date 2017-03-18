@@ -30,6 +30,10 @@ class RegistrationForm extends Component {
             window.location.hash = "#/";
 
     }
+    
+    componentWillReceiveProps(newProps){
+        this.setState({audio: newProps.data.cau, phone: newProps.data.cin});
+    }
 
     onRegistrationClicked(event){
         event.preventDefault();
@@ -119,7 +123,7 @@ class RegistrationForm extends Component {
         const divStyle = {
           width: '100%',          
         };
-        var audio = this.props.audio;
+        var audio = this.state.audio;
         var results = undefined;
         if (audio !== undefined){
             results = audio.map(function(audioLink, index){
@@ -144,7 +148,7 @@ class RegistrationForm extends Component {
                                         <h5>Caller Information</h5>
                                             <div className="form-group"><label className="col-sm-4 control-label">Phone Number</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="ph_number" className="form-control" value={this.props.phone} />
+                                                <input type="text" id="ph_number" className="form-control" value={this.state.phone} />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
@@ -195,7 +199,7 @@ class RegistrationForm extends Component {
                                         <div className="row">
                                             <div className="col-xs-12 text-right">
                                                 <span> <i className="fa fa-phone"></i> Call From </span>
-                                                <h2 className="font-bold">{this.props.phone}</h2>
+                                                <h2 className="font-bold">{this.state.phone}</h2>
                                             </div>
                                         </div>
                                     </div>
