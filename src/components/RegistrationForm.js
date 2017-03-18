@@ -15,7 +15,9 @@ class RegistrationForm extends Component {
             message: "None",
             alertType: "success",
             phoneNumber: "0101",
-            orgdata: []
+            orgdata: [],
+            data: []
+
         };
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
         this.onOrganizationAddClicked = this.onOrganizationAddClicked.bind(this);
@@ -26,6 +28,7 @@ class RegistrationForm extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+
     }
 
     onRegistrationClicked(event){

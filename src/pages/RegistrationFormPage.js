@@ -15,9 +15,27 @@ class RegistrationFormPage extends Component{
     constructor(props){
         super(props);
         this.state = {};
+        var TRANSACTION_ID = "tid";
+
+        var TRANSACTION_STATUS = "tst";
+        var CALLER_NAME = "cin";
+        var CALL_AUDIO = "cau";
+        var CALL_TIME = "cti";
+
+        var STATIC_DATA = "sda";
+        var USER_DATA = "uda";
+
+        var USER_NAME = "una";
+        var USER_ADDRESS = "uad";
+        var USER_ORGANIZATION = "uor";
+
+        var ORGANIZATION_ID = "oid";
+        var ORGANIZATION_NAME = "ona";
     }
     
     componentDidMount(){
+
+        //static data from server
         var callback = function(response, status){
             if (status == "success"){
                 var data = new Json(response);
@@ -37,23 +55,23 @@ class RegistrationFormPage extends Component{
         ajax.getData('transaction/details', params);
 
 
-        // $.ajax({
-        //     method: 'get',
-        //     url: 'transaction/details',
-        //     data: {
-        //         "uid": Cookies.get("uid"),
-        //         "tid": this.props.transId,
-        //     },
-        //     success: function(response) {
-        //         var data = $.parseJSON(response);
-        //         this.setState({
-        //             audio: data.audio,
-        //             phone: data.phone
-        //         });
-        //     }.bind(this),
-        //     error: function(response){
-        //     }
-        // });
+        //user data from server
+        var callback = function(response, status){
+            if (status == "success"){
+        
+            }else if (status == "error"){
+        
+            }
+        }.bind(this);
+        
+        var params = {
+            "tid": this.props.transId
+        };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('forms/get/registration', params);
+
+
     }
     
     render(){
