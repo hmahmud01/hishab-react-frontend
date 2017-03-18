@@ -16,7 +16,7 @@ class RegistrationForm extends Component {
             alertType: "success",
             phoneNumber: "0101",
             orgdata: [],
-            data: []
+            data: [],
 
         };
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
@@ -32,7 +32,15 @@ class RegistrationForm extends Component {
     }
     
     componentWillReceiveProps(newProps){
-        this.setState({audio: newProps.data.cau, phone: newProps.data.cin});
+        this.setState({
+            audio: newProps.data.cau, 
+            phone: newProps.data.cin,
+            name: newProps.data.uda.una,
+            type: newProps.data.uda.uty,
+            addr: newProps.data.uda.uad,
+            orgn: newProps.data.uor.ona,
+            orgi: newProps.data.uor.oid
+        });
     }
 
     onRegistrationClicked(event){
@@ -153,13 +161,28 @@ class RegistrationForm extends Component {
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Name</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="name" placeholder="Name" className="form-control" />
+                                                <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.name}/>
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <label className="col-sm-4 control-label">User Type</label>
                                             <div className="col-sm-8">
                                                 <select className="form-control" name="type" id="type">
+                                                    { this.state.type == "0" &&
+                                                        <option selected value="0">INDIVIDUAL</option>
+                                                    }
+
+                                                    { this.state.type == "1" &&
+                                                        <option selected value="1">ORGANIZATION REPRESENTATIVE</option>
+                                                    }
+
+                                                    { this.state.type == "2" &&
+                                                        <option selected value="2">ORGANIZATION ADMIN</option>
+                                                    }
+
+                                                    { this.state.type == "3" &&
+                                                        <option selected value="3">TRANSCRIBER</option>
+                                                    }
                                                     <option value="0">INDIVIDUAL</option>
                                                     <option value="1">ORGANIZATION REPRESENTATIVE</option>
                                                     <option value="2">ORGANIZATION ADMIN</option>
@@ -169,23 +192,24 @@ class RegistrationForm extends Component {
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
-                                                <input type="text" id="address1" placeholder="Address" className="form-control" />
+                                                <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.addr}/>
                                                 <input type="text" id="address2" placeholder="Address" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group"><label className="col-sm-4 control-label">Organization</label>
                                             <div className="col-sm-8">
                                                 <AutoSuggestText 
-                                                        id="organization"
-                                                        placeholder="Organization"
-                                                        datalist="orglist"
-                                                        url="transaction/search/organization">
-                                                        <span className="input-group-btn"> 
-                                                            <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
-                                                                <i className="fa fa-plus" aria-hidden="true"></i>
-                                                            </a>
-                                                        </span>
-                                                    </AutoSuggestText>
+                                                    id="organization"
+                                                    placeholder="Organization"
+                                                    value={this.state.orgn}
+                                                    datalist="orglist"
+                                                    url="transaction/search/organization">
+                                                    <span className="input-group-btn"> 
+                                                        <a data-toggle="modal" className="btn btn-primary" href="#modal-org">
+                                                            <i className="fa fa-plus" aria-hidden="true"></i>
+                                                        </a>
+                                                    </span>
+                                                </AutoSuggestText>
                                             </div>
                                         </div>  
                                         <div className="hr-line-dashed"></div>

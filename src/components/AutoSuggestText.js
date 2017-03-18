@@ -70,6 +70,7 @@ class AutoSuggestText extends InputComponent{
                 <input 
                     list={this.props.datalist} 
                     type="text" 
+                    value={this.props.value}
                     placeholder={this.props.placeholder} 
                     id={this.props.id}
                     ref="field"
