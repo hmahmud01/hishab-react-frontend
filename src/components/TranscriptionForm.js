@@ -20,6 +20,7 @@ class TranscriptionForm extends Component {
         };
         this.onTranscriptionClicked = this.onTranscriptionClicked.bind(this);
         this.onSummary = this.onSummary.bind(this);
+        this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
     onSummary(){
@@ -88,6 +89,34 @@ class TranscriptionForm extends Component {
         }        
     }
 
+
+    onErrorClicked(event){
+        event.preventDefault();
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                window.location.hash="#/home";
+                window.location.reload();
+            }else if (status === "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
+                "tid": this.props.transId,
+                "error": $('input[name="errorS"]:checked').val(), 
+            };
+        
+
+            // forms/error/registration | transaction | translation
+
+        console.log(params);
+        var ajax = new Ajax(callback);
+        ajax.postData('forms/error/translation', params);
+    }
+
     
 	render(){
         
@@ -96,7 +125,7 @@ class TranscriptionForm extends Component {
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                 <UserForm ref="userData" transId={this.props.transId} audio={this.props.audio} formtype={this.props.cty} phone={this.props.phone}/>
                 <ProductForm ref="products"/>
-                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary}/>                 
+                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary} onError={this.onErrorClicked}/>                 
             </div>
 
 		);

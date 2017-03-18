@@ -58,12 +58,16 @@ class TranslationForm extends Component {
         }.bind(this);
         
         var params = {
-                "error_data": $('input[name="genderS"]:checked').val(), 
-                "uid": Cookies.get("uid"),
+                "tid": this.props.tid,
+                "error": $('input[name="errorS"]:checked').val(), 
             };
         
+
+            // forms/error/registration | transaction | translation
+
+        console.log(params);
         var ajax = new Ajax(callback);
-        ajax.postData('error/submit', params);
+        ajax.postData('forms/error/translation', params);
     }
     
 
@@ -148,16 +152,10 @@ class TranslationForm extends Component {
                                 <div className="modal-body">
                                     <div className="row">
                                         <div className="col-sm-10">
-                                            <div><label> <input type="radio" value="Audio Issue" /> <i></i> Audio Issue </label></div>
-                                            <div><label> <input type="radio" value="System error" name="system" /> <i></i> System Error </label></div>
-                                            <div><label> <input type="radio" value="Insufficient Data" name="insufficient" /> <i></i> Insufficient Data </label></div>
-                                            <div><label> <input type="radio" value="Others" name="others" /> <i></i> Others </label></div>
-
-                                            <div><label> <input type="radio" value="option1" name="a" /> <i></i> one </label></div>
-                                            <div><label> <input type="radio" checked="" value="option2" name="a" /> <i></i> two checked </label></div>
-                                            <div><label> <input type="radio" name="audioErr" checked="" value="option2" /> <i></i> three checked and disabled </label></div>
-                                            <div><label> <input type="radio" disabled="" name="a" /> <i></i> four disabled </label></div>
-                                            
+                                            <div><label> <input type="radio" value="0" name="errorS"/> Audio Issue </label></div>
+                                            <div><label> <input type="radio" value="1" name="errorS" /> System Error </label></div>
+                                            <div><label> <input type="radio" value="2" name="errorS" /> Insufficient Data </label></div>
+                                            <div><label> <input type="radio" value="3" name="errorS" /> Others </label></div>                                            
                                         </div>                                       
                                     </div>
                                 </div>

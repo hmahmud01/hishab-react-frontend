@@ -18,6 +18,7 @@ class RegistrationForm extends Component {
         };
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
         this.onOrganizationAddClicked = this.onOrganizationAddClicked.bind(this);
+        this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
     componentDidMount() {
@@ -54,32 +55,7 @@ class RegistrationForm extends Component {
         
         var ajax = new Ajax(callback);
         ajax.getData('register', params);
-        
-    //     $.ajax({
-    //         method: 'get',
-    //         url: 'register',
-    //         data: {
-    //             "tid": this.props.transId,
-    //             "uphone": document.getElementById("ph_number").value, 
-    //             "uname": document.getElementById("name").value,
-    //             "utype": $('#type :selected').val(),
-    //             "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
-    //             "uorg": document.getElementById("organization").value,
-    //             "uid": Cookies.get("uid"),
-    //         },
-
-    //         success: function(response){
-    //             var data = $.parseJSON(response);
-    //             this.setState({isError: false, message: data.msg, alertType: "success"});
-    //             window.location.hash = "#/home";
-    //             window.location.reload();
-    //         }.bind(this),
-    //         error: function(response){
-    //             var data = $.parseJSON(response.responseText);
-    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
-    //             window.location.hash="#/home";
-    //         }.bind(this),
-    //     });
+    
     }
 
     onOrganizationAddClicked(event){
@@ -108,6 +84,31 @@ class RegistrationForm extends Component {
         var ajax = new Ajax(callback);
         ajax.postData('transaction/submit/organization', params);
         
+    }
+
+
+    onErrorClicked(event){
+        event.preventDefault();
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status === "success"){
+                window.location.hash="#/home";
+                window.location.reload();
+            }else if (status === "error"){
+                var data = $.parseJSON(response.responseText);
+                this.setState({isError: true, message: data.msg, alertType: "danger"});
+            }
+        }.bind(this);
+        
+        var params = {
+                "tid": this.props.transId,
+                "error": $('input[name="errorS"]:checked').val(), 
+            };
+
+        console.log(params);
+        var ajax = new Ajax(callback);
+        ajax.postData('forms/error/registration', params);
     }
     
 	render(){
@@ -271,6 +272,35 @@ class RegistrationForm extends Component {
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>                                
                                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onOrganizationAddClicked}>Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="modal-error" className="modal fade" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 className="modal-title">Error Type</h4>
+                            </div>
+
+                            <form className="form-horizontal">
+                                <div className="modal-body">
+                                    <div className="row">
+                                        <div className="col-sm-10">
+                                            <div><label> <input type="radio" value="0" name="errorS"/> Audio Issue </label></div>
+                                            <div><label> <input type="radio" value="1" name="errorS" /> System Error </label></div>
+                                            <div><label> <input type="radio" value="2" name="errorS" /> Insufficient Data </label></div>
+                                            <div><label> <input type="radio" value="3" name="errorS" /> Others </label></div>                                            
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onErrorClicked}>Save changes</button>
                                 </div>
                             </form>
                         </div>

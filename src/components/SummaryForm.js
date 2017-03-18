@@ -7,7 +7,6 @@ class SummaryForm extends Component {
     constructor(props){
         super(props);
         this.state = {};
-        this.onErrorClicked = this.onErrorClicked.bind(this);
         this.update = this.update.bind(this);
     }
 
@@ -17,48 +16,6 @@ class SummaryForm extends Component {
         $("#due").val(due);
     }
 
-    // ajax replaced
-    // $.ajax({
-    //         method: 'get',
-    //         url: 'translation/error',
-    //         data: {
-    //             "tid": this.props.transId,
-    //             "error" : $('input[name="error"]:checked').val(),
-    //         },
-    //         success: function(response){
-    //             var data = $.parseJSON(response);
-    //             this.setState({isError: false, message: data.msg, alertType: "success"});
-    //             window.location.hash="#/home";
-    //         }.bind(this),
-    //         error: function(response){
-    //             var data = $.parseJSON(response.responseText);
-    //             this.setState({isError: true, message: data.msg, alertType: "danger"});
-    //         }.bind(this),
-    //     });
-
-    onErrorClicked(event){
-        event.preventDefault();
-
-        var callback = function(response, status){
-            var data = new Json(response);
-            if (status === "success"){
-                var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
-                window.location.hash="#/home";
-            }else if (status === "error"){
-                var data = $.parseJSON(response.responseText);
-                this.setState({isError: true, message: data.msg, alertType: "danger"});
-            }
-        }.bind(this);
-        
-        var params = {
-                "tid": this.props.transId,
-                "error" : $('input[name="error"]:checked').val(),
-            };
-        
-        var ajax = new Ajax(callback);
-        ajax.getData('translation/error', params);
-    }
 
 	render(){
 
@@ -111,17 +68,16 @@ class SummaryForm extends Component {
                                 <div className="modal-body">
                                     <div className="row">
                                         <div className="col-sm-10">
-                                            <div><label> <input type="radio" name="error" value="opt1" /> one </label></div>
-                                            <div><label> <input type="radio" name="error" value="opt2" /> two </label></div>
-                                            <div><label> <input type="radio" name="error" value="opt3" /> three </label></div>
-                                            <div><label> <input type="radio" name="error" value="opt4" /> 4 </label></div>
-                                            
-                                        </div>                                       
+                                            <div><label> <input type="radio" value="0" name="errorS"/> Audio Issue </label></div>
+                                            <div><label> <input type="radio" value="1" name="errorS" /> System Error </label></div>
+                                            <div><label> <input type="radio" value="2" name="errorS" /> Insufficient Data </label></div>
+                                            <div><label> <input type="radio" value="3" name="errorS" /> Others </label></div>                                            
+                                        </div>                                        
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onErrorClicked}>Save changes</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.props.onError}>Save changes</button>
                                 </div>
                             </form>
                         </div>
