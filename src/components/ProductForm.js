@@ -9,6 +9,7 @@ import $ from 'jquery';
 import Cookies from 'js-cookie';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 
 class ProductForm extends Component {
@@ -34,14 +35,36 @@ class ProductForm extends Component {
         this.setState({headers: headers, headerCollection: headerCollection, data: data});
     }
 
-    componentWillRecieveProps(newProps){
-        if (newProps !== []){
-            newProps.map(function(key, value){
-                this.setState({
-                    data: value,
-                    headers: key
-                });
-            });
+    componentWillReceiveProps(newProps){
+        this.setState({products: newProps.product});
+        var products = newProps.product;
+        var headers = [];
+        var outputs = [];
+        var log = new Logger();
+        for (var i =0; i < products.length; i++) {
+            log.debug("Inside Product Loop");
+            log.debug(products[i]);
+            headers[0] = "Product Name";
+            headers[1] = "Category";
+            headers[2] = "Unit Price";
+            headers[3] = "Unit";
+            headers[4] = "Quantity";
+            
+            outputs[0] = products[i].product_name;
+            outputs[1] = products[i].product_category;
+            outputs[2] = products[i].product_unit_price;
+            outputs[3] = products[i].product_unit;
+            outputs[4] = products[i].product_quantity;
+            
+            var ind = 5;
+            for (var key in products[i].attributes){
+                headers[ind] = products[i].attributes[key].key;
+                log.debug("Inside Attribute Loop");
+                log.debug(key);
+                outputs[ind++] = products[i].attributes[key].value;
+            }
+            this.refs.data.setState({columns: headers});
+            this.refs.data.addRow(outputs, headers);
         }
     }
     

@@ -36,12 +36,6 @@ class TranscriptionForm extends Component {
                 product: newProps.data.pda
             });
         }
-        if (newProps.data.uda.hasOwnProperty('uor')){
-            this.setState({
-                orgId: newProps.data.uda.uor.oid,
-                orgName: newProps.data.uda.uor.ona
-            });
-        }
     }
 
     onSummary(){
