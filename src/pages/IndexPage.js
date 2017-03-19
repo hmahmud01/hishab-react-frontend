@@ -36,19 +36,19 @@ class IndexPage extends Component {
         var uty = Cookies.get("uty");
         switch (uty){
             case '0':
-                this.setState( {location:  "#/user", userType: 0});
+                this.setState({location:  "#/user", userType: 0});
                 break;
             case '1':
-                this.setState( {location:  "#/user", userType: 1});
+                this.setState({location:  "#/user", userType: 1});
                 break;
             case '2':
-                this.setState( {location:  "#/orgs", userType: 2});
+                this.setState({location:  "#/orgs", userType: 2});
                 break;
             case '3':
-                this.setState( {location:  "#/tran", userType: 3});
+                this.setState({location:  "#/tran", userType: 3});
                 break;
             default:
-                this.setState( {location:  "#/user", userType: 4});
+                this.setState({location:  "#/user", userType: 4});
                 break;
         }
     }
@@ -66,11 +66,11 @@ class IndexPage extends Component {
                 );
             case "#/tran":    
                 return(
-                    <TranscriptionPage/>
+                    <TranscriptionPage />
                 );
             case "#/reset":
                 return(
-                    <PasswordResetPage/>
+                    <PasswordResetPage />
                 );    
             case "#/akij":
                 return(
@@ -78,7 +78,7 @@ class IndexPage extends Component {
                 );     
             default:
                 return(
-                    <TranscriptionPage/>
+                    <TranscriptionPage />
                 );
         }
     }

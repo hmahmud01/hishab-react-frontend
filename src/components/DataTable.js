@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import Logger from '../utils/Logger';
 
 class DataTable extends Component{
     constructor(props){
@@ -13,6 +14,8 @@ class DataTable extends Component{
         this.addRow = this.addRow.bind(this);
         this.editRow = this.editRow.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
+        
+        this.log = new Logger();
     }
     
     /**
@@ -56,6 +59,10 @@ class DataTable extends Component{
         }
         
         */
+        
+        this.log.debug(data);
+        this.log.debug(headers);
+        
         var newRow = this.state.rowValues;
         var newHeader = this.state.headers;
         

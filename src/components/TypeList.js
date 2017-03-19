@@ -14,7 +14,7 @@ class TypeList extends Component{
             padding: "0"
         };
 
-        const types = ['Transcriptions', 'Revision', 'Error', 'Completed', 'Locked','Translation', 'Completed'];
+        const types = ['Transcriptions', 'Revision', 'Error', 'Locked','Translation', 'Completed'];
         const typeVal = [0,1,3,4,100,2];
         const colors = ["primary", "success", "danger", "warning", ""];
         const listItems = this.props.items.map(

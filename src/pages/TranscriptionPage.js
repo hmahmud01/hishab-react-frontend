@@ -51,7 +51,7 @@ class TranscriptionPage extends Component {
                 this.typeClickHandler(data.get('data')[1].callType, "Transcriptions");
                 this.setState({items: data.get('data')});
             }else if (status === "error"){
-                // todo: Create error alert
+                alert("error");
             }
         }.bind(this);
         
@@ -71,7 +71,7 @@ class TranscriptionPage extends Component {
     }
     
     typeClickHandler(key, title) {
-        this.setState({title: title});
+        this.setState({title: title, ctype: key});
         
         var callback = function(response, status){
             if (status === "success"){
@@ -137,7 +137,7 @@ class TranscriptionPage extends Component {
                         <Content>
                             <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
                             <TypeList items={this.state.items} onClick={this.typeClickHandler}/>
-                            <CallList title={this.state.title} items={this.state.callItems} onClick={this.callItemClickHandler}/>
+                            <CallList ctype={this.state.ctype}  title={this.state.title} items={this.state.callItems} transId={this.state.transId} uid={Cookies.get("uid")} onClick={this.callItemClickHandler}/>
                         </Content>
                         <Footer/>
                     </ContentWrapper>

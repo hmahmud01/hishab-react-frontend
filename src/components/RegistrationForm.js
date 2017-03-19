@@ -33,11 +33,15 @@ class RegistrationForm extends Component {
     componentWillReceiveProps(newProps){
         this.setState({
             audio: newProps.data.cau, 
-            phone: newProps.data.cin,
-            username: newProps.data.uda.una,
-            usertype: newProps.data.uda.uty,
-            useraddr: newProps.data.uda.uad === null ? undefined : newProps.data.uda.uad,
+            phone: newProps.data.cin
         });
+        if (newProps.data.hasOwnProperty('uda')){
+            this.setState({
+                username: newProps.data.uda.una,
+                usertype: newProps.data.uda.uty,
+                useraddr: newProps.data.uda.uad === null ? undefined : newProps.data.uda.uad,
+            });
+        }
         if (newProps.data.uda.hasOwnProperty('uor')){
             this.setState({
                 orgId: newProps.data.uda.uor.oid,
