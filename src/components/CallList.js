@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Ajax from '../utils/Ajax';
+import Cookies from 'js-cookie';
 
 class CallList extends Component{
     constructor(props){
@@ -11,7 +12,7 @@ class CallList extends Component{
         
         const listItems = this.props.items.map(
             (listItem) => 
-                <ListItem tid={this.props.transId} uid={this.props.uid} title={this.props.title} isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} 
+                <ListItem tid={this.props.transId} title={this.props.title} isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} 
                     onClick={this.props.onClick} key={listItem.id}/>
         );
         
@@ -72,8 +73,6 @@ class ListItem extends Component{
 
     unLockClick(event){
         event.preventDefault();
-        console.log("inside unlock");
-        console.log(this.props.target + " : : " +this.props.uid);
         var callback = function(response, status){
             if (status == "success"){
                 alert("Call redirected to the transcription list");
@@ -87,7 +86,7 @@ class ListItem extends Component{
         }.bind(this);
         
         var params = {
-            "uid": this.props.uid,
+            "uid": Cookies.get("uid"),
             "tid": this.props.target
         };
         
