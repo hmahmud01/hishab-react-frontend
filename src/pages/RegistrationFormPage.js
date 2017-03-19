@@ -54,7 +54,6 @@ class RegistrationFormPage extends Component{
         var ajax = new Ajax(callback);
         ajax.getData('forms/get/registration', params.getData());
 
-
     }
     
     render(){
