@@ -125,7 +125,7 @@ class ListItem extends Component{
                 </td>
                 <td className="text-center mail-date">
                     <button className="btn btn-success" onClick={ this.props.title === "Locked" ? this.unLockClick: this.handleClick}>
-                        <i className="fa fa-tty"></i> &nbsp;|&nbsp;
+                        <i className={this.props.title === "Locked" ? "fa fa-unlock" : "fa fa-tty"}></i> &nbsp;|&nbsp;
                             {this.props.title === "Locked" ? "Unlock" : "Transcribe" }
                     </button>
                 </td>
