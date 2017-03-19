@@ -7,6 +7,7 @@ import ProductForm from './ProductForm';
 import Alert from './Alert';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 class TranscriptionForm extends Component {
     constructor(props){
@@ -42,19 +43,18 @@ class TranscriptionForm extends Component {
         var headers = this.refs.products.state.headers;
         var products = this.refs.products.state.data;
         var total = 0;
-
+        var logger = new Logger();
         var summary = [];
         for (var i=0; i<products.length; i++){
             summary[i] = {header: headers, value: products[i]};
         }
 
         for (var j=0; j<summary.length; j++){
-            var multi = parseInt(summary[j].value[5], 10);
+            var multi = parseInt(summary[j].value[5]);
             total += (parseFloat(summary[j].value[3])*multi);
         }
-
         $("#total").val(total);
-    }
+    }   
 
     onTranscriptionClicked(event){
         event.preventDefault();
