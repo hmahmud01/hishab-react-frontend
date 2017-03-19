@@ -137,7 +137,7 @@ class TranscriptionPage extends Component {
                         <Content>
                             <Alert isVisible={this.state.hasAlert} type={this.state.alertType} message={this.state.alertMessage}/>
                             <TypeList items={this.state.items} onClick={this.typeClickHandler}/>
-                            <CallList ctype={this.state.ctype}  title={this.state.title} items={this.state.callItems} transId={this.state.transId} uid={Cookies.get("uid")} onClick={this.callItemClickHandler}/>
+                            <CallList ctype={this.state.ctype}  title={this.state.title} items={this.state.callItems} transId={this.state.transId} onClick={this.callItemClickHandler}/>
                         </Content>
                         <Footer/>
                     </ContentWrapper>
