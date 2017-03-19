@@ -46,19 +46,21 @@ class ProductForm extends Component {
         for (var i =0; i < products.length; i++) {
             log.debug("Inside Product Loop");
             log.debug(products[i]);
-            headers[0] = "Product Name";
-            headers[1] = "Category";
-            headers[2] = "Unit Price";
-            headers[3] = "Unit";
-            headers[4] = "Quantity";
+            headers[0] = "id";            
+            headers[1] = "Product Name";
+            headers[2] = "Category";
+            headers[3] = "Unit Price";
+            headers[4] = "Unit";
+            headers[5] = "Quantity";
             
-            outputs[0] = products[i].product_name;
-            outputs[1] = products[i].product_category;
-            outputs[2] = products[i].product_unit_price;
-            outputs[3] = products[i].product_unit;
-            outputs[4] = products[i].product_quantity;
+            outputs[0] = products[i].product_id;
+            outputs[1] = products[i].product_name;
+            outputs[2] = products[i].product_category;
+            outputs[3] = products[i].product_unit_price;
+            outputs[4] = products[i].product_unit;
+            outputs[5] = products[i].product_quantity;
             
-            var ind = 5;
+            var ind = 6;
             for (var key in products[i].attributes){
                 headers[ind] = products[i].attributes[key].key;
                 log.debug("Inside Attribute Loop");
@@ -72,13 +74,16 @@ class ProductForm extends Component {
 
     
     editRow(headers, data, index){
-        headers.splice(0,1);
-        data.splice(0,1);
+        // headers.splice(0,1);
+        // data.splice(0,1);
         this.setState({modalFields: [], currIndex: index});
         var output = [];
-        for (var i =0; i< data.length; i++){
-            output[i] = ({header: headers[i], data: data[i]});
+        var id_output = ({header: headers[0], data: data[0]});
+        for (var i =0; i< data.length-1; i++){
+            output[i] = ({header: headers[i+1], data: data[i+1]});
         }
+
+
         var modalFields = output.map(
             function (product, index){
                 var id = "item"+index;
@@ -95,13 +100,9 @@ class ProductForm extends Component {
         var id = document.getElementById("product").value;
         output.push(id);
 
-        // var n = this.state.modalFields.length;
         for (var i=0; i< this.state.modalFields.length; i++){
-            // output[i+1] = document.getElementById("item"+i).value;
             output.push(document.getElementById("item"+i).value);
         }
-
-
         
         var idHeader = this.state.headers;
         idHeader.splice(0, 0, "id");
