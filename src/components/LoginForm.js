@@ -33,18 +33,17 @@ class LoginForm extends InputComponent{
         return(
             <form className="m-t">
                 <h5>Login with credentials</h5>
-                    <div className="form-group">
-                        <div className="col-md-12">
-                            <input id="uphone" type="text" placeholder="Phone Number" className="form-control" onChange={this.setValue} onKeyPress={this._handleKeyPress}/>
-                        </div>
+                <div className="form-group">
+                    <div className="col-md-12">
+                        <input id="uphone" type="text" placeholder="Phone Number" className="form-control" onChange={this.setValue} onKeyPress={this._handleKeyPress}/>
                     </div>
+                </div>
 
-                    <div className="form-group">
-                        <div className="col-md-12">
-                            <input id="upass" type="password" placeholder="Password" className="form-control" onChange={this.setValue} onKeyPress={this._handleKeyPress}/>
-                        </div>
+                <div className="form-group">
+                    <div className="col-md-12">
+                        <input id="upass" type="password" placeholder="Password" className="form-control" onChange={this.setValue} onKeyPress={this._handleKeyPress}/>
                     </div>
-
+                </div>
                 <div className="hr-line-dashed"></div>
                 <div className="form-group">
                     <button id="formSubmit" type="button" className="btn btn-primary block m-b full-width" onClick={this.onClick}>Submit</button>

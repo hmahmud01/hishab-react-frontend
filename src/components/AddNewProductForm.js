@@ -67,39 +67,6 @@ class AddNewProductForm extends Component{
         var ajax = new Ajax(callback);
         ajax.getData('transaction/category/attribute', params)
 
-        // $.ajax({
-        //     method: 'get',
-        //     url: 'transaction/category/attribute',
-        //     data: {
-        //         "uid" : Cookies.get("uid"),
-        //         "cid" : id
-        //     },
-        //     success: function(response){
-        //         var data = $.parseJSON(response);
-        //         var output = [];
-        //         var headers = [];
-        //         headers[0] = "Product Name";
-        //         headers[1] = "Category";
-        //         headers[2] = "Unit Price";
-                
-        //         output[0] = {header: "Product Name", data: ""};
-        //         output[1] = {header: "Category", data: data.product_category};
-        //         output[2] = {header: "Unit Price", data: ""};
-
-        //         var modalFields = output.map(
-        //             function (product, index){                        
-        //                 var id = "itemn"+index;
-        //                 return(<TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
-        //                 );
-        //             }
-        //         );
-        //         this.setState({headers: headers, modalFieldsNew: modalFields});
-        //     }.bind(this),
-        //     error: function(response){
-        //         var data = $.parseJSON(response.responseText);
-        //         this.setState({isError: true, message: data.msg, alertType: "danger"});
-        //     }
-        // });
     }
     
     createNewProduct(){
@@ -121,24 +88,6 @@ class AddNewProductForm extends Component{
         var ajax = new Ajax(callback);
         ajax.postData('transaction/submit/product', params);
 
-
-        // $.ajax({
-        //     method: 'post',
-        //     url: 'transaction/submit/product',
-        //     data: {
-        //         "pname": document.getElementById("itemn0").value, 
-        //         "pcatg": document.getElementById("itemn1").value,
-        //         "punpr": document.getElementById("itemn2").value,
-        //         "uid": Cookies.get("uid")
-        //     },
-        //     success: function(response){
-        //     },
-        //     error: function(response){
-        //         alert("Product Already Exist");
-        //         var data = $.parseJSON(response.responseText);
-        //         this.setState({isError: true, message: data.msg, alertType: "danger"});
-        //     }.bind(this),
-        // });
     }
 
 

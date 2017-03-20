@@ -5,6 +5,8 @@ import AutoSuggestText from './AutoSuggestText';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 import Modal from './Modal';
+import TextInput from './TextInput';
+import Alert from './Alert';
 
 class RegistrationForm extends Component {
     constructor(props){
@@ -244,69 +246,27 @@ class RegistrationForm extends Component {
                     </div>
                 </div>
 
-                <div id="modal-org" className="modal fade" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Add Organization</h4>
+                <Modal id="modal-org" title="Add Orgnization" discard="Exit" success="Submit" onClick={this.onOrganizationAddClicked}>
+                    <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
+                    <TextInput id="org_name" label="Organization Name" placeholder="Organization Name"/>
+                    <TextInput id="org_code" label="Organization Code" placeholder="Organization Code"/>
+                    <TextInput id="org_trade" label="Trade License Number" placeholder="Trade License Number"/>
+                    <TextInput id="org_email" label="Email" placeholder="Email"/>
+                    <TextInput id="org_phone" label="Official Phone Number" placeholder="Official Phone Number"/>
+                    <div className="form-group">
+                        <label className="col-sm-4 control-label">Orgnaization Type</label>
+                            <div className="col-sm-8">
+                                <select className="form-control" name="org_type" id="org_type">
+                                    <option value="0">Grocery</option>
+                                    <option value="1">Distributor</option>
+                                    <option value="2">Telco</option>
+                                    <option value="3">Telco Distributor</option>
+                                </select>                                        
                             </div>
-
-                            <form className="form-horizontal">
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="form-group"><label className="col-sm-4 control-label">Organization Name</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_name" placeholder="Organization Name" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Organization Code</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_code" placeholder="Organization Code" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Trade License Number</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_trade" placeholder="Trade License Number" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Email</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_email" placeholder="Email" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Official Phone</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_phone" placeholder="Official Phone Number" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="col-sm-4 control-label">Orgnaization Type</label>
-                                            <div className="col-sm-8">
-                                                <select className="form-control" name="org_type" id="org_type">
-                                                    <option value="0">Grocery</option>
-                                                    <option value="1">Distributor</option>
-                                                    <option value="2">Telco</option>
-                                                    <option value="3">Telco Distributor</option>
-                                                </select>                                        
-                                            </div>
-                                        </div>
-                                        <div className="form-group"><label className="col-sm-4 control-label">Address</label>
-                                            <div className="col-sm-8">
-                                                <input type="text" id="org_add1" placeholder="Address" className="form-control" />
-                                                <input type="text" id="org_add2" placeholder="Address" className="form-control" />
-                                            </div>
-                                        </div>                                  
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>                                
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.onOrganizationAddClicked}>Submit</button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
-                </div>
+                    <TextInput id="org_add1" label="Address" placeholder="Address"/>
+                    <TextInput id="org_add2" label="Address" placeholder="Address"/>
+                </Modal>
 
                 <Modal id="modal-error" title="Error Type" onClick={this.onErrorClicked}>
                     <div className="col-sm-10">

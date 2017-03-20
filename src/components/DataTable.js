@@ -17,20 +17,7 @@ class DataTable extends Component{
         
         this.log = new Logger();
     }
-    
-    /**
-    EXPECTED OUTPUT
-    
-    {
-        static_headers: ['Product Name', 'Category Name', 'Unit Price Header, 'Unit Header', 'Quantity Header'],
-        values: [
-            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
-            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
-            {static: ['Product', 'Category', 'Unit Price', 'Unit', 'Quantity'], attr: ['Attribute 1', 'Attribute 2'], attrVal: ['1 Value', '2 Value'] },
-        ]
-    }
-    
-    */
+
     
     editRow(index){
         var data = this.state.rowValues[index];
