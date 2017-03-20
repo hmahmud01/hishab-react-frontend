@@ -6,6 +6,7 @@ import HishabLogo from './images/logo.png';
 import Alert from '../components/Alert';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import LoginForm from '../components/LoginForm';
 
 class LoginPage extends Component{
     constructor(props){
@@ -72,6 +73,11 @@ class LoginPage extends Component{
         var ajax = new Ajax(callback);
         ajax.getData('resetpass', params);
     }
+
+                    //     <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
+                    //     <TextInput id="uphone" type="text" placeholder="Phone Number"/>
+                    //     <TextInput id="upass" type="password" placeholder="password"/>
+                    // </FormBase> 
     
     render(){
         return(
@@ -79,19 +85,14 @@ class LoginPage extends Component{
         <div className="middle-box text-center loginscreen animated fadeInDown">
             <div>
                 <div>
-
                     <h1 className="logo-name">
                         <img src={HishabLogo} role="presentation"/>
                     </h1>
-
                 </div>
                 
                 <h2>Welcome to <strong>Hishab</strong></h2>
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
-                    <FormBase buttonClass="btn-primary block m-b full-width" className="m-t" formheader="Login with credentials" onClick={this.onLoginClicked}>
-                        <TextInput id="uphone" type="text" placeholder="Phone Number"/>
-                        <TextInput id="upass" type="password" placeholder="password"/>
-                </FormBase> 
+                    <LoginForm onClick={this.onLoginClicked}/>
                 <a href="#" onClick={this.onPasswordForgotClicked}><small>Forgot password?</small></a>
                 <p className="m-t"> <small>Hishab &copy; 2017</small> </p>
             </div>
