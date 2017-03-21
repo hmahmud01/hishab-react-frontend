@@ -71,7 +71,6 @@ class Ajax{
     
     onDataReceived(response, status){
         this.log.debug("Request Status: " + status);
-        this.log.debug($.parseJSON(response));
         if (this.callbackFunction !== undefined){
             var callbackFunc = this.callbackFunction.bind(this);
             callbackFunc(response, status);

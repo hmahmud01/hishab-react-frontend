@@ -76,7 +76,8 @@ class TranscriptionForm extends Component {
                 if (status === "success"){
                     var data = $.parseJSON(response);
                     this.setState({isError: true, message: data.msg, alertType: "success"});
-                    window.location.reload(); 
+                    window.location.hash = "#/home";
+                    window.location.reload();
                     console.log("not refreshed");
                 }else if (status === "error"){
                     var data = $.parseJSON(response.responseText);

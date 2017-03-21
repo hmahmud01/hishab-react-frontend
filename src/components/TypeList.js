@@ -14,9 +14,9 @@ class TypeList extends Component{
             padding: "0"
         };
 
-        const types = ['Transcriptions', 'Revision', 'Error', 'Completed','Locked', 'Translation'];
-        const typeVal = [0,1,3,4,100,2];
-        const colors = ["primary", "success", "danger", "warning", ""];
+        const types = ['Transcriptions', 'Revision', 'Completed', 'Error','Locked', 'Translation'];
+//        const typeVal = [0,1,3,2,4,100];
+        const colors = ["primary", "success", "primary", "danger", "warning", ""];
         const listItems = this.props.items.map(
             (listItem) => 
         <ListItem name={types[listItem.callType % 95]} value={listItem.count} key={listItem.callType} target={listItem.callType} onClick={this.props.onClick} icon="fa fa-tasks" color={colors[listItem.callType % 95]}/>

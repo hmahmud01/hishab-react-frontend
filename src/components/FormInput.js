@@ -5,7 +5,6 @@ class FormInput extends InputComponent{
     constructor(props){
         super(props);
         this.setValue = this.setValue.bind(this);
-        this._handleKeyPress = this._handleKeyPress.bind(this);
     }
     
     setValue(event){
@@ -25,7 +24,7 @@ class FormInput extends InputComponent{
                 <label className="col-sm-2 control-label">{this.props.label}</label>
             }
             <div className={classname}>
-                <input value={this.props.value} id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue}/>
+                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue}/>
             </div>
         </div>
         );
