@@ -75,13 +75,11 @@ class ListItem extends Component{
         event.preventDefault();
         var callback = function(response, status){
             if (status == "success"){
-                alert("Call redirected to the list");
                 console.log(response);
                 window.location.reload();
-
             }else if (status == "error"){
-                alert("Call Incorrect");
                 console.log(response.responseText);
+                window.location.reload();
             }
         }.bind(this);
         
