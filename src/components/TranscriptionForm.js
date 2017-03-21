@@ -98,7 +98,7 @@ class TranscriptionForm extends Component {
             };
             
             var ajax = new Ajax(callback);
-            ajax.postData('transcription/submit', params);            
+            ajax.postData('forms/submit/transaction', params);            
         }else{
             this.setState({isError: true, message: "Buyer and Seller is same", alertType: "danger"});
         }        
