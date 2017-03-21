@@ -75,7 +75,7 @@ class ListItem extends Component{
         event.preventDefault();
         var callback = function(response, status){
             if (status == "success"){
-                alert("Call redirected to the transcription list");
+                alert("Call redirected to the list");
                 console.log(response);
                 window.location.reload();
 
