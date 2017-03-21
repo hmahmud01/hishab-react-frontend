@@ -67,22 +67,26 @@ class ProductForm extends Component {
                 log.debug(key);
                 outputs[ind++] = products[i].attributes[key].value;
             }
-            this.refs.data.setState({columns: headers});
-            this.refs.data.addRow(outputs, headers);
+            var result = JSON.parse(JSON.stringify(outputs));
+            var hreslt = JSON.parse(JSON.stringify(headers));
+            this.refs.data.setState({columns: hreslt});
+            this.refs.data.addRow(result, hreslt);
+            log.debug("Final Output");
+            log.debug(result);
+            log.debug(hreslt);
         }
     }
 
     
     editRow(headers, data, index){
-        // headers.splice(0,1);
-        // data.splice(0,1);
+        document.getElementById("product").value = data[0];
+        headers.splice(0,1);
+        data.splice(0,1);
         this.setState({modalFields: [], currIndex: index});
         var output = [];
-        var id_output = ({header: headers[0], data: data[0]});
-        for (var i =0; i< data.length-1; i++){
-            output[i] = ({header: headers[i+1], data: data[i+1]});
+        for (var i =0; i< data.length; i++){
+            output[i] = ({header: headers[i], data: data[i]});
         }
-
 
         var modalFields = output.map(
             function (product, index){
@@ -99,14 +103,16 @@ class ProductForm extends Component {
         var output = [];
         var id = document.getElementById("product").value;
         output.push(id);
-
         for (var i=0; i< this.state.modalFields.length; i++){
-            output.push(document.getElementById("item"+i).value);
+            console.log(document.getElementById("item"+i));
+            if(document.getElementById("item"+i) !== null){
+                output.push(document.getElementById("item"+i).value);
+            }            
         }
         
         var idHeader = this.state.headers;
         idHeader.splice(0, 0, "id");
-
+        
         this.setState({headers: idHeader});
 
         this.setState({currIndex: undefined});
