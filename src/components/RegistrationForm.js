@@ -58,12 +58,14 @@ class RegistrationForm extends Component {
         var callback = function(response, status){
             if (status == "success"){
                 var data = $.parseJSON(response);
-                this.setState({isError: false, message: data.msg, alertType: "success"});
+                this.setState({isError: true, message: data.msg, alertType: "success"});
+                console.log(data.msg);
                 window.location.hash = "#/home";
                 window.location.reload();
             }else if (status == "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
+                console.log(data.msg);
                 window.location.hash="#/home";
             }
         }.bind(this);
@@ -160,7 +162,9 @@ class RegistrationForm extends Component {
         }.bind(this));
 		return (
             <div>
-                <div className="col-lg-12">
+                <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
+                <div className="col-lg-12">         
+                <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>       
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
                             <h5>Voice And User</h5>

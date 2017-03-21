@@ -66,18 +66,18 @@ class TranscriptionForm extends Component {
         for (var i=0; i<products.length; i++)
             output[i] = {header: headers[i], value: products[i]};
 
-        var buy = document.getElementById("buyer").value;
-        var sell = document.getElementById("seller").value;
+        var buy_call = document.getElementById("buyer").value;
+        var sell_call = document.getElementById("seller").value;
 
 
-        if(buy!==sell){
+        if(buy_call!==sell_call){
             var callback = function(response, status){
                 var data = new Json(response);
                 if (status === "success"){
                     var data = $.parseJSON(response);
                     this.setState({isError: true, message: data.msg, alertType: "success"});
-                    window.location.hash="#/home";
-                    window.location.reload();
+                    window.location.reload(); 
+                    console.log("not refreshed");
                 }else if (status === "error"){
                     var data = $.parseJSON(response.responseText);
                     this.setState({isError: true, message: data.msg, alertType: "danger"});
