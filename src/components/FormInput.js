@@ -12,11 +12,6 @@ class FormInput extends InputComponent{
         super.setValue(event);
     }
 
-    _handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-        }
-    }
-
 
     //Need to check the update onkey function which updates paid due field.
 
@@ -30,7 +25,7 @@ class FormInput extends InputComponent{
                 <label className="col-sm-2 control-label">{this.props.label}</label>
             }
             <div className={classname}>
-                <input id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue} onKeyUp={this.Key}/>
+                <input value={this.props.value} id={this.props.id} type={type} placeholder={this.props.placeholder} className="form-control" value={this.state.value} onChange={this.setValue}/>
             </div>
         </div>
         );

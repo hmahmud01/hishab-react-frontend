@@ -10,8 +10,11 @@ import FormFrame from './FormFrame';
 class SummaryForm extends Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            val: 0
+        };
         this.update = this.update.bind(this);
+
     }
 
     update() {
@@ -29,10 +32,10 @@ class SummaryForm extends Component {
                 <div className="col-lg-6 col-lg-offset-6">
                     <FormFrame head="Transaction summary" onClick={this.props.onSummary}>
                         <form className="form-horizontal">       
-                                <FormInput id="total" label="Total" placeholder="Total"/>       
-                                <FormInput id="discount" label="Discount" placeholder="Discount"/>
-                                <FormInput id="paid" label="Paid" placeholder="Paid" Key={this.update}/>
-                                <FormInput id="due" label="Due" placeholder="Due" Key={this.update}/>                     
+                            <FormInput id="total" label="Total" placeholder="Total" value="0"/>       
+                            <FormInput id="discount" label="Discount" placeholder="Discount" value="0"/>
+                            <FormInput id="paid" label="Paid" placeholder="Paid" Key={this.update} value="0"/>
+                            <FormInput id="due" label="Due" placeholder="Due" Key={this.update} value="0"/>                     
                         </form>   
                         <div className="hr-line-dashed"></div>
                         <button type="button" className="btn btn-primary pull-right" onClick={this.props.onSubmit}>Submit</button>

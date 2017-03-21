@@ -164,7 +164,6 @@ class RegistrationForm extends Component {
             <div>
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                 <div className="col-lg-12">         
-                <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>       
                     <div className="ibox float-e-margins">
                         <div className="ibox-title">
                             <h5>Voice And User</h5>
