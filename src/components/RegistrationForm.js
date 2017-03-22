@@ -30,6 +30,7 @@ class RegistrationForm extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+        this.setState({startTime: new Date().getTime()})
     }
     
     componentWillReceiveProps(newProps){
@@ -54,39 +55,43 @@ class RegistrationForm extends Component {
 
     onRegistrationClicked(event){
         event.preventDefault();
+        var endTime = new Date().getTime()
 
         var callback = function(response, status){
             if (status == "success"){
                 var data = $.parseJSON(response);
                 this.setState({isError: true, message: data.msg, alertType: "success"});
-                console.log(data.msg);
                 window.location.hash = "#/home";
                 window.location.reload();
             }else if (status == "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-                console.log(data.msg);
                 window.location.hash="#/home";
             }
         }.bind(this);
         
         var params = {
                 "tid": this.props.transId,
-                "uphone": document.getElementById("ph_number").value, 
-                "uname": document.getElementById("name").value,
-                "utype": $('#type :selected').val(),
-                "uadr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
-                "uorg": document.getElementById("organization").value,
                 "uid": Cookies.get("uid"),
+                "dta":{
+                    "uph": document.getElementById("ph_number").value, 
+                    "una": document.getElementById("name").value,
+                    "uty": $('#type :selected').val(),
+                    "adr": document.getElementById("address1").value + " " + document.getElementById("address2").value, 
+                    "org": document.getElementById("organization").value,                    
+                },            
+                "sTime": this.state.startTime,
+                "eTime": endTime
             };
         
         var ajax = new Ajax(callback);
-        ajax.getData('register', params);
+        ajax.postData('forms/submit/registration', params);
     
     }
 
     onOrganizationAddClicked(event){
         
+        var endTime = new Date().getTime();
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
@@ -106,6 +111,8 @@ class RegistrationForm extends Component {
                 "otype": $('#org_type :selected').val(),
                 "oadr": document.getElementById("org_add1").value + " " + document.getElementById("org_add2").value, 
                 "uid": Cookies.get("uid"),
+                "sTime": this.state.startTime,
+                'eTime': endTime,
             };
         
         var ajax = new Ajax(callback);
@@ -116,6 +123,8 @@ class RegistrationForm extends Component {
 
     onErrorClicked(event){
         event.preventDefault();
+
+        var endTime = new Date().getTime();
 
         var callback = function(response, status){
             var data = new Json(response);
@@ -129,8 +138,11 @@ class RegistrationForm extends Component {
         }.bind(this);
         
         var params = {
+                "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
-                "error": $('input[name="errorS"]:checked').val(), 
+                "err": $('input[name="errorS"]:checked').val(), 
+                "sTime": this.state.startTime,
+                'eTime': endTime,
             };
 
         console.log(params);
