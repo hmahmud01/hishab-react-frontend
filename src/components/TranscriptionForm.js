@@ -131,13 +131,14 @@ class TranscriptionForm extends Component {
         }.bind(this);
         
         var params = {
+                "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
                 "error": $('input[name="errorS"]:checked').val(), 
             };
 
 //        console.log(params);
         var ajax = new Ajax(callback);
-        ajax.postData('forms/error/translation', params);
+        ajax.postData('forms/error/transaction', params);
     }
 
     

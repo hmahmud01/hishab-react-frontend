@@ -37,22 +37,6 @@ class RevisionFormPage extends Component{
         var ajax = new Ajax(callback);
         ajax.getData('transaction/details', params);
 
-        // $.ajax({
-        //     method: 'get',
-        //     url: 'transaction/details',
-        //     data: {
-        //         "uid": Cookies.get("uid"),
-        //         "tid": this.props.transId,
-        //     },
-        //     success:function(response){
-        //         var data = $.parseJSON(response);
-        //         this.setState({
-        //             data: data
-        //         });
-        //     }.bind(this),
-        //     error:function(response){
-        //     }
-        // });
     }
     
     
