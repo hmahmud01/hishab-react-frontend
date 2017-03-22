@@ -137,7 +137,7 @@ class TranscriptionForm extends Component {
 
         console.log(params);
         var ajax = new Ajax(callback);
-        ajax.postData('forms/error/translation', params);
+        ajax.postData('forms/error/transaction', params);
     }
 
     
