@@ -24,6 +24,10 @@ class TranscriptionForm extends Component {
         this.onErrorClicked = this.onErrorClicked.bind(this);
     }
 
+    componentDidMount(){
+        this.setState({startTime: new Date().getTime()})
+    }
+
 
     componentWillReceiveProps(newProps){
         this.setState({
@@ -68,7 +72,7 @@ class TranscriptionForm extends Component {
 
         var buy_call = document.getElementById("buyer").value;
         var sell_call = document.getElementById("seller").value;
-
+        var endTime = new Date().getTime()
 
         if(buy_call!==sell_call){
             var callback = function(response, status){
@@ -95,7 +99,9 @@ class TranscriptionForm extends Component {
                 "paid": document.getElementById("paid").value,
                 "due": document.getElementById("due").value,
                 "tid": this.props.transId,
-                "uid": Cookies.get("uid")
+                "uid": Cookies.get("uid"),
+                "sTime": this.state.startTime,
+                'eTime': endTime
             };
             
             var ajax = new Ajax(callback);
@@ -124,9 +130,6 @@ class TranscriptionForm extends Component {
                 "tid": this.props.transId,
                 "error": $('input[name="errorS"]:checked').val(), 
             };
-        
-
-            // forms/error/registration | transaction | translation
 
         console.log(params);
         var ajax = new Ajax(callback);

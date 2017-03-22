@@ -189,9 +189,10 @@ class RegistrationForm extends Component {
                                             <div className="col-sm-8">
                                                 <select className="form-control" name="type" id="type">
                                                     {typeOptions}
-                                                </select>                                        
+                                                </select>                                      
                                             </div>
                                         </div>
+
                                         <div className="form-group"><label className="col-sm-4 control-label">Address</label>
                                             <div className="col-sm-8">
                                                 <input type="text" id="address1" placeholder="Address" className="form-control" value={this.state.useraddr}/>
@@ -220,6 +221,7 @@ class RegistrationForm extends Component {
                                         <a data-toggle="modal" className="btn btn-warning" href="#modal-error">Report Error</a>
                                     </form>
                                 </div>
+
                                 <h5>Call Information</h5>
                                 <div className="col-lg-3">
                                     <div className="widget style1 lazur-bg">
@@ -243,7 +245,9 @@ class RegistrationForm extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>                
+                                </div>   
+
+                                             
                             </div>
                         </div>
                     </div>
