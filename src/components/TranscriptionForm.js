@@ -131,6 +131,7 @@ class TranscriptionForm extends Component {
         }.bind(this);
         
         var params = {
+                "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
                 "error": $('input[name="errorS"]:checked').val(), 
             };
