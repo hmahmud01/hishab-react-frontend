@@ -75,10 +75,10 @@ class ListItem extends Component{
         event.preventDefault();
         var callback = function(response, status){
             if (status == "success"){
-                console.log(response);
+//                console.log(response);
                 window.location.reload();
             }else if (status == "error"){
-                console.log(response.responseText);
+//                console.log(response.responseText);
                 window.location.reload();
             }
         }.bind(this);

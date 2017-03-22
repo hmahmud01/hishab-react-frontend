@@ -57,7 +57,7 @@ class AkijReport extends Component {
         document.body.appendChild(downloadLink);
 
         downloadLink.click();
-        console.log("end of download csv");
+//        console.log("end of download csv");
     }
 
     export_table_to_csv(filename){
@@ -67,17 +67,17 @@ class AkijReport extends Component {
         // console.log(rows);
         for(var i=0; i<rows.length; i++){
             var row = [];
-            console.log("inside col_0");            
+//            console.log("inside col_0");            
             var col_0 = rows[0];
-            console.log(col_0);
-            console.log("inside col_1");            
+//            console.log(col_0);
+//            console.log("inside col_1");            
             var col_1 = rows[1];
-            console.log(col_1);
+//            console.log(col_1);
 
             var _th = "<th><th>";
             col_1 = _th + _th + col_1;
             // col_1.unshift(_th);
-            console.log(col_1[0]);
+//            console.log(col_1[0]);
 
             var cols = rows[i].querySelectorAll("td, th");
             // console.log("inside col");

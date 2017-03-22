@@ -5,7 +5,6 @@ class Ajax{
     
     constructor(callback){
         this.baseUrl = "http://app.hishab.co";
-        // this.baseUrl = "http://127.0.0.1:8000";
         this.apiUrl = "/api/v1";
         this.callbackFunction = callback;
         this.getData = this.getData.bind(this);
