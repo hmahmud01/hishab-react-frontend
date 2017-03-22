@@ -37,6 +37,7 @@ class TranscriptionForm extends Component {
             phone: newProps.data.cin,
             buyer: newProps.data.bin,
             seller: newProps.data.sin,
+            cty: newProps.data.tty
         });
 
         if (newProps.data.hasOwnProperty('pda')){
@@ -145,7 +146,7 @@ class TranscriptionForm extends Component {
 		return (
             <div>
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
-                <UserForm ref="userData" transId={this.props.transId} buyer={this.state.buyer} seller={this.state.seller} audio={this.state.audio} formtype={this.props.cty} phone={this.state.phone}/>
+                <UserForm ref="userData" transId={this.props.transId} buyer={this.state.buyer} seller={this.state.seller} audio={this.state.audio} formtype={this.state.cty} phone={this.state.phone}/>
                 <ProductForm ref="products" product={this.state.product}/>
                 <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary} onError={this.onErrorClicked}/>                 
             </div>

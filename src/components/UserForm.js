@@ -26,21 +26,22 @@ class UserForm extends Component {
     }
     
     componentWillReceiveProps(props){
+        console.log(props.formtype)
         if (props.formtype === "1"){
             if (props.buyer !== undefined && props.seller !== undefined){
                 this.setState({buyerVal: props.buyer, sellerVal : props.seller});
             }else{
                 this.setState({buyerVal: props.phone});
-                console.log(props.formtype);
-            }
-                
-        }else{
+            }                
+        }else if(props.formtype === "2"){
             if (props.buyer !== undefined && props.seller !== undefined){
                 this.setState({buyerVal: props.buyer, sellerVal : props.seller});
             }else{
                 this.setState({sellerVal: props.phone});
-                console.log(props.formtype);
             }
+        }else{
+            if (props.buyer !== undefined && props.seller !== undefined)
+                this.setState({buyerVal: props.buyer, sellerVal : props.seller});            
         }
     }
     

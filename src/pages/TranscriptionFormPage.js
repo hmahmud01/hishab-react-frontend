@@ -18,6 +18,7 @@ class TranscriptionFormPage extends Component{
         this.componentWillMount = this.componentWillMount.bind(this);
 
         this.TRANSACTION_DATA = "data";
+        this.TRANSACTION_TYPE = "tty"
 
         this.TRANSACTION_ID = "tid"
         this.TRANSACTION_STATUS = "tst"
@@ -69,7 +70,7 @@ class TranscriptionFormPage extends Component{
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>                    
                     <Content>    
-                    <h1> Transcription for {this.props.callType} </h1>    
+                    <h1> Transcription for {this.props.callType} </h1>
                         <TranscriptionForm transId={this.props.transId} data={this.state.data} startTime={this.state.startTime}/>
                     </Content>
                     <Footer/>
