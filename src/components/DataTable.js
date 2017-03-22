@@ -110,6 +110,10 @@ class DataTableHeader extends Component{
         super(props);
         this.state = {};
     }
+
+                //     <a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product" onClick={this.edit}>
+                //     <i className="fa fa-paste"></i> Edit 
+                // </a> 
     
     render(){
         var columns = this.props.columns.slice(0, 6).map(
@@ -164,9 +168,6 @@ class DataTableRow extends Component{
             {rows}
             <td>{attr}</td>
             <td>
-                <a data-toggle="modal" className="btn btn-xs btn-info" href="#modal-product" onClick={this.edit}>
-                    <i className="fa fa-paste"></i> Edit 
-                </a> 
                 <button className="btn btn-xs btn-info" type="button" onClick={this.delete}>
                     <i className="fa fa-times"></i> Delete 
                 </button>

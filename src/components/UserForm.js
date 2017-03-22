@@ -27,9 +27,20 @@ class UserForm extends Component {
     
     componentWillReceiveProps(props){
         if (props.formtype === "1"){
-            this.setState({buyerVal: props.phone});
+            if (props.buyer !== undefined && props.seller !== undefined){
+                this.setState({buyerVal: props.buyer, sellerVal : props.seller});
+            }else{
+                this.setState({buyerVal: props.phone});
+                console.log(props.formtype);
+            }
+                
         }else{
-            this.setState({sellerVal : props.phone});
+            if (props.buyer !== undefined && props.seller !== undefined){
+                this.setState({buyerVal: props.buyer, sellerVal : props.seller});
+            }else{
+                this.setState({sellerVal: props.phone});
+                console.log(props.formtype);
+            }
         }
     }
     
@@ -121,7 +132,7 @@ class UserForm extends Component {
                                                 <AutoSuggestText 
                                                     id="buyer"
                                                     placeholder="Buyer"
-                                                    value={this.props.buyer}
+                                                    value={this.state.buyerVal}
                                                     datalist="buyerlist"
                                                     url="transaction/search/user"
                                                 >
@@ -138,7 +149,7 @@ class UserForm extends Component {
                                                 <AutoSuggestText 
                                                     id="seller"
                                                     placeholder="Seller"
-                                                    value={this.props.seller}
+                                                    value={this.state.sellerVal}
                                                     datalist="sellerlist"
                                                     url="transaction/search/user"
                                                 >

@@ -17,7 +17,9 @@ class TranscriptionForm extends Component {
             total : 0,
             isError: false,
             alertType: "success",
-            message: "None"
+            message: "None",
+            buyer: "",
+            seller: ""
         };
         this.onTranscriptionClicked = this.onTranscriptionClicked.bind(this);
         this.onSummary = this.onSummary.bind(this);
@@ -34,8 +36,9 @@ class TranscriptionForm extends Component {
             audio: newProps.data.cau, 
             phone: newProps.data.cin,
             buyer: newProps.data.bin,
-            seller: newProps.data.sin
+            seller: newProps.data.sin,
         });
+
         if (newProps.data.hasOwnProperty('pda')){
             this.setState({
                 product: newProps.data.pda
