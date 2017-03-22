@@ -40,6 +40,10 @@ class ProductForm extends Component {
     componentWillReceiveProps(newProps){
         this.setState({products: newProps.product});
         var products = newProps.product;
+        
+        if (products === undefined)
+            return;
+        
         var headers = [];
         var outputs = [];
         var log = new Logger();
