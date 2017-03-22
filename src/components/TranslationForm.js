@@ -63,7 +63,7 @@ class TranslationForm extends Component {
                 "error": $('input[name="errorS"]:checked').val(), 
             };
 
-        console.log(params);
+//        console.log(params);
         var ajax = new Ajax(callback);
         ajax.postData('forms/error/translation', params);
     }

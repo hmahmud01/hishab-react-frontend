@@ -26,7 +26,7 @@ class UserForm extends Component {
     }
     
     componentWillReceiveProps(props){
-        console.log(props.formtype)
+//        console.log(props.formtype)
         if (props.formtype === "1"){
             if (props.buyer !== undefined && props.seller !== undefined){
                 this.setState({buyerVal: props.buyer, sellerVal : props.seller});

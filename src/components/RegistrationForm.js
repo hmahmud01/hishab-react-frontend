@@ -59,13 +59,13 @@ class RegistrationForm extends Component {
             if (status == "success"){
                 var data = $.parseJSON(response);
                 this.setState({isError: true, message: data.msg, alertType: "success"});
-                console.log(data.msg);
+//                console.log(data.msg);
                 window.location.hash = "#/home";
                 window.location.reload();
             }else if (status == "error"){
                 var data = $.parseJSON(response.responseText);
                 this.setState({isError: true, message: data.msg, alertType: "danger"});
-                console.log(data.msg);
+//                console.log(data.msg);
                 window.location.hash="#/home";
             }
         }.bind(this);
@@ -133,7 +133,7 @@ class RegistrationForm extends Component {
                 "error": $('input[name="errorS"]:checked').val(), 
             };
 
-        console.log(params);
+//        console.log(params);
         var ajax = new Ajax(callback);
         ajax.postData('forms/error/registration', params);
     }
