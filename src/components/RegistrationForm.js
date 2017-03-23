@@ -7,6 +7,7 @@ import Json from '../utils/Json';
 import Modal from './Modal';
 import TextInput from './TextInput';
 import Alert from './Alert';
+import Logger from '../utils/Logger';
 
 class RegistrationForm extends Component {
     constructor(props){
@@ -24,6 +25,7 @@ class RegistrationForm extends Component {
         this.onRegistrationClicked = this.onRegistrationClicked.bind(this);
         this.onOrganizationAddClicked = this.onOrganizationAddClicked.bind(this);
         this.onErrorClicked = this.onErrorClicked.bind(this);
+        this.log = new Logger();
     }
 
     componentDidMount() {

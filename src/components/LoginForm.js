@@ -1,6 +1,7 @@
 import React from 'react';
 import InputComponent from './InputComponent';
 import $ from 'jquery';
+import Logger from '../utils/Logger';
 
 class LoginForm extends InputComponent{
     constructor(props){
@@ -8,6 +9,7 @@ class LoginForm extends InputComponent{
         this.setValue = this.setValue.bind(this);
         this.onClick = this.onClick.bind(this);
         this._handleKeyPress = this._handleKeyPress.bind(this);
+        this.log = new Logger();
     }
     
     setValue(event){

@@ -7,6 +7,7 @@ import Modal from './Modal';
 import Alert from './Alert';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 
 class AddNewProductForm extends Component{
@@ -22,13 +23,8 @@ class AddNewProductForm extends Component{
 		};
 		this.productNewSelected = this.productNewSelected.bind(this);
         this.createNewProduct = this.createNewProduct.bind(this);
+        this.log = new Logger();
 	}
-
-    //Add new product correction:
-    //  1. Select Product Attributes by Category.
-    //  2. Select Category from auto suggest.
-    //  3. Display product attribute from attribute list.
-    //  4. Create product attribute edit form.
     
     productNewSelected(id){
         var callback = function(response, status){

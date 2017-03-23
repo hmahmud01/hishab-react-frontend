@@ -5,6 +5,7 @@ import TextInput from './TextInput';
 import Modal from './Modal';
 import Alert from './Alert';
 import Ajax from '../utils/Ajax';
+import Logger from '../utils/Logger';
 
 
 class AddNewCategoryForm extends Component{
@@ -16,6 +17,7 @@ class AddNewCategoryForm extends Component{
             message: "None"
         };
 		this.addNewCategory = this.addNewCategory.bind(this);
+        this.log = new Logger();
 	}
     
     

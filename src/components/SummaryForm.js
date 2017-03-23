@@ -6,6 +6,7 @@ import Modal from './Modal';
 import TextInput from './TextInput';
 import FormInput from './FormInput';
 import FormFrame from './FormFrame';
+import Logger from '../utils/Logger';
 
 class SummaryForm extends Component {
     constructor(props){
@@ -14,7 +15,7 @@ class SummaryForm extends Component {
             val: 0
         };
         this.update = this.update.bind(this);
-
+        this.log = new Logger();
     }
 
     update() {

@@ -31,6 +31,7 @@ class ProductForm extends Component {
         this.addMoreProducts = this.addMoreProducts.bind(this);
         this.productSelected = this.productSelected.bind(this);
         this.categorySelected = this.categorySelected.bind(this);
+        this.log = new Logger();
     }
     
     receiveData(headers, headerCollection, data){

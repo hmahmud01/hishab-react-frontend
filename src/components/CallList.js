@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import Ajax from '../utils/Ajax';
 import Cookies from 'js-cookie';
+import Logger from '../utils/Logger';
 
 class CallList extends Component{
     constructor(props){
         super(props);
         this.state = {};
+        this.log = new Logger();
     }
     
     render(){

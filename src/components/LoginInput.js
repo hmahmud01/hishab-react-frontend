@@ -1,11 +1,13 @@
 import React from 'react';
 import InputComponent from './InputComponent';
+import Logger from '../utils/Logger';
 
 class TextInput extends InputComponent{
     constructor(props){
         super(props);
         this.setValue = this.setValue.bind(this);
         this._handleKeyPress = this._handleKeyPress.bind(this);
+        this.log = new Logger();
     }
     
     setValue(event){
