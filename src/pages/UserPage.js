@@ -3,6 +3,9 @@ import Cookies from 'js-cookie';
 
 import ReportPage from './ReportPage';
 import akij from './akij';
+import TranscriberPerformancePage from './TranscriberPerformancePage';
+import SMSLogPage from './SMSLogPage';
+
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -19,6 +22,8 @@ class UserPage extends Component {
         };
         this.widgetClicked = this.widgetClicked.bind(this);
         this.akijClicked = this.akijClicked.bind(this);
+        this.SMSClicked = this.SMSClicked.bind(this);
+        this.TranscriberClicked = this.TranscriberClicked.bind(this);
     }
     
     componentDidMount() {
@@ -40,6 +45,20 @@ class UserPage extends Component {
             reportType: widgetLocation
         });
     }
+
+    SMSClicked(widgetLocation){
+        this.setState({
+            location: "#/sms",
+            reportType: widgetLocation
+        });
+    }
+
+    TranscriberClicked(widgetLocation){
+        this.setState({
+            location: "#/performance",
+            reportType: widgetLocation
+        });
+    }
     // existing possible reports. dont delete
     // <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
     // <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
@@ -57,8 +76,19 @@ class UserPage extends Component {
 
             case "#/akij":
                 return(
-                    <ReportPage type={this.state.reportType}/>
+                    <ReportPage />
                 );
+
+            case "#/sms":
+                return(
+                    <SMSLogPage />
+                );
+
+            case "#/performance":
+                return(
+                    <TranscriberPerformancePage />
+                );
+
             default:
                 return(
                 <div className="wrapper">
@@ -74,6 +104,8 @@ class UserPage extends Component {
                             </div>
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
+                                <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="blue-bg" onClick={this.SMSClicked}/>
+                                <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
                             </div>
                         </Content>
                         <Footer/>

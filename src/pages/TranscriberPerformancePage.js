@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import TranscriberPerformance from '../components/TranscriberPerformance';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
-import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
 import example from './example.json';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
 
-class akij extends Component {
+class TranscriberPerformancePage extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,7 +25,6 @@ class akij extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
-        
     }
     
     render() {
@@ -35,8 +34,9 @@ class akij extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
-                        <AkijReport />
-                    </Content>
+                        <TranscriberPerformance />
+                    </Content>                    
+
                     <Footer/>
                 </ContentWrapper>
             </div>
@@ -59,4 +59,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default akij;
+export default TranscriberPerformancePage;
