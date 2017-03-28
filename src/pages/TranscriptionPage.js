@@ -51,7 +51,6 @@ class TranscriptionPage extends Component {
                 this.typeClickHandler(data.get('data')[1].callType, "Transcriptions");
                 this.setState({items: data.get('data')});
             }else if (status === "error"){
-                alert("error");
             }
         }.bind(this);
         

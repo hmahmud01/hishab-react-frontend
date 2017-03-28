@@ -18,7 +18,7 @@ class AkijReport extends Component {
         this.tableDownload = this.tableDownload.bind(this);
         this.download_json = this.download_csv.bind(this);
         this.export_table_to_json = this.export_table_to_csv.bind(this);
-        this.tableJsonDownload = this.tableDownload.bind(this);
+        this.tableJsonDownload = this.tableJsonDownload.bind(this);
         this.log = new Logger();
     }
 
@@ -41,8 +41,6 @@ class AkijReport extends Component {
 
     }
 
-    //export csv is currently in deploy
-
     /////////////////////
     ////CSV  download////
     /////////////////////
@@ -63,7 +61,7 @@ class AkijReport extends Component {
 
         document.body.appendChild(downloadLink);
 
-        // downloadLink.click();
+        downloadLink.click();
         this.log.debug("inside debug");
         console.log("end of download csv");
     }
@@ -94,7 +92,10 @@ class AkijReport extends Component {
         this.download_csv(csv.join("\n"), filename);
     }
 
-    tableDownload(){
+    tableDownload(event){
+        event.preventDefault();
+        this.log.debug("inside debug");
+        console.log("end of download csv");
         this.export_table_to_csv("table.csv");
     }
 
@@ -117,7 +118,10 @@ class AkijReport extends Component {
 
         document.body.appendChild(downloadLink);
 
-        // downloadLink.click();
+        downloadLink.click();
+        this.log.debug("inside debug");
+        console.log("end of download JSON");
+
     }
 
     export_table_to_json(filename){
@@ -146,8 +150,10 @@ class AkijReport extends Component {
         this.download_json(json.join("\n"), filename);
     }
 
-    tableJsonDownload(){
+    tableJsonDownload(event){
+        event.preventDefault();
         // this.export_table_to_json("report.json");
+        this.export_table_to_json("report.json");
         this.log.debug("json Download");
         console.log("json");
     }
@@ -213,13 +219,12 @@ class AkijReport extends Component {
 			    <div className="col-lg-12">
 			        <div className="ibox float-e-margins">
 			            <div className="ibox-title">
-			                <h5>Akij Reports 
-                                <div className="btn-group">
-                                    <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
-                                    <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
-                                    <button className="btn btn-xs btn-danger" onClick={this.tableJsonDownload}>Export to XML</button>
-                                </div>
-                            </h5>
+			                <h5>Akij Reports</h5>
+                            <div className="btn-group pull-right">
+                                <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
+                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
+                                <button className="btn btn-xs btn-danger" onClick={this.tableJsonDownload}>Export to XML</button>
+                            </div>
 			            </div>
 				        <div className="ibox-content" style={tableDesign}>
 					        <table id="akij-report" className="table table-striped table-bordered table-hover">

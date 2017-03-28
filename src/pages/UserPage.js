@@ -5,6 +5,7 @@ import ReportPage from './ReportPage';
 import akij from './akij';
 import TranscriberPerformancePage from './TranscriberPerformancePage';
 import SMSLogPage from './SMSLogPage';
+import CallLogPage from './CallLogPage';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -23,6 +24,7 @@ class UserPage extends Component {
         this.widgetClicked = this.widgetClicked.bind(this);
         this.akijClicked = this.akijClicked.bind(this);
         this.SMSClicked = this.SMSClicked.bind(this);
+        this.CallClicked = this.CallClicked.bind(this);
         this.TranscriberClicked = this.TranscriberClicked.bind(this);
     }
     
@@ -49,6 +51,13 @@ class UserPage extends Component {
     SMSClicked(widgetLocation){
         this.setState({
             location: "#/sms",
+            reportType: widgetLocation
+        });
+    }
+
+    CallClicked(widgetLocation){
+        this.setState({
+            location: "#/call",
             reportType: widgetLocation
         });
     }
@@ -84,6 +93,11 @@ class UserPage extends Component {
                     <SMSLogPage />
                 );
 
+            case "#/call":
+                return(
+                    <CallLogPage />
+                );
+
             case "#/performance":
                 return(
                     <TranscriberPerformancePage />
@@ -104,8 +118,10 @@ class UserPage extends Component {
                             </div>
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
-                                <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="blue-bg" onClick={this.SMSClicked}/>
+                                <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
+                                <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
                                 <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
+
                             </div>
                         </Content>
                         <Footer/>

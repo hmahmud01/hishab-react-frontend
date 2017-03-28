@@ -4,15 +4,19 @@ import Logger from '../utils/Logger';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
-class SMSLog extends Component {
+class CallLog extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data : [
-				{tid: 1, phone: "017979797", text: "SMS text 1", date: "03/03/17", status: "sent"},
-				{tid: 2, phone: "017979797", text: "SMS text 2", date: "03/03/17", status: "sent"},
-				{tid: 3, phone: "017979797", text: "SMS text 3", date: "03/03/17", status: "unsent"},
+			data : [{
+				    "duration": 0,
+				    "aid": "1490680956.12",
+				    "call_type": "1",
+				    "date": "2017-03-28 06:02",
+				    "phone": "01817061650"
+				},
 			]
+
 		};
 		this.log = new Logger();
 		this.smsClick = this.smsClick.bind(this);
@@ -40,30 +44,29 @@ class SMSLog extends Component {
 		};
 		
 		var ajax = new Ajax(callback);
-		ajax.getData('http://192.168.5.70:8080/API/sms_log/', params);
+		ajax.getData('http://192.168.5.70:8080/API/call_log/', params);
 	}
 
 	render(){
 		const listItems = this.state.data.map(
 			(listItem) => 
-				<ListItem tid={listItem.tid} phone={listItem.phone} text={listItem.text} date={listItem.date} status={listItem.status} onClick={this.smsClick}/>
+				<ListItem phone={listItem.phone} aid={listItem.aid} date={listItem.date} call_type={listItem.call_type} duration={listItem.duration} onClick={this.smsClick}/>
 		);
 
 		return(
 			<div className="row">
 			    <div className="col-lg-12">
-			    <h1>SMS Log</h1>
+			    <h1>Call Log</h1>
 			        <div className="ibox float-e-margins">
 				        <div className="ibox-content">
 					        <table id="sales-report" className="table table-striped table-bordered table-hover">
 					            <thead>
-					                <tr>
-			                            <th>Transaction Id</th>
+					                <tr>			                            
 			                            <th>Phone Number</th>
-			                            <th>SMS Text</th>
+			                            <th>Asterisk Id</th>
 			                            <th>Date</th>
-			                            <th>Status</th>
-			                            <th>Resend</th>
+			                            <th>Call Type</th>
+			                            <th>duration</th>
 			                        </tr>
 					            </thead>
 					            <tbody>
@@ -95,20 +98,15 @@ class ListItem extends Component{
 	render(){
 		return(
 			<tr>
-				<td>{this.props.tid}</td>
 				<td>{this.props.phone}</td>
-				<td>{this.props.text}</td>
+				<td>{this.props.aid}</td>
 				<td>{this.props.date}</td>
-				<td>
-					<span className={this.props.status === "success" ? "label label-success" : "label label-danger"}>
-						{this.props.status}
-					</span>					
-				</td>
-				<td><button className="btn btn-md btn-primary" onClick={this.resendClick}>Resend</button></td>
+				<td>{this.props.call_type}</td>
+				<td>{this.props.duration}</td>
 			</tr>
 		);
 	}
 }
 
 
-export default SMSLog; 
+export default CallLog; 
