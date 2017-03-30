@@ -21,7 +21,7 @@ class Inventory extends Component {
             var data = new Json(response);
             if (status === "success"){
                 this.log.debug(data.getData());
-                // this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+                this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
             }
         }.bind(this);
         
@@ -72,6 +72,7 @@ class Inventory extends Component {
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>
+                    <td> stock </td>
                     {
                         data.sales.map(function(individualData,index){                    	   
                             return individualData.map(function(cell, di){
