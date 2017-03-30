@@ -20,7 +20,7 @@ class TranscriberPerformance extends Component {
 		return(
 			<div className="row">
 			    <div className="col-lg-12">
-			    <h1>SMS Log</h1>
+			    <h1>Transcriber Performance</h1>
 			        <div className="ibox float-e-margins">
 				        <div className="ibox-content">
 					        <table id="sales-report" className="table table-striped table-bordered table-hover">

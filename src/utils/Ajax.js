@@ -4,9 +4,9 @@ import Logger from './Logger';
 class Ajax{
     
     constructor(callback){
-        // this.baseUrl = "http://192.168.5.2:8000";
+        this.baseUrl = "http://192.168.5.2:8000";
         // this.baseUrl = "http://192.168.5.70:8000";
-        this.baseUrl = "http://127.0.0.1:8000";
+        // this.baseUrl = "http://127.0.0.1:8000";
         this.apiUrl = "/api/v1";
         this.callbackFunction = callback;
         this.getData = this.getData.bind(this);
@@ -18,7 +18,7 @@ class Ajax{
     
     getData(url, params){
         var combinedUrl = "";
-        if(url.startsWith("h")){
+        if(url.startsWith("http")){
             combinedUrl = url;
         }else if(!url.startsWith("/")){
             url = "/"+url;
