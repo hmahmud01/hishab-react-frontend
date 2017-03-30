@@ -16,7 +16,7 @@ class Ajax{
     
     getData(url, params){
         var combinedUrl = "";
-        if(url.startsWith("h")){
+        if(url.startsWith("http")){
             combinedUrl = url;
         }else if(!url.startsWith("/")){
             url = "/"+url;

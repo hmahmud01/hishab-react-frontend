@@ -6,6 +6,7 @@ import akij from './akij';
 import TranscriberPerformancePage from './TranscriberPerformancePage';
 import SMSLogPage from './SMSLogPage';
 import CallLogPage from './CallLogPage';
+import InventoryPage from './InventoryPage';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -26,6 +27,7 @@ class UserPage extends Component {
         this.SMSClicked = this.SMSClicked.bind(this);
         this.CallClicked = this.CallClicked.bind(this);
         this.TranscriberClicked = this.TranscriberClicked.bind(this);
+        this.InventoryClicked = this.InventoryClicked.bind(this);
     }
     
     componentDidMount() {
@@ -68,6 +70,13 @@ class UserPage extends Component {
             reportType: widgetLocation
         });
     }
+
+    InventoryClicked(widgetLocation){
+        this.setState({
+            location: "#/inventory",
+            reportType: widgetLocation
+        });
+    }
     // existing possible reports. dont delete
     // <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
     // <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
@@ -86,6 +95,11 @@ class UserPage extends Component {
             case "#/akij":
                 return(
                     <ReportPage />
+                );
+
+            case "#/inventory":
+                return(
+                    <InventoryPage />
                 );
 
             case "#/sms":
@@ -118,6 +132,7 @@ class UserPage extends Component {
                             </div>
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
+                                <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>
                                 <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
                                 <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
                                 <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
