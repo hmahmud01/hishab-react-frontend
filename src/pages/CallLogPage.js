@@ -1,22 +1,18 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
+import CallLog from '../components/CallLog';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
-import SalesReport from '../components/SalesReport';
-import SalesTransactionDetail from '../components/SalesTransactionDetail';
-import PurchaseReport from '../components/PurchaseReport';
-import PurchaseTransactionDetail from '../components/PurchaseTransactionDetail';
-import AkijReport from '../components/AkijReport';
 import HishabLogo from './images/logo.png';
 import example from './example.json';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
 
-class ReportPage extends Component {
+class SMSLogPage extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -38,7 +34,7 @@ class ReportPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
-                        <AkijReport />
+                        <CallLog />
                     </Content>                    
 
                     <Footer/>
@@ -63,4 +59,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default ReportPage;
+export default SMSLogPage;

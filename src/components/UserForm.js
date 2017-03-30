@@ -7,6 +7,7 @@ import Json from '../utils/Json';
 import Modal from './Modal';
 import TextInput from './TextInput';
 import Alert from './Alert';
+import Logger from '../utils/Logger';
 
 
 class UserForm extends Component {
@@ -23,6 +24,7 @@ class UserForm extends Component {
         };
         this.onUserAddClicked = this.onUserAddClicked.bind(this);
         this.onOrganizationAddClicked = this.onOrganizationAddClicked.bind(this);
+        this.log = new Logger();
     }
     
     componentWillReceiveProps(props){

@@ -6,7 +6,7 @@ class LeftNav extends Component {
         this.state = {};
     }
 
-                    //     <NavbarNavLinks>
+                    // <NavbarNavLinks>
                     //     <i className="fa fa-th-large"></i> 
                     //     <span className="nav-label">Dashboard</span>
                     // </NavbarNavLinks>
@@ -17,6 +17,10 @@ class LeftNav extends Component {
               <div className="sidebar-collapse">
                 <NavbarNavPanel>
                     <NavbarHeader logo={this.props.logo}/>
+                    <NavbarNavLinks href="http://localhost:3000/#/transcription">
+                        <i className="fa fa-th-large"></i> 
+                        <span className="nav-label">Dashboard</span>
+                    </NavbarNavLinks>
                 </NavbarNavPanel>
               </div>
             </nav>
@@ -35,13 +39,13 @@ class NavbarHeader extends Component {
             width: "80%"
         };
         return (
-    <li className="nav-header">
-        <div className="logo-element">
-            <img src={this.props.logo} style={imgStyle} role="presentation"/>
-            <h5 className="text-center">Hishab</h5>
-        </div>
-    </li>
-    );
+            <li className="nav-header">
+                <div className="logo-element">
+                    <img src={this.props.logo} style={imgStyle} role="presentation"/>
+                    <h5 className="text-center">Hishab</h5>
+                </div>
+            </li>
+        );
     }
 }
 

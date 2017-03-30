@@ -17,6 +17,7 @@ class TranslationForm extends Component {
         };
         this.onTranslationClicked = this.onTranslationClicked.bind(this);
         this.onErrorClicked = this.onErrorClicked.bind(this);
+        this.log = new Logger();
     }
 
     onTranslationClicked(event){

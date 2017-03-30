@@ -16,6 +16,10 @@ class AkijReport extends Component {
         this.download_csv = this.download_csv.bind(this);
         this.export_table_to_csv = this.export_table_to_csv.bind(this);
         this.tableDownload = this.tableDownload.bind(this);
+        this.download_json = this.download_csv.bind(this);
+        this.export_table_to_json = this.export_table_to_csv.bind(this);
+        this.tableJsonDownload = this.tableJsonDownload.bind(this);
+        this.log = new Logger();
     }
 
 
@@ -25,7 +29,6 @@ class AkijReport extends Component {
             var data = new Json(response);
             if (status === "success"){
                 this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
-            }else if (status === "error"){
             }
         }.bind(this);
         
@@ -38,7 +41,9 @@ class AkijReport extends Component {
 
     }
 
-    //export csv is currently in deploy
+    /////////////////////
+    ////CSV  download////
+    /////////////////////
 
     download_csv(csv, filename){
         var csvFile;
@@ -57,31 +62,16 @@ class AkijReport extends Component {
         document.body.appendChild(downloadLink);
 
         downloadLink.click();
+        this.log.debug("inside debug");
         console.log("end of download csv");
     }
 
     export_table_to_csv(filename){
         var csv = [];
         var rows = document.querySelectorAll("table tr");
-        // console.log("inside row");
-        // console.log(rows);
         for(var i=0; i<rows.length; i++){
             var row = [];
-            console.log("inside col_0");            
-            var col_0 = rows[0];
-            console.log(col_0);
-            console.log("inside col_1");            
-            var col_1 = rows[1];
-            console.log(col_1);
-
-            var _th = "<th><th>";
-            col_1 = _th + _th + col_1;
-            // col_1.unshift(_th);
-            console.log(col_1[0]);
-
             var cols = rows[i].querySelectorAll("td, th");
-            // console.log("inside col");
-            // console.log(cols);
 
             for (var j=0; j<cols.length; j++){
                 if (i == 0 && j > 1){
@@ -99,14 +89,73 @@ class AkijReport extends Component {
 
             csv.push(row.join(","));
         }
-        // console.log("in table to csv before download");
         this.download_csv(csv.join("\n"), filename);
-        // console.log("in table to csv after download");
     }
 
-    tableDownload(){
+    tableDownload(event){
+        event.preventDefault();
+        this.log.debug("inside debug");
+        console.log("end of download csv");
         this.export_table_to_csv("table.csv");
-        // console.log("inside table download function");
+    }
+
+    /////////////////////
+    ////json download////
+    /////////////////////
+    download_json(json, filename){
+        var jsonFile;
+        var downloadLink;
+
+        jsonFile = new Blob([json], {type: "application/json"});
+
+        downloadLink = document.createElement("a");
+
+        downloadLink.download = filename;
+
+        downloadLink.href = window.URL.createObjectURL(jsonFile);
+
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+        this.log.debug("inside debug");
+        console.log("end of download JSON");
+
+    }
+
+    export_table_to_json(filename){
+        var json = [];
+        var rows = document.querySelectorAll("table tr");
+        for(var i=0; i<rows.length; i++){
+            var row = [];
+            var cols = rows[i].querySelectorAll("td, th");
+
+            for (var j=0; j<cols.length; j++){
+                if (i == 0 && j > 1){
+                    row.push('');
+                    row.push(cols[j].innerText);
+                    row.push('');
+                }else if (i == 1 && j == 0){
+                    row.push('');
+                    row.push('');
+                    row.push(cols[j].innerText);
+                }else{
+                    row.push(cols[j].innerText);
+                }
+            }
+
+            json.push(row.join(","));
+        }
+        this.download_json(json.join("\n"), filename);
+    }
+
+    tableJsonDownload(event){
+        event.preventDefault();
+        // this.export_table_to_json("report.json");
+        this.export_table_to_json("report.json");
+        this.log.debug("json Download");
+        console.log("json");
     }
 
 
@@ -170,7 +219,12 @@ class AkijReport extends Component {
 			    <div className="col-lg-12">
 			        <div className="ibox float-e-margins">
 			            <div className="ibox-title">
-			                <h5>Akij Reports <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button></h5>
+			                <h5>Akij Reports</h5>
+                            <div className="btn-group pull-right">
+                                <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
+                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
+                                <button className="btn btn-xs btn-danger" onClick={this.tableJsonDownload}>Export to XML</button>
+                            </div>
 			            </div>
 				        <div className="ibox-content" style={tableDesign}>
 					        <table id="akij-report" className="table table-striped table-bordered table-hover">

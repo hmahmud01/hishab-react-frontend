@@ -12,7 +12,7 @@ import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
 
-class ReportPage extends Component {
+class akij extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -26,34 +26,6 @@ class ReportPage extends Component {
         if (uid === undefined)
             window.location.hash = "#/";
         
-        //TODO extract json data to sales transaction table
-        //Sales report
-
-
-
-        // var url = "transaction/report?uid="+uid;
-
-        // var url_akij = "http://192.168.5.34:8000/api/v1/reports/sr?uid="+"01817061650";
-
-        
-        // setInterval(function(){
-
-            
-        //     $.ajax({
-        //     method: 'get',
-        //     url: 'get/call/count',
-        //     data: {
-        //         "uid": Cookies.get("uid"),
-        //         // this.setState.uid = uid
-        //     },
-        //     success: function(response) {
-        //         var data = $.parseJSON(response);
-        //         this.setState({items: data.data});
-        //     }.bind(this),
-        //     error: function(response) {
-        //     }
-        // });
-        // }.bind(this), 30000);
     }
     
     render() {
@@ -64,8 +36,7 @@ class ReportPage extends Component {
                     <Header username={Cookies.get("uname")}/>
                     <Content>
                         <AkijReport />
-                    </Content>                   
-
+                    </Content>
                     <Footer/>
                 </ContentWrapper>
             </div>
@@ -88,4 +59,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default ReportPage;
+export default akij;

@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import InputComponent from './InputComponent';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
+import Logger from '../utils/Logger';
 
 class AutoSuggestText extends InputComponent{
     constructor(props){
@@ -13,12 +14,12 @@ class AutoSuggestText extends InputComponent{
         };
         this.setValue = this.setValue.bind(this);
         this.onSelect = this.onSelect.bind(this);
+        this.log = new Logger();
     }
     
     setValue(event){
         super.setValue(event);
         
-        // This handles the data field loading
         if (event.target.value.length > 2){
             var callback = function(response, status){
                 if (status == "success"){

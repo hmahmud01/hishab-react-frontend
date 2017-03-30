@@ -24,6 +24,7 @@ class TranscriptionForm extends Component {
         this.onTranscriptionClicked = this.onTranscriptionClicked.bind(this);
         this.onSummary = this.onSummary.bind(this);
         this.onErrorClicked = this.onErrorClicked.bind(this);
+        this.log = new Logger();
     }
 
     componentDidMount(){
@@ -118,7 +119,7 @@ class TranscriptionForm extends Component {
 
     onErrorClicked(event){
         event.preventDefault();
-
+        var endTime = new Date().getTime()
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
@@ -131,8 +132,11 @@ class TranscriptionForm extends Component {
         }.bind(this);
         
         var params = {
+                "uid": Cookies.get("uid"),
                 "tid": this.props.transId,
                 "error": $('input[name="errorS"]:checked').val(), 
+                "sTime": this.state.startTime,
+                'eTime': endTime,
             };
 
         console.log(params);

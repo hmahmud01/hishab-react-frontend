@@ -71,11 +71,7 @@ class IndexPage extends Component {
             case "#/reset":
                 return(
                     <PasswordResetPage />
-                );    
-            case "#/akij":
-                return(
-                    <akij />
-                );     
+                ); 
             default:
                 return(
                     <TranscriptionPage />
