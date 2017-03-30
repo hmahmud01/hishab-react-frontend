@@ -18,10 +18,10 @@ class Inventory extends Component {
 
     componentDidMount(){        
         var callback = function(response, status){
-            var data = new Json(response);
             if (status === "success"){
+                var data = new Json(response);
                 this.log.debug(data.getData());
-                // this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+                this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
             }
         }.bind(this);
         
@@ -73,17 +73,26 @@ class Inventory extends Component {
                 <tr key={index}>
             	    <td >{data.sr}</td>
                     {
-                        data.sales.map(function(individualData,index){                    	   
+                        data.sales.map(function(individualData,idx){
+                            var stock = 0;
+                            var prevStock = 0;
+                            this.log.debug(individualData);
+                            if (index > 0){
+                                this.log.debug("Previous Data:");
+                                prevStock = this.state.dataList[index-1].sales[idx];
+                            }
+                            stock =  parseInt(prevStock) + individualData[0] - individualData[individualData.length-1];
+                            individualData.unshift(stock);
                             return individualData.map(function(cell, di){
                                 return(
-                                    <th key={di}>{cell}</th>
+                                    <td key={di}>{cell}</td>
                                 )
                             });
-                        })
+                        }.bind(this))
                 	}
                 </tr>
             );
-        });
+        }.bind(this));
 
             
 		return (
