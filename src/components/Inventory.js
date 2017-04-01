@@ -195,7 +195,6 @@ class Inventory extends Component {
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>
-                    <td> stock </td>
                     {
                         data.sales.map(function(individualData,idx){
                             var stock = 0;
