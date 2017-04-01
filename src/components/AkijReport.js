@@ -63,7 +63,6 @@ class AkijReport extends Component {
 
         downloadLink.click();
         this.log.debug("inside debug");
-        console.log("end of download csv");
     }
 
     export_table_to_csv(filename){
@@ -94,8 +93,7 @@ class AkijReport extends Component {
 
     tableDownload(event){
         event.preventDefault();
-        this.log.debug("inside debug");
-        console.log("end of download csv");
+        this.log.debug("end of download csv");
         this.export_table_to_csv("table.csv");
     }
 
@@ -119,8 +117,7 @@ class AkijReport extends Component {
         document.body.appendChild(downloadLink);
 
         downloadLink.click();
-        this.log.debug("inside debug");
-        console.log("end of download JSON");
+        this.log.debug("end of download JSON");
 
     }
 
@@ -155,7 +152,6 @@ class AkijReport extends Component {
         // this.export_table_to_json("report.json");
         this.export_table_to_json("report.json");
         this.log.debug("json Download");
-        console.log("json");
     }
 
 

@@ -62,7 +62,6 @@ class Inventory extends Component {
 
         downloadLink.click();
         this.log.debug("inside debug");
-        console.log("end of download csv");
     }
 
     export_table_to_csv(filename){
@@ -94,7 +93,6 @@ class Inventory extends Component {
     tableDownload(event){
         event.preventDefault();
         this.log.debug("inside debug");
-        console.log("end of download csv");
         this.export_table_to_csv("table.csv");
     }
 
@@ -119,7 +117,6 @@ class Inventory extends Component {
 
         downloadLink.click();
         this.log.debug("inside debug");
-        console.log("end of download JSON");
 
     }
 
@@ -154,7 +151,6 @@ class Inventory extends Component {
         // this.export_table_to_json("report.json");
         this.export_table_to_json("report.json");
         this.log.debug("json Download");
-        console.log("json");
     }
     
 

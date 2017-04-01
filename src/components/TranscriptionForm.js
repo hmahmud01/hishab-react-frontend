@@ -87,7 +87,7 @@ class TranscriptionForm extends Component {
                     this.setState({isError: true, message: data.msg, alertType: "success"});
                     window.location.hash = "#/home";
                     window.location.reload();
-                    console.log("not refreshed");
+                    this.log.debug("not refreshed");
                 }else if (status === "error"){
                     var data = $.parseJSON(response.responseText);
                     this.setState({isError: true, message: data.msg, alertType: "danger"});
@@ -139,7 +139,7 @@ class TranscriptionForm extends Component {
                 'eTime': endTime,
             };
 
-        console.log(params);
+        this.log.debug(params);
         var ajax = new Ajax(callback);
         ajax.postData('forms/error/transaction', params);
     }

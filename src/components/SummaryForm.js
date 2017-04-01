@@ -19,7 +19,6 @@ class SummaryForm extends Component {
     }
 
     update() {
-        console.log("updating")
         var due = 0;
         due = $("#total").val() - $("#paid").val();
         $("#due").val(due);

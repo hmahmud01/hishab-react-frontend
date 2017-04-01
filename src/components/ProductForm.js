@@ -109,7 +109,7 @@ class ProductForm extends Component {
         var id = document.getElementById("product").value;
         output.push(id);
         for (var i=0; i< this.state.modalFields.length; i++){
-            console.log(document.getElementById("item"+i));
+            this.log.debug(document.getElementById("item"+i));
             if(document.getElementById("item"+i) !== null){
                 output.push(document.getElementById("item"+i).value);
             }            

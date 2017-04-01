@@ -56,8 +56,8 @@ class ListItem extends Component{
 
     resendClick(event){
     	event.preventDefault();
-    	console.log("sms resent: ");
-    	console.log(event);
+    	this.log.debug("sms resent: ");
+    	this.log.debug(event);
     }
 
 	render(){

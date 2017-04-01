@@ -147,7 +147,7 @@ class RegistrationForm extends Component {
                 'eTime': endTime,
             };
 
-        console.log(params);
+        this.log.debug(params);
         var ajax = new Ajax(callback);
         ajax.postData('forms/error/registration', params);
     }
