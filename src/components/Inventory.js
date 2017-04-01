@@ -12,6 +12,12 @@ class Inventory extends Component {
             productList : [],
             dataList : []
         };
+        this.download_csv = this.download_csv.bind(this);
+        this.export_table_to_csv = this.export_table_to_csv.bind(this);
+        this.tableDownload = this.tableDownload.bind(this);
+        this.download_json = this.download_csv.bind(this);
+        this.export_table_to_json = this.export_table_to_csv.bind(this);
+        this.tableJsonDownload = this.tableJsonDownload.bind(this);
         this.log = new Logger();
     }
 
@@ -32,6 +38,123 @@ class Inventory extends Component {
         var ajax = new Ajax(callback);
         ajax.getData('reports/inventory', params);
 
+    }
+
+        /////////////////////
+    ////CSV  download////
+    /////////////////////
+
+    download_csv(csv, filename){
+        var csvFile;
+        var downloadLink;
+
+        csvFile = new Blob([csv], {type: "text/csv"});
+
+        downloadLink = document.createElement("a");
+
+        downloadLink.download = filename;
+
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+        this.log.debug("inside debug");
+        console.log("end of download csv");
+    }
+
+    export_table_to_csv(filename){
+        var csv = [];
+        var rows = document.querySelectorAll("table tr");
+        for(var i=0; i<rows.length; i++){
+            var row = [];
+            var cols = rows[i].querySelectorAll("td, th");
+
+            for (var j=0; j<cols.length; j++){
+                if (i == 0 && j > 0){
+                    row.push(cols[j].innerText);
+                    row.push('');
+                    row.push('');
+                    row.push('');
+                }else if (i == 1 && j == 0){
+                    row.push('');
+                    row.push(cols[j].innerText);
+                }else{
+                    row.push(cols[j].innerText);
+                }
+            }
+
+            csv.push(row.join(","));
+        }
+        this.download_csv(csv.join("\n"), filename);
+    }
+
+    tableDownload(event){
+        event.preventDefault();
+        this.log.debug("inside debug");
+        console.log("end of download csv");
+        this.export_table_to_csv("table.csv");
+    }
+
+    /////////////////////
+    ////json download////
+    /////////////////////
+    download_json(json, filename){
+        var jsonFile;
+        var downloadLink;
+
+        jsonFile = new Blob([json], {type: "application/json"});
+
+        downloadLink = document.createElement("a");
+
+        downloadLink.download = filename;
+
+        downloadLink.href = window.URL.createObjectURL(jsonFile);
+
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+        this.log.debug("inside debug");
+        console.log("end of download JSON");
+
+    }
+
+    export_table_to_json(filename){
+        var json = [];
+        var rows = document.querySelectorAll("table tr");
+        for(var i=0; i<rows.length; i++){
+            var row = [];
+            var cols = rows[i].querySelectorAll("td, th");
+
+            for (var j=0; j<cols.length; j++){
+                if (i == 0 && j > 1){
+                    row.push(cols[j].innerText);
+                    row.push('');
+                    row.push('');
+                    row.push('');
+                }else if (i == 1 && j == 0){
+                    row.push('');
+                    row.push(cols[j].innerText);
+                }else{
+                    row.push(cols[j].innerText);
+                }
+            }
+
+            json.push(row.join(","));
+        }
+        this.download_json(json.join("\n"), filename);
+    }
+
+    tableJsonDownload(event){
+        event.preventDefault();
+        // this.export_table_to_json("report.json");
+        this.export_table_to_json("report.json");
+        this.log.debug("json Download");
+        console.log("json");
     }
     
 
@@ -72,6 +195,7 @@ class Inventory extends Component {
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>
+                    <td> stock </td>
                     {
                         data.sales.map(function(individualData,idx){
                             var stock = 0;
