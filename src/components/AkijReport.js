@@ -1,10 +1,11 @@
 import React, {Component} from  'react'
 import $ from 'jquery';
 import Cookies from 'js-cookie';
-
+import jsPDF from 'jspdf';
 import Json from '../utils/Json';
 import Ajax from '../utils/Ajax';
 import Logger from '../utils/Logger';
+
 
 class AkijReport extends Component {
     constructor(props){
@@ -19,12 +20,12 @@ class AkijReport extends Component {
         this.download_json = this.download_csv.bind(this);
         this.export_table_to_json = this.export_table_to_csv.bind(this);
         this.tableJsonDownload = this.tableJsonDownload.bind(this);
+        this.export_pdf = this.export_pdf.bind(this);
         this.log = new Logger();
     }
 
 
-    componentDidMount(){
-        
+    componentDidMount(){        
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
@@ -158,6 +159,38 @@ class AkijReport extends Component {
         console.log("json");
     }
 
+    export_pdf(event){
+        event.preventDefault();
+        this.log.debug("inside pdf");
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        var source = $('#akij-report')[0];
+        this.log.debug(source);
+        var specialElementHandlers = {
+            '#bypassme' : function (element, renderer){
+                return true               
+            }
+        }
+
+        var margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+
+        pdf.fromHTML (
+            source,
+            margins.left,
+            margins.top, {
+                // 'width': margins.width,
+                'elementHandlers' : specialElementHandlers
+            },
+            function(dispose){
+                pdf.save('Test.pdf');
+            }, margins
+        );
+    }
+
 
     
 
@@ -219,14 +252,14 @@ class AkijReport extends Component {
 			    <div className="col-lg-12">
 			        <div className="ibox float-e-margins">
 			            <div className="ibox-title">
-			                <h5>Akij Reports</h5>
+			                <h5>Akij Reports</h5>                            
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
                                 <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
-                                <button className="btn btn-xs btn-danger" onClick={this.tableJsonDownload}>Export to XML</button>
+                                <button className="btn btn-xs btn-danger" onClick={this.export_pdf}>Export to PDF</button>
                             </div>
 			            </div>
-				        <div className="ibox-content" style={tableDesign}>
+				        <div className="ibox-content" style={tableDesign} id="reportexp">
 					        <table id="akij-report" className="table table-striped table-bordered table-hover">
 							  	<thead>
 								  	<tr>

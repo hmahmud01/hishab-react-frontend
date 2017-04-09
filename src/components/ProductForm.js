@@ -170,7 +170,7 @@ class ProductForm extends Component {
                         var id = "item"+index;
                         var head = product.header;
                         return(
-                            <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.data}/>
+                            <TextInput key={index} id={id} label={product.header} placeholder={product.header} value={product.header === "Unit" ? "Sholaka" : product.data}/>
                         );
                     }
                 );

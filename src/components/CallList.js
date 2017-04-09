@@ -70,7 +70,7 @@ class ListItem extends Component{
     
     handleClick(event){
         event.preventDefault();
-        this.props.onClick(this.props.target, this.props.type);
+        this.props.onClick(this.props.target, this.props.type, this.props.title);
     }
 
     unLockClick(event){

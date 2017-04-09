@@ -32,13 +32,15 @@ class SummaryForm extends Component {
             <div>
                 <div className="col-lg-6 col-lg-offset-6">
                     <FormFrame head="Transaction summary" onClick={this.props.onSummary}>
-                        <form className="form-horizontal">       
+                        <form className="form-horizontal">    
+                            {this.props.callState}   
                             <FormInput id="total" label="Total" placeholder="Total" value="0"/>       
                             <FormInput id="discount" label="Discount" placeholder="Discount" value="0"/>
                             <FormInput id="paid" label="Paid" placeholder="Paid" Key={this.update} value="0"/>
                             <FormInput id="due" label="Due" placeholder="Due" Key={this.update} value="0"/>                     
                         </form>   
                         <div className="hr-line-dashed"></div>
+
                         <button type="button" className="btn btn-primary pull-right" onClick={this.props.onSubmit}>Submit</button>
                         <a data-toggle="modal" className="btn btn-warning" href="#modal-error">Report Error</a> 
                     </FormFrame>

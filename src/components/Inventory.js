@@ -18,6 +18,9 @@ class Inventory extends Component {
         this.download_json = this.download_csv.bind(this);
         this.export_table_to_json = this.export_table_to_csv.bind(this);
         this.tableJsonDownload = this.tableJsonDownload.bind(this);
+        this.download_pdf = this.download_pdf.bind(this);
+        this.export_table_to_pdf = this.export_table_to_pdf.bind(this);
+        this.tablePDFDownload = this.tablePDFDownload.bind(this);
         this.log = new Logger();
     }
 
@@ -37,6 +40,8 @@ class Inventory extends Component {
                 
         var ajax = new Ajax(callback);
         ajax.getData('reports/inventory', params);
+
+        
 
     }
 
@@ -156,6 +161,65 @@ class Inventory extends Component {
         this.log.debug("json Download");
         console.log("json");
     }
+
+
+    /////////////////////
+    ////pdf download////
+    /////////////////////
+    download_pdf(json, filename){
+        var pdfFile;
+        var downloadLink;
+
+        pdfFile = new Blob([json], {type: "application/pdf"});
+
+        downloadLink = document.createElement("a");
+
+        downloadLink.download = filename;
+
+        downloadLink.href = window.URL.createObjectURL(pdfFile);
+
+        downloadLink.style.display = "none";
+
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+        this.log.debug("inside debug");
+        this.log.debug("end of download PDF");
+
+    }
+
+    export_table_to_pdf(filename){
+        var json = [];
+        var rows = document.querySelectorAll("table tr");
+        for(var i=0; i<rows.length; i++){
+            var row = [];
+            var cols = rows[i].querySelectorAll("td, th");
+
+            for (var j=0; j<cols.length; j++){
+                if (i == 0 && j > 1){
+                    row.push(cols[j].innerText);
+                    row.push('');
+                    row.push('');
+                    row.push('');
+                }else if (i == 1 && j == 0){
+                    row.push('');
+                    row.push(cols[j].innerText);
+                }else{
+                    row.push(cols[j].innerText);
+                }
+            }
+
+            json.push(row.join(","));
+        }
+        this.download_pdf(json.join("\n"), filename);
+    }
+
+    tablePDFDownload(event){
+        event.preventDefault();
+        // this.export_table_to_json("report.json");
+        this.export_table_to_pdf("report.pdf");
+        this.log.debug("json Download");
+    }
     
 
 	render(){
@@ -182,7 +246,7 @@ class Inventory extends Component {
         });
         
         var productSubHeaders = this.state.productList.map(function(product, index){
-            var subHeading = ["Stock", "Factory Recieve", "Memo Number", "Sell"];
+            var subHeading = ["Stock", "Factory Recieve", "Delivary Chalan No.", "Sell"];
             return subHeading.map(function(subHead, ind){
                 return (
                     <th key={ind} style={headerDesign}>{subHead}</th>
@@ -228,7 +292,7 @@ class Inventory extends Component {
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
                                 <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
-                                <button className="btn btn-xs btn-danger" onClick={this.tableJsonDownload}>Export to XML</button>
+                                <button className="btn btn-xs btn-danger" onClick={this.tablePDFDownload}>Export to PDF</button>
                             </div>
 			            </div>
 				        <div className="ibox-content" style={tableDesign}>
