@@ -34,7 +34,8 @@ class TranscriptionPage extends Component {
             alertMessage: "Sample Alert",
             location : "#/",
             transId : "",
-            callType: ""
+            callType: "",
+            callState: "",
         };
         this.typeClickHandler = this.typeClickHandler.bind(this);
         this.callItemClickHandler = this.callItemClickHandler.bind(this);
@@ -90,21 +91,21 @@ class TranscriptionPage extends Component {
         ajax.getData('get/transaction/list', params);
     }
     
-    callItemClickHandler(key, type) {
+    callItemClickHandler(key, type, cState) {
         if (type >= 100){
-            this.setState({location: "#/translation", transId: key});
+            this.setState({location: "#/translation", transId: key, callState: cState});
             window.location.hash = "#/translation";
         }else if (type === "0"){
-            this.setState({location: "#/register", transId: key});
+            this.setState({location: "#/register", transId: key, callState: cState});
             window.location.hash = "#/register";
         }else if (type === "1"){
-            this.setState({location: "#/transcription", transId: key, callType: "Buy"});
+            this.setState({location: "#/transcription", transId: key, callType: "Buy", callState: cState});
             window.location.hash = "#/transcription";
         }else if (type === "2"){
-            this.setState({location: "#/transcription", transId: key, callType: "Sell"});
+            this.setState({location: "#/transcription", transId: key, callType: "Sell", callState: cState});
             window.location.hash = "#/transcription";
         }else{
-            this.setState({location: "#/transcription", transId: key});
+            this.setState({location: "#/transcription", transId: key, callState: cState});
             window.location.hash = "#/transcription";
         }
     }
@@ -113,11 +114,11 @@ class TranscriptionPage extends Component {
         switch (this.state.location){
             case "#/register":
                 return(
-                    <RegistrationFormPage transId={this.state.transId}/>
+                    <RegistrationFormPage transId={this.state.transId} callState={this.state.callState}/>
                 );
             case "#/transcription":
                 return(
-                    <TranscriptionFormPage transId={this.state.transId} callType={this.state.callType}/>
+                    <TranscriptionFormPage transId={this.state.transId} callType={this.state.callType} callState={this.state.callState}/>
                 );
             case "#/translation":
                 return(
@@ -125,7 +126,7 @@ class TranscriptionPage extends Component {
                 );
             case "#/revision":
                 return(
-                    <RevisionFormPage transId={this.state.transId}/>
+                    <RevisionFormPage transId={this.state.transId} callState={this.state.callState}/>
                 );
             default:
                 return(

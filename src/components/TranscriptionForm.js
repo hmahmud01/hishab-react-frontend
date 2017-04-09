@@ -152,7 +152,7 @@ class TranscriptionForm extends Component {
                 <Alert isVisible={this.state.isError} message={this.state.message} type={this.state.alertType}/>
                 <UserForm ref="userData" transId={this.props.transId} buyer={this.state.buyer} seller={this.state.seller} audio={this.state.audio} formtype={this.state.cty} phone={this.state.phone}/>
                 <ProductForm ref="products" product={this.state.product}/>
-                <SummaryForm ref="summaryData" onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary} onError={this.onErrorClicked}/>                 
+                <SummaryForm ref="summaryData" callState={this.props.callState} onSubmit={this.onTranscriptionClicked} onSummary={this.onSummary} onError={this.onErrorClicked}/>                 
             </div>
 
 		);

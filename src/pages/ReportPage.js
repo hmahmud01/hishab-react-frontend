@@ -14,7 +14,7 @@ import HishabLogo from './images/logo.png';
 import example from './example.json';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
-
+import DateSelect from '../components/DateSelect';
 
 class ReportPage extends Component {
     constructor(props){
@@ -38,6 +38,7 @@ class ReportPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
+                        <DateSelect />
                         <AkijReport />
                     </Content>                    
 

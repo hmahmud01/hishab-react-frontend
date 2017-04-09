@@ -77,15 +77,6 @@ class CallLog extends Component {
 		            data1: '#86D0C2',
 		            data2: '#FFAE70'
 		        },
-				// onclick: function(d, element){
-				// 	// console.log("onclick", d, element);
-				// },
-				// onmouseover: function(d){
-				// 	// console.log("onmouseover", d);
-				// },
-				// onmouseout: function(d){
-				// 	// console.log("onmouseout", d);
-				// }
 			},
 			axis: {
 				x: {
