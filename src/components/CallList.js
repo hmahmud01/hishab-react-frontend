@@ -43,6 +43,7 @@ class CallList extends Component{
                         <td><h3>Call Time</h3></td>
                         <td><h3>Call Type</h3></td>
                         <td><h3>Transcriber</h3></td>
+                        <td><h3>Reviewer</h3></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,6 +123,9 @@ class ListItem extends Component{
                 </td>
                 <td className="text-right mail-date">
                     <span>{this.props.transcriber}</span>
+                </td>
+                <td className="text-right mail-date">
+                    <span>{this.props.reviewer}</span>
                 </td>
                 <td className="text-center mail-date">
                     <button className="btn btn-success" onClick={ this.props.title === "Locked" ? this.unLockClick: this.handleClick}>
