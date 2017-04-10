@@ -258,6 +258,8 @@ class AkijReport extends Component {
         });
 
             
+//                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
+//                                <button className="btn btn-xs btn-danger" onClick={this.export_pdf}>Export to PDF</button>
 		return (
 
 			<div className="row">
@@ -267,8 +269,6 @@ class AkijReport extends Component {
 			                <h5>Akij Reports</h5>                            
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
-                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
-                                <button className="btn btn-xs btn-danger" onClick={this.export_pdf}>Export to PDF</button>
                             </div>
 			            </div>
 				        <div className="ibox-content" style={tableDesign} id="reportexp">
