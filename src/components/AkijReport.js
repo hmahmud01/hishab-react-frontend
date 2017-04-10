@@ -25,7 +25,7 @@ class AkijReport extends Component {
     }
 
 
-    componentDidMount(){        
+    componentDidMount(){
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
@@ -228,6 +228,8 @@ class AkijReport extends Component {
         });
         
         var dataRows = this.state.dataList.map(function(data, index){
+            this.log.debug("inside data");
+            this.log.debug(data);
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>

@@ -256,6 +256,7 @@ class Inventory extends Component {
         });
         
         var dataRows = this.state.dataList.reverse().map(function(data, index){
+            this.log.debug(data);
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>
