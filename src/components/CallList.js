@@ -11,10 +11,10 @@ class CallList extends Component{
     }
     
     render(){
-        
+        this.log.debug(this.props);
         const listItems = this.props.items.map(
             (listItem) => 
-                <ListItem tid={this.props.transId} title={this.props.title} isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} 
+                <ListItem tid={this.props.transId} title={this.props.title} isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} transcriber={listItem.transcriber} reviewer={listItem.reviewer}
                     onClick={this.props.onClick} key={listItem.id}/>
         );
         
@@ -67,6 +67,7 @@ class ListItem extends Component{
         };
         this.handleClick = this.handleClick.bind(this);
         this.unLockClick = this.unLockClick.bind(this);
+        this.log = new Logger();
     }
     
     handleClick(event){
@@ -78,10 +79,8 @@ class ListItem extends Component{
         event.preventDefault();
         var callback = function(response, status){
             if (status == "success"){
-                console.log(response);
                 window.location.reload();
             }else if (status == "error"){
-                console.log(response.responseText);
                 window.location.reload();
             }
         }.bind(this);
@@ -99,6 +98,7 @@ class ListItem extends Component{
 
     
     render(){
+        this.log.debug(this.props);
         var type = ["Register", "Buy", "Sell", "Due", "Repay"]
         var labelColor = ["danger", "success", "primary", "warning", "warning"]
         
