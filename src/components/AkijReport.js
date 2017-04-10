@@ -21,12 +21,15 @@ class AkijReport extends Component {
         this.export_table_to_json = this.export_table_to_csv.bind(this);
         this.tableJsonDownload = this.tableJsonDownload.bind(this);
         this.export_pdf = this.export_pdf.bind(this);
+        this.setData = this.setData.bind(this);
         this.log = new Logger();
     }
 
 
-    componentDidMount(){        
+    componentDidMount(){   
+        this.log.debug("Component Just Mounted");
         var callback = function(response, status){
+            this.log.debug(response);
             var data = new Json(response);
             if (status === "success"){
                 this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
@@ -42,6 +45,16 @@ class AkijReport extends Component {
 
     }
 
+    setData(data){
+        this.log.debug("Inside Akij Report");
+        this.log.debug(data.getData());
+        if (data.getData().length > 0)
+            this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+        
+        this.log.debug(this.state.productList);
+        this.log.debug(this.state.dataList);
+    }
+    
     /////////////////////
     ////CSV  download////
     /////////////////////
@@ -205,11 +218,6 @@ class AkijReport extends Component {
             width: "100%",
             overflow: "auto"
         }
-
-
-        var productDataList = this.state.dataList.map(function(pData, index){
-            return pData.products
-        });
         
         var productHeaders = this.state.productList.map(function(product, index){
             return(
@@ -218,6 +226,7 @@ class AkijReport extends Component {
         });
         
         var productSubHeaders = this.state.productList.map(function(product, index){
+            this.log.debug(product);
             var subHeading = ["Buy", "Sell", "Return"];
             return subHeading.map(function(subHead, ind){
                 return (
@@ -228,6 +237,7 @@ class AkijReport extends Component {
         });
         
         var dataRows = this.state.dataList.map(function(data, index){
+            this.log.debug(data);
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>

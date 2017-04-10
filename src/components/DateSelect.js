@@ -47,6 +47,10 @@ class DateSelect extends Component{
         var callback = function(response, status){
             if (status == "success"){
                 this.setState({date: date});
+                if (this.props.onClick !== undefined){
+                    var data = new Json(response);
+                    this.props.onClick(data);
+                }
             }
         }.bind(this);
         

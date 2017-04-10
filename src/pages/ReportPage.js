@@ -23,12 +23,17 @@ class ReportPage extends Component {
             id: "01737233902",
             uid: "",            
         };
+        this.dateClicked = this.dateClicked.bind(this);
     }
 
     componentDidMount() {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+    }
+    
+    dateClicked(data) {
+        this.refs.report.setData(data);
     }
     
     render() {
@@ -38,8 +43,8 @@ class ReportPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
-                        <DateSelect />
-                        <AkijReport />
+                        <DateSelect onClick={this.dateClicked}/>
+                        <AkijReport ref="report" />
                     </Content>                    
 
                     <Footer/>
