@@ -4,7 +4,7 @@ import Logger from './Logger';
 class Ajax{
     
     constructor(callback){
-        this.baseUrl = "http://192.168.5.2:8000";
+        this.baseUrl = "http://app.hishab.co";
         this.apiUrl = "/api/v1";
         this.callbackFunction = callback;
         this.getData = this.getData.bind(this);
