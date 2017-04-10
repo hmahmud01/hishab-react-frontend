@@ -34,6 +34,8 @@ class ReportPage extends Component {
     
     dateClicked(data) {
         this.refs.report.setData(data);
+        if (this.refs.report.setData(data))
+            this.log.debug("setdata done");
     }
     
     render() {

@@ -26,6 +26,7 @@ class AkijReport extends Component {
     }
 
 
+
     componentDidMount(){   
         this.log.debug("Component Just Mounted");
         var callback = function(response, status){
@@ -48,8 +49,9 @@ class AkijReport extends Component {
     setData(data){
         this.log.debug("Inside Akij Report");
         this.log.debug(data.getData());
-        if (data.getData().length > 0)
-            this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+
+        this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+        this.forceUpdate();
         
         this.log.debug(this.state.productList);
         this.log.debug(this.state.dataList);
@@ -226,7 +228,7 @@ class AkijReport extends Component {
         });
         
         var productSubHeaders = this.state.productList.map(function(product, index){
-            this.log.debug(product);
+            // this.log.debug(product);
             var subHeading = ["Buy", "Sell", "Return"];
             return subHeading.map(function(subHead, ind){
                 return (
@@ -237,7 +239,7 @@ class AkijReport extends Component {
         });
         
         var dataRows = this.state.dataList.map(function(data, index){
-            this.log.debug(data);
+            // this.log.debug(data);
             return(
                 <tr key={index}>
             	    <td >{data.sr}</td>
