@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 import Modal from './Modal';
+import datepicker from 'bootstrap-datepicker';
 
 class DateSelect extends Component{
     constructor(props){
@@ -13,6 +14,8 @@ class DateSelect extends Component{
         };
         this.dateSubmit = this.dateSubmit.bind(this);
     }
+
+    compo
 
 
     componentDidMount(){
@@ -31,6 +34,8 @@ class DateSelect extends Component{
         var today = dd+'-'+mm+'-'+yyyy;
         this.setState({date : today});
         //static date showing ends
+
+        $('#date_1').datepicker();
     }
 
 
@@ -90,6 +95,19 @@ class DateSelect extends Component{
                     </div>
                     <div className="col-lg-6 pull-right">
                         <a data-toggle="modal" className="btn btn-warning btn-sm pull-right" href="#modal-date">Select Date</a>                                              
+
+                        <div className="form-group">
+                            <label className="font-noraml">Select Date for a Particular Day Report</label>
+                            <div className="input-group date">
+                                <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+                                <input id="date_1" type="text" className="form-control" placeholder="Select Date Please" />
+                                <span className="input-group-btn">
+                                    <a className="btn btn-primary" onClick={this.dateSubmit}>
+                                        Submit
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
                     </div>               
                 </div>
 
