@@ -133,9 +133,7 @@ class UserPage extends Component {
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
                                 <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>
-                                <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
-                                <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
-                                <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
+                                
 
                             </div>
                         </Content>
@@ -145,6 +143,11 @@ class UserPage extends Component {
             );
         }
     }
+
+//<IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
+//                                <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
+//                                <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
+
 }
 
 class ContentWrapper extends Component {

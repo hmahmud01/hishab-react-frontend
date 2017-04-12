@@ -255,7 +255,7 @@ class Inventory extends Component {
             );
         });
         
-        var dataRows = this.state.dataList.reverse().map(function(data, index){
+        var dataRows = this.state.dataList.map(function(data, index){
             this.log.debug(data);
             return(
                 <tr key={index}>
@@ -282,6 +282,9 @@ class Inventory extends Component {
             );
         }.bind(this));
 
+
+//                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
+//                                <button className="btn btn-xs btn-danger" onClick={this.tablePDFDownload}>Export to PDF</button>
             
 		return (
 
@@ -292,8 +295,6 @@ class Inventory extends Component {
 			                <h5>Akij Inventory</h5>
                             <div className="btn-group pull-right">
                                 <button className="btn btn-xs btn-primary" onClick={this.tableDownload}>Export to CSV</button>
-                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
-                                <button className="btn btn-xs btn-danger" onClick={this.tablePDFDownload}>Export to PDF</button>
                             </div>
 			            </div>
 				        <div className="ibox-content" style={tableDesign}>
@@ -309,6 +310,7 @@ class Inventory extends Component {
 							  	</thead>
 							  	<tbody>
 								  	{dataRows}
+                                    <tr><td>Total</td></tr>
 							  	</tbody>	
 							</table>
 				    	</div>
