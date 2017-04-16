@@ -241,12 +241,12 @@ class Inventory extends Component {
         
         var productHeaders = this.state.productList.map(function(product, index){
             return(
-                <th key={index} colSpan="4" style={headerDesign}>{product}</th>
+                <th key={index} colSpan="6" style={headerDesign}>{product}</th>
             );
         });
         
         var productSubHeaders = this.state.productList.map(function(product, index){
-            var subHeading = ["Stock", "Factory Recieve", "Delivary Chalan No.", "Sell"];
+            var subHeading = ["Opening Stock", "Factory Recieved", "SR Chalan", "Damp/Redemption", "SR Return", "Closing Stock"];
             return subHeading.map(function(subHead, ind){
                 return (
                     <th key={ind} style={headerDesign}>{subHead}</th>
@@ -270,7 +270,9 @@ class Inventory extends Component {
                                 prevStock = this.state.dataList[index-1].sales[idx];
                             }
                             stock =  parseInt(prevStock) + individualData[0] - individualData[individualData.length-1];
-                            individualData.unshift(stock);
+                            individualData.unshift(parseInt(prevStock));
+                            individualData.splice(3, 0, 0);
+                            individualData.push(stock);
                             return individualData.map(function(cell, di){
                                 return(
                                     <td key={di}>{cell}</td>
