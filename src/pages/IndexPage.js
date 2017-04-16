@@ -3,8 +3,10 @@ import Cookies from 'js-cookie';
 import TranscriptionPage from './TranscriptionPage';
 import UserPage from './UserPage';
 import ReportPage from './ReportPage'
+import SystemAdminPage from './SystemAdminPage';
 import PasswordResetPage from './PasswordResetPage';
 import akij from './akij';
+import Logger from '../utils/Logger'
 
 class IndexPage extends Component {
     constructor(props){
@@ -16,6 +18,8 @@ class IndexPage extends Component {
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.reRoute = this.reRoute.bind(this);
+        this.log = new Logger();
+
     }
     
     componentDidMount() {
@@ -47,8 +51,14 @@ class IndexPage extends Component {
             case '3':
                 this.setState({location:  "#/tran", userType: 3});
                 break;
+            case '4':
+                this.setState({location:  "#/sysa", userType: 4});
+                this.log.debug(uty);
+                break;
             default:
                 this.setState({location:  "#/user", userType: 4});
+                this.log.debug("default");
+                this.log.debug(uty);
                 break;
         }
     }
@@ -63,6 +73,10 @@ class IndexPage extends Component {
             case "#/orgs":
                 return (
                     <ReportPage />
+                );
+            case "#/sysa":
+                return (
+                    <SystemAdminPage />
                 );
             case "#/tran":    
                 return(

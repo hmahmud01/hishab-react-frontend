@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 import Modal from './Modal';
+// import datepicker from 'bootstrap-datepicker';
 
 class DateSelect extends Component{
     constructor(props){
@@ -11,8 +12,10 @@ class DateSelect extends Component{
         this.state = {
             date: ""
         };
-        this.dateSubmit = this.dateSubmit.bind(this);
+        this.dateSubmit = this.dateSubmit.bind(this);    
     }
+
+
 
 
     componentDidMount(){
@@ -31,6 +34,8 @@ class DateSelect extends Component{
         var today = dd+'-'+mm+'-'+yyyy;
         this.setState({date : today});
         //static date showing ends
+
+        $('#date_1').datepicker();
     }
 
 
@@ -89,7 +94,7 @@ class DateSelect extends Component{
                         <h4>Date: {this.state.date}</h4>
                     </div>
                     <div className="col-lg-6 pull-right">
-                        <a data-toggle="modal" className="btn btn-warning btn-sm pull-right" href="#modal-date">Select Date</a>                                              
+                        <a data-toggle="modal" className="btn btn-warning btn-sm pull-right" href="#modal-date">Select Date</a>
                     </div>               
                 </div>
 
