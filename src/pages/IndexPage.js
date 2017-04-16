@@ -72,7 +72,7 @@ class IndexPage extends Component {
             );
             case "#/orgs":
                 return (
-                    <ReportPage />
+                    <UserPage />
                 );
             case "#/sysa":
                 return (

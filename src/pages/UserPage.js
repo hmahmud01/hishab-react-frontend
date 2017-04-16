@@ -7,6 +7,7 @@ import TranscriberPerformancePage from './TranscriberPerformancePage';
 import SMSLogPage from './SMSLogPage';
 import CallLogPage from './CallLogPage';
 import InventoryPage from './InventoryPage';
+import ReportDirectory from '../components/ReportDirectory';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -14,6 +15,7 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import IconButtonWidget from '../components/IconButtonWidget';
 import HishabLogo from './images/logo.png';
+
 
 class UserPage extends Component {
     constructor(props) {
@@ -28,6 +30,7 @@ class UserPage extends Component {
         this.CallClicked = this.CallClicked.bind(this);
         this.TranscriberClicked = this.TranscriberClicked.bind(this);
         this.InventoryClicked = this.InventoryClicked.bind(this);
+        this.ReportClicked = this.ReportClicked.bind(this);
     }
     
     componentDidMount() {
@@ -77,6 +80,13 @@ class UserPage extends Component {
             reportType: widgetLocation
         });
     }
+
+    ReportClicked(widgetLocation){
+        this.setState({
+            location: "#/reportdir",
+            reportType: widgetLocation
+        });
+    }
     // existing possible reports. dont delete
     // <IconButtonWidget icon="newspaper-o" header="Transactions" subheader="All" className="blue-bg" onClick={this.widgetClicked}/>
     // <IconButtonWidget icon="calendar-o" header="Transactions" subheader="Monthly" className="yellow-bg" onClick={this.widgetClicked}/>
@@ -117,6 +127,11 @@ class UserPage extends Component {
                     <TranscriberPerformancePage />
                 );
 
+            case "#/reportdir":
+                return(
+                    <ReportDirectory name={this.props.name} />
+                );
+
             default:
                 return(
                 <div className="wrapper">
@@ -132,9 +147,8 @@ class UserPage extends Component {
                             </div>
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
-                                <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>
-                                
-
+                                <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>         
+                                <IconButtonWidget icon="newspaper-o" header="Report" subheader="Directory" className="yellow-bg" onClick={this.ReportClicked}/>                     
                             </div>
                         </Content>
                         <Footer/>
