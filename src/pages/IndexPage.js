@@ -6,7 +6,7 @@ import ReportPage from './ReportPage'
 import SystemAdminPage from './SystemAdminPage';
 import PasswordResetPage from './PasswordResetPage';
 import akij from './akij';
-import Logger from './utils/Logger'
+import Logger from '../utils/Logger'
 
 class IndexPage extends Component {
     constructor(props){

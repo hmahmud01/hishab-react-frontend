@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 
-import ReportPage from './ReportPage';
-import akij from './akij';
-import TranscriberPerformancePage from './TranscriberPerformancePage';
-import SMSLogPage from './SMSLogPage';
-import CallLogPage from './CallLogPage';
-import InventoryPage from './InventoryPage';
+import OrganizationPage from './OrganizationPage';
+import OrganizationAdminPage from './OrganizationAdminPage';
+import AllUserPage from './AllUserPage';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -14,21 +11,20 @@ import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 import IconButtonWidget from '../components/IconButtonWidget';
 import HishabLogo from './images/logo.png';
+import Logger from '../utils/Logger';
 
-class UserPage extends Component {
+class SystemAdminPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             location : "#/",
             reportType: ""
         };
-        this.widgetClicked = this.widgetClicked.bind(this);
-        this.akijClicked = this.akijClicked.bind(this);
-        this.SMSClicked = this.SMSClicked.bind(this);
-        this.CallClicked = this.CallClicked.bind(this);
-        this.TranscriberClicked = this.TranscriberClicked.bind(this);
-        this.InventoryClicked = this.InventoryClicked.bind(this);
         this.log = new Logger();
+        this.addOrganizationClicked = this.addOrganizationClicked.bind(this);
+        this.addOrganizationAdminClicked = this.addOrganizationAdminClicked.bind(this);
+        this.allUserClicked = this.allUserClicked.bind(this);
+        
     }
     
     componentDidMount() {
@@ -36,82 +32,45 @@ class UserPage extends Component {
         if (uid === undefined)
             window.location.hash = "#/";
     }
-    
-    widgetClicked(widgetLocation){
+
+    addOrganizationClicked(widgetLocation){
         this.setState({
-            location: "#/report",
+            location: "#/org",
             reportType: widgetLocation
         });
     }
 
-    akijClicked(widgetLocation){
+    addOrganizationAdminClicked(widgetLocation){
         this.setState({
-            location: "#/akij",
+            location: "#/orgadmin",
             reportType: widgetLocation
         });
     }
 
-    SMSClicked(widgetLocation){
+    allUserClicked(widgetLocation){
         this.setState({
-            location: "#/sms",
+            location: "#/alluser",
             reportType: widgetLocation
         });
     }
 
-    CallClicked(widgetLocation){
-        this.setState({
-            location: "#/call",
-            reportType: widgetLocation
-        });
-    }
-
-    TranscriberClicked(widgetLocation){
-        this.setState({
-            location: "#/performance",
-            reportType: widgetLocation
-        });
-    }
-
-    InventoryClicked(widgetLocation){
-        this.setState({
-            location: "#/inventory",
-            reportType: widgetLocation
-        });
-    }
 
     
     render() {
         switch (this.state.location){
-            case "#/report":
+            case "#/org":
                 return(
-                    <ReportPage type={this.state.reportType}/>
+                    <OrganizationPage />
+                );
+            case "#/orgadmin":
+                return(
+                    <OrganizationAdminPage />
                 );
 
-            case "#/akij":
+            case "#/alluser":
                 return(
-                    <ReportPage />
+                    <AllUserPage />
                 );
-
-            case "#/inventory":
-                return(
-                    <InventoryPage />
-                );
-
-            case "#/sms":
-                return(
-                    <SMSLogPage />
-                );
-
-            case "#/call":
-                return(
-                    <CallLogPage />
-                );
-
-            case "#/performance":
-                return(
-                    <TranscriberPerformancePage />
-                );
-
             default:
                 return(
                 <div className="wrapper">
@@ -126,9 +85,9 @@ class UserPage extends Component {
                                 </div>
                             </div>
                             <div className="row">                                
-                                <IconButtonWidget icon="line-chart" header="Organization" subheader="Add" className="red-bg" onClick={this.akijClicked}/>
-                                <IconButtonWidget icon="file-text-o" header="Organization Addmin" subheader="Add" className="blue-bg" onClick={this.InventoryClicked}/>
-                                <IconButtonWidget icon="file-text-o" header="All User" subheader="List" className="blue-bg" onClick={this.InventoryClicked}/>
+                                <IconButtonWidget icon="check" header="Organization" subheader="Add" className="red-bg" onClick={this.addOrganizationClicked}/>
+                                <IconButtonWidget icon="check" header="Organization Addmin" subheader="Add" className="lazur-bg" onClick={this.addOrganizationAdminClicked}/>
+                                <IconButtonWidget icon="check" header="All User" subheader="List" className="yellow-bg" onClick={this.allUserClicked}/>
                             </div>
                         </Content>
                         <Footer/>
@@ -154,4 +113,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default UserPage;
+export default SystemAdminPage;
