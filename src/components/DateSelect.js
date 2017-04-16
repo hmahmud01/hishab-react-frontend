@@ -34,8 +34,6 @@ class DateSelect extends Component{
         var today = dd+'-'+mm+'-'+yyyy;
         this.setState({date : today});
         //static date showing ends
-
-        $('#date_1').datepicker();
     }
 
 
