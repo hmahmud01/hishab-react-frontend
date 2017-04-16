@@ -264,10 +264,14 @@ class Inventory extends Component {
                         data.sales.map(function(individualData,idx){
                             var stock = 0;
                             var prevStock = 0;
-                            this.log.debug(individualData);
+                            this.log.debug("PrevData", individualData);
                             if (index > 0){
                                 this.log.debug("Previous Data:");
-                                prevStock = this.state.dataList[index-1].sales[idx];
+                                //todo THIS IS FUCKED UP ############
+                                var ind = this.state.dataList[index-1].sales[idx];
+                                prevStock = ind[ind.length-1];
+                                this.log.debug(prevStock);
+                                // Please destroy this part ##################33
                             }
                             stock =  parseInt(prevStock) + individualData[0] - individualData[individualData.length-1];
                             individualData.unshift(parseInt(prevStock));
