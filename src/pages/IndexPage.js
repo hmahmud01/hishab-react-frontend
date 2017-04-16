@@ -72,7 +72,7 @@ class IndexPage extends Component {
             );
             case "#/orgs":
                 return (
-                    <UserPage />
+                    <UserPage type={this.state.userType} name={username}/>
                 );
             case "#/sysa":
                 return (
