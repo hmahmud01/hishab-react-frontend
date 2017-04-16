@@ -26,8 +26,7 @@ class OrganizationAdminPage extends Component {
                     <Header username={Cookies.get("uname")}/>
                     <Content>
                         <OrgList />
-                    </Content>                    
-
+                    </Content>
                     <Footer/>
                 </ContentWrapper>
             </div>

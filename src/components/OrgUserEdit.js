@@ -57,8 +57,11 @@ class OrgUserEdit extends Component {
 		ajax.postData('system/home/organization_child_org', params);
 	}
 
-	selectOrg(){
+	selectOrg(key, user){
 		this.log.debug("org selected");
+		this.log.debug(key);
+		this.log.debug(user);
+		this.setState({phone: key, name: user});
 	}
 
 	selectBranch(){
@@ -71,24 +74,23 @@ class OrgUserEdit extends Component {
 		this.forceUpdate();
 	}
 
-	onStatusChange(key){
+	onStatusChange(){
         var callback = function(response, status){
             var data = new Json(response);
             if (status === "success"){
-                this.log.debug(key);
+                this.log.debug(this.state.phone);
             }else {
-            	this.log.debug(key);
+            	this.log.debug(this.state.phone);
             } 
         }.bind(this);
         
-        var params = {
-        		"id": key,
-                "type": $('#status :selected').val(),                
-                "uid": Cookies.get("uid"),
+        var uup = {	        	
+	        	"uid": this.state.phone,
+	            "ust": $('#status :selected').val(),	        	        		
             };
         
         var ajax = new Ajax(callback);
-        ajax.postData('', params);
+        ajax.postData('system/home/update_status', uup);
         
     }
 
@@ -147,12 +149,24 @@ class OrgUserEdit extends Component {
 				</div>
 
 				<Modal id="modal-employee" title="Change Employee Status" discard="Exit" success="Submit" onClick={this.onStatusChange}>                    
+					<div className="form-group">
+	                    <label className="col-sm-4 control-label">Name</label>
+	                    <div className="col-sm-8">
+	                    	<input className="form-control" value={this.state.name} disabled="true" /> 	   	                                      
+	                    </div>
+	                </div>
+	                <div className="form-group">
+	                    <label className="col-sm-4 control-label">Phone</label>
+	                    <div className="col-sm-8">
+	                    	<input className="form-control" value={this.state.phone} disabled="true" />                                  
+	                    </div>
+	                </div>
 	                <div className="form-group">
 	                    <label className="col-sm-4 control-label">Status</label>
 	                    <div className="col-sm-8">
 	                        <select className="form-control" name="status" id="status">
-	                            <option value="admin">Admin</option>
-	                            <option value="sr">SR</option>
+	                            <option value="2">Admin</option>
+	                            <option value="1">SR</option>
 	                        </select>                                        
 	                    </div>
 	                </div>
@@ -175,7 +189,8 @@ class ListItem extends Component{
     statusClick(event){
     	event.preventDefault();
     	this.log.debug(this.props.user);
-    	this.props.onClick(this.props.id);
+    	this.log.debug(this.props.id);
+    	this.props.onClick(this.props.id, this.props.user);
     }
 
 	render(){
