@@ -273,9 +273,11 @@ class Inventory extends Component {
                                 this.log.debug(prevStock);
                                 // Please destroy this part ##################33
                             }
-                            stock =  parseInt(prevStock) + individualData[0] - individualData[individualData.length-1];
+                            stock =  parseInt(prevStock) + individualData[0] - individualData[1] + individualData[2];
                             individualData.unshift(parseInt(prevStock));
+                            individualData.splice(2,1,individualData[2]);
                             individualData.splice(3, 0, 0);
+                            individualData.splice(4,1,individualData[individualData.length-1])
                             individualData.push(stock);
                             return individualData.map(function(cell, di){
                                 return(
