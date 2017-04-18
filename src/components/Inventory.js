@@ -34,10 +34,8 @@ class Inventory extends Component {
                 //**************************************************************
                 // Date time sort
                 var sortedDataList = data.getData()[1].trx.sort(function(a, b) {
-                    var asplit = a.sr.split("-");
-                    var bsplit = b.sr.split("-");
-                    a = new Date(asplit[2],asplit[1]-1, asplit[0]);
-                    b = new Date(bsplit[2],bsplit[1]-1, bsplit[0]);
+                    a = ""+a.sr;
+                    b = ""+b.sr;
                     return a>b ? 1 : a<b ? -1 : 0;
                     });
                 //**************************************************************
