@@ -162,8 +162,6 @@ class UserPage extends Component {
                             <div className="row">                                
                                 <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
                                 <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>         
-                                <IconButtonWidget icon="newspaper-o" header="Report" subheader="Directory" className="yellow-bg" onClick={this.ReportClicked}/>   
-                                <IconButtonWidget icon="calendar-o" header="Inventory" subheader="Directory" className="navy-bg" onClick={this.InventoryDirClicked}/>                  
                             </div>
                         </Content>
                         <Footer/>
@@ -171,11 +169,16 @@ class UserPage extends Component {
                 </div>
             );
         }
-    }
+    }                       
+                                // these are inventory and report directory. will be added later.
+                                // <IconButtonWidget icon="newspaper-o" header="Report" subheader="Directory" className="yellow-bg" onClick={this.ReportClicked}/>   
+                                // <IconButtonWidget icon="calendar-o" header="Inventory" subheader="Directory" className="navy-bg" onClick={this.InventoryDirClicked}/>     
 
-//<IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
-//                                <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
-//                                <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
+
+                                // these are upcoming feature
+                                // <IconButtonWidget icon="newspaper-o" header="SMS" subheader="Log" className="navy-bg" onClick={this.SMSClicked}/>
+                                // <IconButtonWidget icon="phone" header="Call" subheader="Log" className="lazur-bg" onClick={this.CallClicked}/>
+                                // <IconButtonWidget icon="calendar-o" header="Transcriber" subheader="Performance" className="yellow-bg" onClick={this.TranscriberClicked}/>
 
 }
 

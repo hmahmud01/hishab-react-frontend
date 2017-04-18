@@ -10,6 +10,8 @@ import Footer from '../components/Footer';
 import IconButtonWidget from '../components/IconButtonWidget';
 import HishabLogo from '../pages/images/logo.png';
 import Logger from '../utils/Logger';
+import Ajax from '../utils/Ajax';
+import Json from '../utils/Json';
 
 class ReportDirectory extends Component {
     constructor(props) {
@@ -17,8 +19,8 @@ class ReportDirectory extends Component {
         this.state = {
             location : "#/",
             branch : [
-                {id: "1", name: "Gulshan"},
-                {id: "2", name: "Dhanmondi"}
+                {oid: "1", oname: "Gulshan"},
+                {oid: "2", oname: "Dhanmondi"}
             ]
         };
         this.widgetClicked = this.widgetClicked.bind(this);
@@ -29,6 +31,22 @@ class ReportDirectory extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+
+        var callback = function(response, status){
+            var data = new Json(response);
+            if (status == "success"){
+                this.log.debug(data.getData());
+                // this.setState({branch: data.get('data').cho, data: data.get('data').ous })
+            }
+        }.bind(this);
+        
+        var params = {
+            "uid": Cookies.get("uid"),
+        };
+        
+        var ajax = new Ajax(callback);
+        ajax.getData('system/home/org_list', params);
+
     }
     
     widgetClicked(name, id){
@@ -43,7 +61,7 @@ class ReportDirectory extends Component {
     render() {
         const listItems = this.state.branch.map(
             (listItem) => 
-                <ListItem key={listItem.id} bid={listItem.id} name={listItem.name} onClick={this.widgetClicked}/>
+                <ListItem key={listItem.oid} bid={listItem.oid} name={listItem.oname} onClick={this.widgetClicked}/>
         );
 
         switch (this.state.location){

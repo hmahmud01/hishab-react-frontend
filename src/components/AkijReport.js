@@ -27,7 +27,7 @@ class AkijReport extends Component {
 
 
 
-    componentDidMount(){   
+    componentDidMount(){
         this.log.debug("Component Just Mounted");
         var callback = function(response, status){
             this.log.debug(response);

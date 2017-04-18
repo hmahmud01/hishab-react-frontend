@@ -274,10 +274,11 @@ class Inventory extends Component {
                                 // Please destroy this part ##################33
                             }
                             stock =  parseInt(prevStock) + individualData[0] - individualData[1] + individualData[2];
+                            var damp = parseInt(individualData[3]);
                             individualData.unshift(parseInt(prevStock));
                             individualData.splice(2,1,individualData[2]);
-                            individualData.splice(3, 0, 0);
-                            individualData.splice(4,1,individualData[individualData.length-1])
+                            // individualData.splice(4, 0, damp);
+                            individualData.splice(5,1,individualData[individualData.length-1])
                             individualData.push(stock);
                             return individualData.map(function(cell, di){
                                 return(
