@@ -30,7 +30,19 @@ class Inventory extends Component {
             if (status === "success"){
                 var data = new Json(response);
                 this.log.debug(data.getData());
-                this.setState({productList:data.getData()[0].product, dataList:data.getData()[1].trx});
+                
+                //**************************************************************
+                // Date time sort
+                var sortedDataList = data.getData()[1].trx.sort(function(a, b) {
+                    var asplit = a.sr.split("-");
+                    var bsplit = b.sr.split("-");
+                    a = new Date(asplit[2],asplit[1]-1, asplit[0]);
+                    b = new Date(bsplit[2],bsplit[1]-1, bsplit[0]);
+                    return a>b ? 1 : a<b ? -1 : 0;
+                    });
+                //**************************************************************
+                
+                this.setState({productList:data.getData()[0].product, dataList:sortedDataList});
             }
         }.bind(this);
         
@@ -273,12 +285,16 @@ class Inventory extends Component {
                                 this.log.debug(prevStock);
                                 // Please destroy this part ##################33
                             }
-                            stock =  parseInt(prevStock) + individualData[0] - individualData[1] + individualData[2];
-                            var damp = parseInt(individualData[3]);
+                            var factoryReceive = individualData[0];
+                            var srChalan = individualData[1];
+                            var srReturn = individualData[2];
+                            var wastage = individualData[3];
+                            stock =  parseInt(prevStock) + factoryReceive - srChalan + srReturn - wastage;
                             individualData.unshift(parseInt(prevStock));
-                            individualData.splice(2,1,individualData[2]);
-                            // individualData.splice(4, 0, damp);
-                            individualData.splice(5,1,individualData[individualData.length-1])
+                            individualData.splice(1,1, factoryReceive);
+                            individualData.splice(2,1,srChalan);
+                            individualData.splice(3,1,wastage);
+                            individualData.splice(4,1,srReturn)
                             individualData.push(stock);
                             return individualData.map(function(cell, di){
                                 return(
