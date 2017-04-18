@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Cookies from 'js-cookie';
 
+import ReportPage from '../pages/ReportPage';
+
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -20,6 +22,7 @@ class ReportDirectory extends Component {
             ]
         };
         this.widgetClicked = this.widgetClicked.bind(this);
+        this.log = new Logger();
     }
     
     componentDidMount() {
@@ -36,20 +39,17 @@ class ReportDirectory extends Component {
         });
     }
 
-    // <IconButtonWidget icon="line-chart" header="Akij" subheader="SR Report" className="red-bg" onClick={this.akijClicked}/>
-    // <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>   
-
     
     render() {
         const listItems = this.state.branch.map(
             (listItem) => 
-                <ListItem bid={listItem.bid} name={listItem.name} onClick={this.widgetClicked}/>
+                <ListItem key={listItem.id} bid={listItem.id} name={listItem.name} onClick={this.widgetClicked}/>
         );
 
         switch (this.state.location){
             case "#/report":
                 return(
-                    <h1>nothing</h1>
+                    <ReportPage />
                 );
             default:
                 return(
@@ -61,7 +61,7 @@ class ReportDirectory extends Component {
                             <div className="border-bottom page-heading">
                                 <div className="col-lg-12">
                                     <h1>Reports</h1>
-                                    <h3>{ this.props.type === 0 ? "User" : "Organization" } Name: {this.props.name}</h3>
+                                    <h3>Name: {this.props.name}</h3>
                                 </div>
                             </div>
                             <div className="row">                  
@@ -99,16 +99,13 @@ class ListItem extends Component{
         this.branchClick = this.branchClick.bind(this);
     }
 
-    branchClick(event){
-        event.preventDefault();
-        this.log.debug(this.props.name);
-        this.log.debug(this.props.bid);
+    branchClick(){
         this.props.onClick(this.props.name, this.props.bid);
     }
 
     render(){
         return(
-            <IconButtonWidget icon="line-chart" header="{this.props.name}" subheader="Report" className="red-bg" onClick={this.props.onClick}/>
+            <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.branchClick}/>
         );
     }
 }

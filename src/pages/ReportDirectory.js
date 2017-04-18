@@ -16,9 +16,8 @@ class ReportDirectory extends Component {
         super(props);
         this.state = {
             location : "#/",
-            branch : [
-                {id: "1", name: "Gulshan"},
-                {id: "2", name: "Dhanmondi"}
+            data : [
+                {id: "1", name: "Gulshan"}
             ]
         };
         this.widgetClicked = this.widgetClicked.bind(this);
@@ -43,9 +42,9 @@ class ReportDirectory extends Component {
 
     
     render() {
-        const listItems = this.state.branch.map(
-            (listItem) => 
-                <ListItem bid={listItem.bid} name={listItem.name} onClick={this.widgetClicked}/>
+        const listItems = this.state.data.map(
+            (listItem) =>
+                <ListItem key={listItem.id.toString()} bid={listItem.id} name={listItem.name} onClick={this.widgetClicked}/>
         );
 
         switch (this.state.location){
@@ -105,7 +104,7 @@ class ListItem extends Component{
         event.preventDefault();
         this.log.debug(this.props.name);
         this.log.debug(this.props.bid);
-        this.props.onClick(this.props.name, this.props.bid);
+        // this.props.onClick(this.props.name, this.props.bid);
     }
 
     render(){

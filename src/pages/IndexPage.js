@@ -71,6 +71,7 @@ class IndexPage extends Component {
                     <UserPage type={this.state.userType} name={username}/>
             );
             case "#/orgs":
+                var username = Cookies.get("uname");
                 return (
                     <UserPage type={this.state.userType} name={username}/>
                 );
