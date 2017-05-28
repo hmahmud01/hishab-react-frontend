@@ -349,3 +349,5 @@ class Inventory extends Component {
 }
 
 export default Inventory; 
+
+// test !!!
