@@ -312,7 +312,7 @@ class Inventory extends Component {
 
 //                                <button className="btn btn-xs btn-warning" onClick={this.tableJsonDownload}>Export to Json</button>
 //                                <button className="btn btn-xs btn-danger" onClick={this.tablePDFDownload}>Export to PDF</button>
-            
+// ztest comment            
 		return (
 
 			<div className="row">
