@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
-import CallLog from '../components/CallLog';
+import TransactionLog from '../components/TransactionLog';
 import Header from '../components/Header';
 import Content from '../components/Content';
 import LeftNav from '../components/LeftNav';
@@ -12,7 +12,7 @@ import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 
 
-class CallLogPage extends Component {
+class TransactionLogPage extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -34,7 +34,7 @@ class CallLogPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
-                        <CallLog />
+                        <TransactionLog />
                     </Content>                    
 
                     <Footer/>
@@ -59,4 +59,4 @@ class ContentWrapper extends Component {
     }
 }
 
-export default CallLogPage;
+export default TransactionLogPage;
