@@ -33,23 +33,30 @@ class TransactionDetail extends Component{
 			window.location.hash = "#/";
 
 		var callback = function(response, status){
-		    if (status == "success"){
-		
-		    }else if (status == "error"){
+		    var data = new Json(response);
+		    if (status === "success"){
+				this.log.debug(data.getData());
+				this.setState({data: data.getData()});
+				this.log.debug("from state");
+				this.log.debug(data);
+		    }else if (status === "error"){
 		
 		    }
 		}.bind(this);
 		
-		var params = {};
+		var params = {
+			"uid": Cookies.get("uid"),
+			"tid": this.props.id,
+		};
 		
 		var ajax = new Ajax(callback);
-		ajax.getData('', params);
+		ajax.getData('transaction/report_details', params);
 	}
 
 	render() {
 		const listItems = this.state.data.products.map(
 			(listItem) => 
-				<ListItem name={listItem.name} qty={listItem.qty} total={listItem.total}/>
+				<ListItem name={listItem.product_name} qty={listItem.product_quantity} total={listItem.product_unit_price}/>
 		);
 		return (
 			<div>
@@ -63,10 +70,10 @@ class TransactionDetail extends Component{
 					    	</div>
 
 					    	<div className="ibox-content">
-					    		<p>Buyer Number: {this.state.data.buyer}</p><br/>
-					    		<p>Buyer Name: {this.state.data.buyerName}</p><br/>
-					    		<p>Seller Number: {this.state.data.seller}</p><br/>
-					    		<p>Seller Name: {this.state.data.sellerName}</p><br/>
+					    		<p>Buyer Number: {this.state.data.buyer.phone}</p><br/>
+					    		<p>Buyer Name: {this.state.data.buyer.name}</p><br/>
+					    		<p>Seller Number: {this.state.data.seller.phone}</p><br/>
+					    		<p>Seller Name: {this.state.data.seller.name}</p><br/>
 					    	</div>
 					    </div>
 
@@ -96,9 +103,9 @@ class TransactionDetail extends Component{
 					    	</div>
 
 					    	<div className="ibox-content">
-					    		<p>Total: {this.state.data.total}</p><br/>
-					    		<p>Paid: {this.state.data.paid}</p><br/>
-					    		<p>Due: {this.state.data.due}</p><br/>					    		
+					    		<p>Total: {this.state.data.total_bill}</p><br/>
+					    		<p>Paid: {this.state.data.paid_amount}</p><br/>
+					    		<p>Discount: {this.state.data.discount_amount}</p><br/>					    		
 					    	</div>
 					    </div>
 					</div>

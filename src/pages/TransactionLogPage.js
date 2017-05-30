@@ -25,6 +25,8 @@ class TransactionLogPage extends Component {
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+
+        
     }
     
     render() {
