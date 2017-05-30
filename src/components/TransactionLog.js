@@ -12,26 +12,17 @@ class TransactionLog extends Component {
 		super(props);
 		this.state = {
 			location: '#/',
-			data : [{
-				    "duration": 0,
-				    "aid": "1490680956.12",
-				    "call_type": "1",
-				    "date": "2017-03-28 06:02",
-				    "phone": "01817061650"
-				},
-			],
-			        
-
+			data : []
 		};
 		this.log = new Logger();
 		this.transactionClick = this.transactionClick.bind(this);
 	}
 
-	transactionClick(id, name){
-		this.log.debug(id, name);
+	transactionClick(id, buyer){
+		this.log.debug(id, buyer);
 		this.setState({
 			location: "#/transaction",
-			name: name,
+			buyer: buyer,
 			id: id
 		})
 	}
@@ -54,20 +45,20 @@ class TransactionLog extends Component {
 		};
 		
 		var ajax = new Ajax(callback);
-		ajax.getData('http://192.168.5.70:8080/API/call_log/', params);
+		ajax.getData('transaction/report', params);
 
 	}
 
 	render(){
 		const listItems = this.state.data.map(
 			(listItem) => 
-				<ListItem phone={listItem.phone} id={listItem.aid} date={listItem.date} call_type={listItem.call_type} duration={listItem.duration} onClick={this.transactionClick}/>
+				<ListItem id={listItem.trx_id} buyer={listItem.buyer.name} seller={listItem.seller.name} onClick={this.transactionClick}/>
 		);
 
 		switch (this.state.location){
 			case "#/transaction":
 				return(
-					<TransactionDetail />
+					<TransactionDetail id={this.state.id} buyer={this.state.buyer}/>
 				);
 			default:
 				return(
@@ -84,9 +75,8 @@ class TransactionLog extends Component {
 								            <thead>
 								                <tr>
 								                	<th>Id</th>			                            
-						                            <th>Phone Number</th>				                            
-						                            <th>Date</th>
-						                            <th>Call Type</th>
+						                            <th>Buyer</th>				                            
+						                            <th>Seller</th>
 						                            <th>Detail</th>
 						                        </tr>
 								            </thead>
@@ -114,17 +104,16 @@ class ListItem extends Component{
     }
 
     detailClicked(){
-    	this.props.onClick(this.props.phone, this.props.id);
+    	this.props.onClick(this.props.id, this.props.buyer);
     }
 
 
 	render(){
 		return(
 			<tr>
-				<td>{this.props.phone}</td>
 				<td>{this.props.id}</td>
-				<td>{this.props.date}</td>
-				<td>{this.props.call_type}</td>
+				<td>{this.props.buyer}</td>
+				<td>{this.props.seller}</td>
 				<td><button className="btn btn-primary" onClick={this.detailClicked}>Detail</button></td>
 			</tr>
 		);
