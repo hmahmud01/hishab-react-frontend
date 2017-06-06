@@ -13,6 +13,7 @@ import InventoryDirectory from '../components/InventoryDirectory';
 import TransactionLogPage from './TransactionLogPage';
 import OrganizationLogPage from './OrganizationLogPage';
 import NonOrg from './NonOrg';
+import Directory from '../components/Directory';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
@@ -33,18 +34,7 @@ class UserPage extends Component {
             reportType: "",
             reportStatus: "",
             userType: 0,
-            userAttr:[
-                {
-                    name: "Gulshan",
-                    Phone: "017#####",
-                    has_child: "True",
-                },
-                {
-                    name: "Bonani",
-                    Phone: "017#####",
-                    has_child: "True",
-                }
-            ],
+            userAttr:[],
 
         };
         this.widgetClicked = this.widgetClicked.bind(this);
@@ -57,7 +47,7 @@ class UserPage extends Component {
         this.InventoryDirClicked = this.InventoryDirClicked.bind(this);
         this.TransactionLogClicked = this.TransactionLogClicked.bind(this);
         this.OrgLogClicked = this.OrgLogClicked.bind(this);
-        this.savePhone = this.savePhone.bind(this);
+        this.DirectoryClicked = this.DirectoryClicked.bind(this);
         this.log = new Logger();
     }
     
@@ -71,6 +61,8 @@ class UserPage extends Component {
             var data = new Json(response);
             if (status == "success"){
                 this.setState({userAttr:data.getData()})
+
+                this.log.debug("userattr:")
                 this.log.debug(this.state.userAttr);
             }
         }.bind(this);
@@ -153,26 +145,67 @@ class UserPage extends Component {
     }
 
     OrgLogClicked(widgetLocation){
+        this.log.debug(widgetLocation);
         this.setState({
             location: "#/orglog",
             reportType: widgetLocation,
             phone: widgetLocation
-        })
+        });
     }
 
-    savePhone(phone){
+    DirectoryClicked(widgetLocation){
+        this.log.debug(widgetLocation);
         this.setState({
-            phone: phone
-        })
+            location: "#/directory",
+            reportType: widgetLocation,
+            phone: widgetLocation
+        });
     }
+
+                        //     switch (this.state.location){
+                        //     case "#/report":
+                        //         return(
+                        //             <ReportPage type={this.state.reportType}/>
+                        //         );
+                        //     case "#/inventory":
+                        //         return(
+                        //             <InventoryPage />
+                        //         );
+                        //     case "#/directory":
+                        //         return(
+                        //             <Directory name={this.props.name} phone={this.state.phone} />
+                        //         );
+                        //     default:
+                        //         return(
+                        //             <div className="wrapper">
+                        //                 <LeftNav logo={HishabLogo}/>
+                        //                 <ContentWrapper>
+                        //                     <Header username={Cookies.get("uname")}/>
+                        //                     <Content>
+                        //                         <div className="border-bottom page-heading">
+                        //                             <div className="col-lg-12">
+                        //                                 <h1>Reports</h1>
+                        //                                 <h3>{ this.props.type === 0 ? "User" : "Organization"} Name: {this.props.name}</h3>
+                        //                             </div>
+                        //                         </div>
+                        //                         <div className="row"> 
+                        //                             <IconButtonWidget icon="newspaper-o" header="Report" subheader="Directory" className="yellow-bg" onClick={this.widgetClicked}/>                                          
+                        //                             <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>    
+                        //                         </div>
+                        //                     </Content>
+                        //                     <Footer/>
+                        //                 </ContentWrapper>
+                        //             </div>
+                        //         );  
+                        // }
+
       
 
     // <ListItem key={listItem.phone} next={listItem.has_child} name={listItem.name} onClick={listItem.has_child==="True"? this.OrgLogClicked : this.akijClicked }/>
-    render() {
-
+    render() {        
         const listItems = this.state.userAttr.map(
             (listItem) =>
-                <ListItem key={listItem.phone} next={listItem.has_child} count={this.state.userAttr.length} name={listItem.name} stateFunc={this.savePhone} onClick={listItem.has_child===true ? this.OrgLogClicked : this.akijClicked } inventoryFunc={this.InventoryClicked}/>              
+                <ListItem key={listItem.phone} phone={listItem.phone} next={listItem.has_child} count={this.state.userAttr.length} name={listItem.name} onClick={listItem.has_child===true ? this.OrgLogClicked : this.DirectoryClicked } inventoryFunc={this.InventoryClicked} reportFunc={this.ReportClicked}/>              
         );
 
 
@@ -185,38 +218,10 @@ class UserPage extends Component {
                             <NonOrg type={this.state.userType} name={this.props.name}/>
                         );
                     case true:
-                        switch (this.state.location){
-                            case "#/report":
-                                return(
-                                    <ReportPage type={this.state.reportType}/>
-                                );
-                            case "#/inventory":
-                                return(
-                                    <InventoryPage />
-                                );
-                            default:
-                                return(
-                                    <div className="wrapper">
-                                        <LeftNav logo={HishabLogo}/>
-                                        <ContentWrapper>
-                                            <Header username={Cookies.get("uname")}/>
-                                            <Content>
-                                                <div className="border-bottom page-heading">
-                                                    <div className="col-lg-12">
-                                                        <h1>Reports</h1>
-                                                        <h3>{ this.props.type === 0 ? "User" : "Organization"} Name: {this.props.name}</h3>
-                                                    </div>
-                                                </div>
-                                                <div className="row"> 
-                                                    <IconButtonWidget icon="newspaper-o" header="Report" subheader="Directory" className="yellow-bg" onClick={this.widgetClicked}/>                                          
-                                                    <IconButtonWidget icon="file-text-o" header="Akij" subheader="Inventory" className="blue-bg" onClick={this.InventoryClicked}/>    
-                                                </div>
-                                            </Content>
-                                            <Footer/>
-                                        </ContentWrapper>
-                                    </div>
-                                );  
-                        }
+                        return(
+                            <Directory name={this.props.name} phone={this.state.phone} />
+                        );
+
                 }
             default:
                 switch (this.state.location){
@@ -268,6 +273,11 @@ class UserPage extends Component {
                     case "#/orglog":
                         return(
                             <OrganizationLogPage name={this.props.name} phone={this.state.phone} />
+                        );
+
+                    case "#/directory":
+                        return(
+                            <Directory name={this.props.name} phone={this.state.phone} />
                         );
                         
                     default:
@@ -362,7 +372,6 @@ class UserPage extends Component {
                                                 </div>
                                                 <div className="row">
                                                     {listItems}
-
                                                 </div>
                                             </Content>
                                             <Footer/>
@@ -429,21 +438,22 @@ class ListItem extends Component{
 
     branchClick(){
         // event.preventDefault();
+        this.log.debug(this.props.name);
+        this.log.debug(this.props.phone);
         this.log.debug(this.props.key);
-        this.props.stateFunc(this.props.key);
-        this.props.onClick();
+        this.props.onClick(this.props.phone);
     }
 
     render(){
-        switch(this.props.count){
-            case 1:
-                return(
-                    <div>
-                        <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick} />
-                        <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Inventory" className="red-bg" onClick={this.props.inventoryFunc} />
-                    </div>                    
-                );
-            default:
+        // switch(this.props.count){
+        //     case 1:
+        //         return(
+        //             <div>
+        //                 <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.reportFunc} />
+        //                 <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Inventory" className="red-bg" onClick={this.props.inventoryFunc} />
+        //             </div>                    
+        //         );
+        //     default:
                 return(
                     <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.branchClick} />            
                 );
@@ -452,7 +462,7 @@ class ListItem extends Component{
             //     return(
             //         <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick} />
             //     );
-        }
+        // }
     }
 }
 

@@ -28,7 +28,8 @@ class AkijReport extends Component {
 
 
     componentDidMount(){
-        this.log.debug("Component Just Mounted");
+        this.log.debug("Report Mounted");
+        this.log.debug(this.props.phone);
         var callback = function(response, status){
             this.log.debug(response);
             var data = new Json(response);
@@ -38,7 +39,7 @@ class AkijReport extends Component {
         }.bind(this);
         
         var params = {
-                "uid": Cookies.get("uid")
+                "uid": this.props.phone
             };
                 
         var ajax = new Ajax(callback);
