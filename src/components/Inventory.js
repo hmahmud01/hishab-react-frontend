@@ -25,7 +25,9 @@ class Inventory extends Component {
     }
 
 
-    componentDidMount(){        
+    componentDidMount(){
+        this.log.debug("Inventory Mounted");
+        this.log.debug(this.props.phone);        
         var callback = function(response, status){
             if (status === "success"){
                 var data = new Json(response);
@@ -49,7 +51,8 @@ class Inventory extends Component {
         }.bind(this);
         
         var params = {
-                "uid": Cookies.get("uid")
+                "uid": Cookies.get("uid"),
+                "oua": this.props.phone,
             };
                 
         var ajax = new Ajax(callback);

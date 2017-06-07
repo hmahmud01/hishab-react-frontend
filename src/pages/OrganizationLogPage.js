@@ -13,8 +13,10 @@ import Logger from '../utils/Logger';
 import Ajax from '../utils/Ajax';
 import Json from '../utils/Json';
 import akij from './akij';
+
 import ReportPage from './ReportPage';
 import InventoryPage from './InventoryPage';
+import Directory from '../components/Directory';
 
 class OrganizationLogPage extends Component {
     constructor(props) {
@@ -37,9 +39,14 @@ class OrganizationLogPage extends Component {
         this.akijClicked = this.akijClicked.bind(this);
         this.InventoryClicked = this.InventoryClicked.bind(this);
         this.savePhone = this.savePhone.bind(this);
+        this.DirectoryClicked = this.DirectoryClicked.bind(this);
+        this.log = new Logger();
     }
     
     componentDidMount() {
+        this.log.debug(this.props.phone);
+        this.setState({phone: this.props.phone});
+        this.forceUpdate();
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
@@ -54,7 +61,10 @@ class OrganizationLogPage extends Component {
             }
         }.bind(this);
         
-        var params = this.state.phone;
+        var params = {
+            "oua" : this.state.phone,
+            "uid" : Cookies.get("uid"),
+        };
         
         var ajax = new Ajax(callback);
         ajax.getData('dynamic/report/list_child_users', params);
@@ -67,6 +77,15 @@ class OrganizationLogPage extends Component {
             phone: phone
         });
         this.forceUpdate();
+    }
+
+    DirectoryClicked(widgetLocation){
+        this.log.debug(widgetLocation);
+        this.setState({
+            location: "#/directory",
+            reportType: widgetLocation,
+            phone: widgetLocation
+        })
     }
 
     akijClicked(widgetLocation){
@@ -95,7 +114,7 @@ class OrganizationLogPage extends Component {
     render() {
         const listItems = this.state.userAttr.map(
             (listItem) =>
-                <ListItem key={listItem.phone} next={listItem.has_child} name={listItem.name} stateFunc={this.savePhone} onClick={listItem.has_child===true ? this.widgetClicked : this.akijClicked } inventoryFunc={this.InventoryClicked}/>
+                <ListItem key={listItem.phone} phone={listItem.phone} next={listItem.has_child} name={listItem.name} stateFunc={this.savePhone} onClick={listItem.has_child===true ? this.widgetClicked : this.DirectoryClicked } inventoryFunc={this.InventoryClicked}/>
         );
 
         switch (this.state.location){
@@ -110,6 +129,10 @@ class OrganizationLogPage extends Component {
             case "#/inventory":
                 return(
                     <InventoryPage />
+                );
+            case "#/directory":
+                return(
+                    <Directory name={this.props.name} phone={this.state.phone} />
                 );
 
             default:
@@ -162,32 +185,35 @@ class ListItem extends Component{
 
     branchClick(){
         this.log.debug(this.props.key);
-        this.props.stateFunc(this.props.key);
-        this.props.onClick();
+        this.log.debug(this.props.phone);
+        this.log.debug(this.props.next)
+        this.props.onClick(this.props.phone);
     }
 
     render(){
-        switch(this.props.next){
-            case true:
-                return(
-                    <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.branchClick}/>
-                );
-            case false:
-                return(
-                    <div>
-                        <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick}/>
-                        <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Inventory" className="red-bg" onClick={this.props.inventoryFunc}/>
-                    </div>                    
-                );
 
-            default:
-                return(
-                    <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick}/>
-                );
-        // return(
-        //     <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick}/>
-        // );
-        }
+
+        // switch(this.props.next){
+        //     case true:
+        //         return(
+        //             <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.branchClick}/>
+        //         );
+        //     case false:
+        //         return(
+        //             <div>
+        //                 <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick}/>
+        //                 <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Inventory" className="red-bg" onClick={this.props.inventoryFunc}/>
+        //             </div>                    
+        //         );
+
+        //     default:
+        //         return(
+        //             <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.props.onClick}/>
+        //         );
+        return(
+            <IconButtonWidget icon="line-chart" header={this.props.name} subheader="Report" className="red-bg" onClick={this.branchClick}/>
+        );
+        // }
     }
 }
 

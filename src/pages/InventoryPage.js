@@ -22,9 +22,17 @@ class ReportPage extends Component {
     }
 
     componentDidMount() {
+        this.log.debug("From Inventory Page");
+        this.log.debug(this.props.phone);
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+
+        if (this.props.phone === undefined){
+            this.setState({phone: uid});
+        }else{
+            this.setState({phone: this.props.phone});
+        }
     }
     
     render() {
@@ -34,7 +42,7 @@ class ReportPage extends Component {
                 <ContentWrapper>
                     <Header username={Cookies.get("uname")}/>
                     <Content>
-                        <Inventory />
+                        <Inventory phone={this.props.phone}/>
                     </Content>                    
 
                     <Footer/>
