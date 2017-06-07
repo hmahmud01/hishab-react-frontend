@@ -27,9 +27,18 @@ class ReportPage extends Component {
     }
 
     componentDidMount() {
+        this.log.debug("From Report Page");
+        this.log.debug(this.props.phone);  
         var uid = Cookies.get("uid");
         if (uid === undefined)
             window.location.hash = "#/";
+
+        if (this.props.phone === undefined){
+            this.setState({phone: uid});
+        }else{
+            this.setState({phone: this.props.phone});
+        }
+
     }
     
     dateClicked(data) {
@@ -46,7 +55,7 @@ class ReportPage extends Component {
                     <Header username={Cookies.get("uname")}/>
                     <Content>
                         <DateSelect onClick={this.dateClicked}/>
-                        <AkijReport ref="report" />
+                        <AkijReport ref="report" phone={this.props.phone}/>
                     </Content>                    
 
                     <Footer/>
