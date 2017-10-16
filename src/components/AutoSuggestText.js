@@ -72,7 +72,7 @@ class AutoSuggestText extends InputComponent{
                     list={this.props.datalist} 
                     type="text" 
                     value={this.props.value}
-                    placeholder={this.props.placeholder} 
+                    placeholder={this.props.placeholder}
                     id={this.props.id}
                     ref="field"
                     className="form-control"
@@ -86,7 +86,6 @@ class AutoSuggestText extends InputComponent{
             </div>
         );
     }
-
 }
 
 export default AutoSuggestText;

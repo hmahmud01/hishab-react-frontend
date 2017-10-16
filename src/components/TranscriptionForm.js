@@ -65,9 +65,12 @@ class TranscriptionForm extends Component {
         $("#total").val(total);
     }   
 
-    onTranscriptionClicked(event){
-        event.preventDefault();
-        
+    
+
+    onTranscriptionClicked(event){ 
+        event.preventDefault(); 
+        $('#transcribeButtonSubmit').attr("disabled", true);
+
         var headers = this.refs.products.state.headerCollection;
         var products = this.refs.products.state.data;
         
@@ -75,6 +78,9 @@ class TranscriptionForm extends Component {
         for (var i=0; i<products.length; i++)
             output[i] = {header: headers[i], value: products[i]};
 
+        console.log("output file", JSON.stringify(output));
+        console.log("buyer", buy_call);
+        console.log("seller", sell_call);
         var buy_call = document.getElementById("buyer").value;
         var sell_call = document.getElementById("seller").value;
         var endTime = new Date().getTime()
@@ -85,6 +91,7 @@ class TranscriptionForm extends Component {
                 if (status === "success"){
                     var data = $.parseJSON(response);
                     this.setState({isError: true, message: data.msg, alertType: "success"});
+                    $('#transcribeButtonSubmit').attr("disabled", false);
                     window.location.hash = "#/home";
                     window.location.reload();
                     console.log("not refreshed");

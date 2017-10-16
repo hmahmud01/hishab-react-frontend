@@ -107,6 +107,22 @@ class ListItem extends Component{
         }
         
         var label = "label label-"+labelColor[this.props.type];
+
+        var datetime = this.props.time;
+        datetime = datetime.split(" ");
+
+        var date = datetime[0];
+        var time = datetime[1];
+
+        time = time.split(":");
+
+        var hour = time[0];
+        var minit = time[1];
+
+        var hourint = parseInt(hour) + 6;
+        var hourstring = hourint.toString();
+        var newDateTime = date + " " + hourstring + ":" + minit;
+
         return(
             <tr className={ this.state.isUnread === true ? "unread" : "read"}>                    
                 <td className="">
@@ -116,7 +132,7 @@ class ListItem extends Component{
                     <span>{this.props.caller}</span>
                 </td>
                 <td className="mail-subject">
-                    <span>{this.props.time}</span>
+                    <span>{newDateTime}</span>
                 </td>
                 <td>
                     <span className={label}>{type[this.props.type]}</span>

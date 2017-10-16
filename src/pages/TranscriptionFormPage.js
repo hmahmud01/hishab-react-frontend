@@ -58,7 +58,6 @@ class TranscriptionFormPage extends Component{
         
         var ajax = new Ajax(callback);
         ajax.getData('forms/get/transaction', params.getData());
-
     }
         
     
