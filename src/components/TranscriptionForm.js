@@ -96,6 +96,7 @@ class TranscriptionForm extends Component {
                     window.location.reload();
                     console.log("not refreshed");
                 }else if (status === "error"){
+                    $('#transcribeButtonSubmit').attr("disabled", false);
                     var data = $.parseJSON(response.responseText);
                     this.setState({isError: true, message: data.msg, alertType: "danger"});
                 }
