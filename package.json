@@ -2,12 +2,11 @@
   "name": "hishab-v1",
   "version": "0.0.1",
   "private": true,
+  "homepage": "/v1/",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "jquery": "^3.2.1",
