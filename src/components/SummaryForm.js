@@ -15,6 +15,7 @@ class SummaryForm extends Component {
             val: 0
         };
         this.update = this.update.bind(this);
+        this.onDone = this.onDone.bind(this);
         this.log = new Logger();
     }
 
@@ -23,6 +24,20 @@ class SummaryForm extends Component {
         var due = 0;
         due = $("#total").val() - $("#paid").val();
         $("#due").val(due);
+    }
+
+    onDone(){
+        console.log("inside On done");
+        if(document.getElementById('transcribeButtonSubmit').disabled === true){
+            console.log("button is disabled");
+        }
+
+        $('#transcribeButtonSubmit').one("click", function(){
+            console.log("transcribe button clicked");
+            alert("once");
+            document.getElementById('transcribeButtonSubmit').disabled = true;
+            this.props.onSubmit;
+        });
     }
 
 
@@ -41,7 +56,7 @@ class SummaryForm extends Component {
                         </form>   
                         <div className="hr-line-dashed"></div>
 
-                        <button type="button" className="btn btn-primary pull-right" onClick={this.props.onSubmit}>Submit</button>
+                        <button type="button" id="transcribeButtonSubmit" className="btn btn-primary pull-right" onClick={this.props.onSubmit}>Submit</button>
                         <a data-toggle="modal" className="btn btn-warning" href="#modal-error">Report Error</a> 
                     </FormFrame>
                 </div>

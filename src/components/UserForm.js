@@ -142,7 +142,7 @@ class UserForm extends Component {
                                                     <span className="input-group-btn">
                                                         <a data-toggle="modal" className="btn btn-primary" href="#modal-user">
                                                             <i className="fa fa-plus" aria-hidden="true"></i>
-                                                        </a> 
+                                                        </a>
                                                     </span>
                                                 </AutoSuggestText>
                                             </div>
