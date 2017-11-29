@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import Cookies from 'js-cookie';
 import RegistrationFormPage from './RegistrationFormPage';
-import TranscriptionFormPage from './TranscriptionFormPage'
+import TranscriptionFormPage from './TranscriptionFormPage';
 import TranslationFormPage from './TranslationFormPage';
 import RevisionFormPage from './RevisionFormPage';
 import Header from '../components/Header';
