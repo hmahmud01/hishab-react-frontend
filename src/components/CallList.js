@@ -15,7 +15,7 @@ class CallList extends Component{
         const listItems = this.props.items.map(
             (listItem) => 
                 <ListItem tid={this.props.transId} title={this.props.title} isRead={false} caller={listItem.caller} time={listItem.time} type={listItem.type} target={listItem.id} transcriber={listItem.transcriber} reviewer={listItem.reviewer}
-                    onClick={this.props.onClick} key={this.props.transId}/>
+                    onClick={this.props.onClick} key={listItem.id}/>
         );
         
         return (
